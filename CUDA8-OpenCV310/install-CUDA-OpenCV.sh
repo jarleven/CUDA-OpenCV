@@ -17,7 +17,7 @@
 
 
 #### The following files have been downloaded in advance. Put them in the same directory as this script
-#### MD5Sum provided for convinience. 
+#### MD5Sum of the files provided for convinience. 
 
 #### b4e1d5e596ac2d6d0deaa2d558b4c40c  cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb
 #### d735c7fed8be0e72fa853f65042d5438  cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
@@ -64,6 +64,7 @@ sudo apt-get install -y nvidia-367
 
 #### TODO: Test this and also the "NVIDIA recommended method and source"
 #### 01. Aug the CUDA 8 driver will reinstall "NVIDIA-SMI 384.130 Driver Version: 384.130"
+#### Due to that maybe the steps below for reinstalling desktop and so on makes little sense !!
 #sudo apt-get install -y nvidia-396
 #sudo apt-get install -y nvidia-396-dev
 
@@ -132,7 +133,7 @@ git config --global user.name "Jarl Even Englund"
 
 cd ~/
 git clone https://github.com/opencv/opencv.git
-cd opencv
+cd ~/opencv
 git checkout -b v3.1.0 3.1.0
 ### For some reason we need to reset the branch ???
 git reset --hard
@@ -140,9 +141,14 @@ git cherry-pick 10896
 git cherry-pick cdb9c
 git cherry-pick 24dbb
 
-# Skipped the OpenCV Extra as described in https://docs.opencv.org/trunk/d6/d15/tutorial_building_tegra_cuda.html
+# In the same base directory from which you cloned OpenCV
+cd ~/
+git clone https://github.com/opencv/opencv_extra.git
+cd ~/opencv_extra
+git checkout -b v3.1.0 3.1.0
 
 # From within : cd ~/opencv
+cd ~/opencv
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
