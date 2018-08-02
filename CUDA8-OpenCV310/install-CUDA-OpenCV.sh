@@ -10,7 +10,7 @@
 #### There are probably many pakages and steps not really required in this script
 #### 
 
-#### Piced up partially working instructions form the following 
+#### Picked up partially working instructions form the following 
 ####    https://gist.github.com/lelechen63/aef76b7e9840b67114a81e8d5a0d66ac
 ####    https://docs.opencv.org/trunk/d6/d15/tutorial_building_tegra_cuda.html
 ####
@@ -196,7 +196,13 @@ cmake \
 ####  TODO -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 \  >>>    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
 
 
-### Now do
+#### Now do
 make -j8
+#### At this point the sudo password have timed out, you need to enteri it again 
 sudo make install 
+
+#### Reboot to make all the changes take effect
+sudo reboot
+
+
 
