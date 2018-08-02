@@ -59,8 +59,10 @@ sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
 
 #### Install NVIDIA driver
+sudo apt-get install -y nvidia-384
 #### Refering to 384 below due to security installs 
-sudo apt-get install -y nvidia-367
+#### sudo apt-get install -y nvidia-367
+
 
 #### TODO: Test this and also the "NVIDIA recommended method and source"
 #### 01. Aug the CUDA 8 driver will reinstall "NVIDIA-SMI 384.130 Driver Version: 384.130"
