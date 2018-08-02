@@ -94,6 +94,10 @@ sudo apt-get install -y libgtkglext1 libgtkglext1-dev
 #export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
 #export PATH=/usr/local/cuda/bin/:$PATH
 
+#### In case you run the script multiple times remove the stuff potentially added....
+sed -i '/Add CUDA environment/d' ~/.bashrc
+sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
+
 echo 'Add CUDA environment' >> ~/.bashrc 
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 echo 'export PATH=/usr/local/cuda/bin/:$PATH' >> ~/.bashrc
