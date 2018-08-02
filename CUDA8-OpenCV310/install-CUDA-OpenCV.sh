@@ -204,6 +204,7 @@ cmake \
 
 #### Now do
 make -j8
+### TODO make -j$(nproc)
 #### At this point the sudo password have timed out, you need to enter it again 
 sudo make install 
 
