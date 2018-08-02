@@ -122,7 +122,7 @@ sudo rm -f /usr/lib/libnvcuvid.so.1
 sudo ln -s /usr/lib/nvidia-384/libnvcuvid.so /usr/lib/libnvcuvid.so
 sudo ln -s /usr/lib/nvidia-384/libnvcuvid.so.1 /usr/lib/libnvcuvid.so.1
 
-#### This did not work (1. August 2018)
+#### This version did not work (1. August 2018)
 #### sudo ln -s /usr/lib/nvidia-396/libnvcuvid.so /usr/lib/libnvcuvid.so
 #### sudo ln -s /usr/lib/nvidia-396/libnvcuvid.so.1 /usr/lib/libnvcuvid.so.1
 
