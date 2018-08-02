@@ -198,7 +198,7 @@ cmake \
 
 #### Now do
 make -j8
-#### At this point the sudo password have timed out, you need to enteri it again 
+#### At this point the sudo password have timed out, you need to enter it again 
 sudo make install 
 
 #### Reboot to make all the changes take effect
