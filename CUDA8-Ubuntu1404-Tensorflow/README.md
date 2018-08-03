@@ -28,8 +28,10 @@ ImportError: cannot import name main
 
 pip install --ignore-installed tensorflow-gpu==1.4.1
 ```
+```
 sudo chown -R jarleven:jarleven /usr/local/lib/python2.7/dist-packages/
 sudo chown -R jarleven:jarleven /usr/local/bin/
+```
 
 ```
 git clone https://github.com/tensorflow/models.git
