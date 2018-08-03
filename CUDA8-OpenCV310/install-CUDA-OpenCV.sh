@@ -10,6 +10,11 @@
 #### There are probably many pakages and steps not really required in this script
 #### 
 
+#### During installation of Ubuntu 16.04
+####  Download upgrades while installing
+####  Download 3rd prarty
+####  Erase disk
+
 #### Picked up partially working instructions form the following 
 ####    https://gist.github.com/lelechen63/aef76b7e9840b67114a81e8d5a0d66ac
 ####    https://docs.opencv.org/trunk/d6/d15/tutorial_building_tegra_cuda.html
