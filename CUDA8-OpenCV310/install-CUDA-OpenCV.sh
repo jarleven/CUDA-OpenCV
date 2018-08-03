@@ -15,9 +15,9 @@
 #### 
 
 #### During installation of Ubuntu 16.04
-####  Download upgrades while installing
-####  Download 3rd prarty
-####  Erase disk
+####  [ ] Download updates while installing Ubuntu
+####  [ ] Download third-party software for ...
+####  [O] Erase disk and install Ubuntu
 
 #### Picked up partially working instructions form the following 
 ####    https://gist.github.com/lelechen63/aef76b7e9840b67114a81e8d5a0d66ac
