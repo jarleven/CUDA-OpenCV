@@ -7,6 +7,8 @@ Tested on Nvidia
 Just install Ubuntu 16.04
 
 Then do :
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh && chmod +x install-CUDA-OpenCV.sh
+
 
 
 For cuDNN you also need to download a few files from Nvidia and register a developer account on their pages.
