@@ -65,6 +65,7 @@
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudnnfiles.md5
 
+usecuDNN=true
 if md5sum -c cudnnfiles.md5; then
     # The MD5 sum matchedi
     echo "OK, found cuDNN files"
@@ -75,6 +76,7 @@ else
     case "$response" in
         [yY][eE][sS]|[yY])
             echo "OK - without the NVIDIA CUDA Deep Neural Network library (cuDNN)"
+            usecuDNN=false
             ;;
         *)
             echo "Quitting"
@@ -197,11 +199,14 @@ sudo apt update
 
 # Note the line below is needed, don't iunderstand why the dpkg -i does not install CUDA ???
 sudo apt install -y cuda
-
-sudo dpkg -i libcudnn7_7.0.5.15-1+cuda8.0_amd64.deb
-sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda8.0_amd64.deb
-sudo dpkg -i libcudnn7-doc_7.0.5.15-1+cuda8.0_amd64.deb
 sudo apt update
+
+if $usecuDNN ; then
+    sudo dpkg -i libcudnn7_7.0.5.15-1+cuda8.0_amd64.deb
+    sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda8.0_amd64.deb
+    sudo dpkg -i libcudnn7-doc_7.0.5.15-1+cuda8.0_amd64.deb
+    sudo apt update
+fi
 
 
 # TODO 3rd Aug. Test CUDA install of GFX driver
