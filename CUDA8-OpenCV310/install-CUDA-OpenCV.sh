@@ -202,9 +202,12 @@ cmake \
 ####  TODO -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 \  >>>    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
 
 
-#### Now do
-make -j8
-### TODO make -j$(nproc)
+#### Make clean in case we rerun this script
+make clean
+
+#### Now make the OpenCV project
+make -j$(nproc)
+
 #### At this point the sudo password have timed out, you need to enter it again 
 sudo make install 
 
