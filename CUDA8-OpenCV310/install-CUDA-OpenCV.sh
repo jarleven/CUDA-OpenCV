@@ -60,6 +60,43 @@
 ####
 ####
 
+#### By default the Nvidia CUDA8 files have extension -deb, just change to .deb instead
+mv ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+mv ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64-deb ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb
+
+#### Check if we have the CUDA8 GA2 files, if not download them
+FILE=./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+if [ -f $FILE ]; then
+   echo "File $FILE exists."
+else
+   echo "File $FILE does not exist. Downloading"
+   wget --quiet --show-progress -O ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
+fi
+
+FILE=./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb
+if [ -f $FILE ]; then
+   echo "File $FILE exists."
+else
+   echo "File $FILE does not exist. Downloading"
+   wget --quiet --show-progress -O ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb https://developer.nvidia.com/compute/cuda/8.0/Prod2/patches/2/cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1
+fi
+
+
+# Get the md5sums of the CUDA 8 files
+wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
+
+if md5sum -c cudafiles.md5; then
+    # The MD5 sum matchedi
+    echo "OK"
+else
+    # The MD5 sum didn't match
+    echo "The CUDA 8 files are missing or have the wrong md5sum. Better halt the installation"
+    exit 1
+fi
+
+echo "Continuing with installation"
+
+
 sudo apt update
 sudo apt -y upgrade
 sudo apt install -y vim
