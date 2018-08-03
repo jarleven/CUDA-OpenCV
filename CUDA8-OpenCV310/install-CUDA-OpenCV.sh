@@ -8,7 +8,8 @@
 #### Setup instruction for Ubuntu 16.04.5 LTS \n \l
 #### OpenCV 3.1.0
 #### CUDA 8
-#### Tested on Nvidia GTX 680 
+#### Tested on Nvidia GTX 680      1. Aug 2018
+#### Tested on Nvidia GTX 1080 Ti  3. Aug 2018
 
 #### There are probably many pakages and steps not really required in this script
 #### 
@@ -44,6 +45,14 @@
 #### Run the sample application from a remote terminal
 #### DISPLAY=:0.0 ~/opencv/samples/gpu/video_reader ~/ipcam-7--00365.mp4
 #### DISPLAY=:0.0 ~/opencv/samples/gpu/video_reader ~/opencv/samples/data/768x576.avi
+
+
+#### Create md5sum file with:
+####    md5sum cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb  > cudafiles.md5
+#### Check md5sum with
+####    md5sum -c cudafiles.md5
+
+
 
 ####
 ####
@@ -163,8 +172,15 @@ sudo ln -s /usr/lib/nvidia-384/libnvcuvid.so.1 /usr/lib/libnvcuvid.so.1
 #### sudo ln -s /usr/lib/nvidia-396/libnvcuvid.so.1 /usr/lib/libnvcuvid.so.1
 
 
-git config --global user.email "jarleven@gmail.com.com"
-git config --global user.name "Jarl Even Englund"
+#### Configure your git client. Required for doing cherry picking.
+#### You can look at the Git configuration with:
+####    git config --list
+#### git config --global user.email "foo@bar.net"
+#### git config --global user.name "Foo Bar"
+
+fullname=$( getent passwd "$USER" | cut -d: -f5 | cut -d, -f1 )
+git config --global user.email $USER"@gmail.com"
+git config --global user.name "$fullname"
 
 
 cd ~/
