@@ -21,8 +21,9 @@
 #### Picked up partially working instructions form the following 
 ####    https://gist.github.com/lelechen63/aef76b7e9840b67114a81e8d5a0d66ac
 ####    https://docs.opencv.org/trunk/d6/d15/tutorial_building_tegra_cuda.html
+####    https://technofob.com/2017/11/22/install-gpu-tensorflow-on-aws-ubuntu-16-04/   Looks interesting also
 ####
-
+####
 
 #### The following files have been downloaded in advance. Put them in the same directory as this script
 #### MD5Sum of the files provided for convinience. 
