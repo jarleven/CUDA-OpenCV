@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#### Download and make executable
+#### wget https://github.com/jarleven/CUDA-OpenCV/blob/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh && chmod +x install-CUDA-OpenCV.sh
+
 #### ############################################################################ #####
 
 #### Setup instruction for Ubuntu 16.04.5 LTS \n \l
