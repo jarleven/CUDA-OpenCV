@@ -3,9 +3,9 @@ Automated script according to the following description
  
  
  * 64-bit Linux
- * Python 2.7
- * CUDA 7.5 (CUDA 8.0 required for Pascal GPUs)
- * cuDNN v5.1 (cuDNN v6 if on TF v1.3)
+ * Python 2.7 (On 2.7.12 at the moment)
+ * CUDA 8.0 
+ * cuDNN v6 for TF v1.4.1
 
 
 ```
