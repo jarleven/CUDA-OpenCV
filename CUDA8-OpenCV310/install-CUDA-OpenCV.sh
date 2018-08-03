@@ -65,6 +65,7 @@
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudnnfiles.md5
 
+#### Check if we have the cuDNN files
 usecuDNN=true
 if md5sum -c cudnnfiles.md5; then
     # The MD5 sum matched
@@ -81,7 +82,7 @@ else
         *)
             echo "Quitting"
             echo "Download from here https://developer.nvidia.com/rdp/cudnn-download"
-            echo "The following files are needed:"
+            echo "The following files are needed (read expeced by the script):"
             echo " libcudnn7_7.0.5.15-1+cuda8.0_amd64.deb"
             echo " libcudnn7-dev_7.0.5.15-1+cuda8.0_amd64.deb"
             echo " libcudnn7-doc_7.0.5.15-1+cuda8.0_amd64.deb"
@@ -140,33 +141,9 @@ sudo apt-get update
 
 #### Start with clean Nvidia drivers
 sudo apt purge -y nvidia-*
-#### Add the PPA
-# TODO 3rd Aug. Test CUDA install of GFX driver
-#sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
 
-#### Install NVIDIA driver
-#sudo apt-get install -y nvidia-384
-#### Refering to 384 below due to security installs 
-#### sudo apt-get install -y nvidia-367
-
-
-#### TODO: Test this and also the "NVIDIA recommended method and source"
-#### 01. Aug the CUDA 8 driver will reinstall "NVIDIA-SMI 384.130 Driver Version: 384.130"
-#### Due to that maybe the steps below for reinstalling desktop and so on makes little sense !!
-#sudo apt-get install -y nvidia-396
-#sudo apt-get install -y nvidia-396-dev
-
-#sudo rm -fr ~/.cache/compizconfig-1
-#sudo rm -fr ~/.compiz
-
-#sudo rm -fr ~/.Xauthority
-#sudo rm -fr ~/.config/autostart
-
-
-# TODO 3rd Aug. Test CUDA install of GFX driver
-#sudo apt-get install -y --reinstall ubuntu-desktop unity compizconfig-settings-manager upstart
-
+#### We probably don't need all this...
 sudo apt-get install -y cmake cmake-qt-gui
 sudo apt install --assume-yes build-essential cmake git pkg-config unzip ffmpeg qtbase5-dev python-dev python3-dev python-numpy python3-numpy
 sudo apt install -y libhdf5-dev
@@ -176,31 +153,25 @@ sudo apt install --assume-yes libv4l-dev libtbb-dev libfaac-dev libmp3lame-dev l
 sudo apt install --assume-yes libvorbis-dev libxvidcore-dev v4l-utils
 sudo apt-get install -y libglm-dev
 sudo apt-get install -y libgtkglext1 libgtkglext1-dev
-
-
-
-
-
 sudo apt-get install -y libglew-dev libtiff5-dev zlib1g-dev libjpeg-dev libpng12-dev libjasper-dev libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev libeigen3-dev libtbb-dev libgtk2.0-dev pkg-config
 
 sudo apt-get install -y python-dev python-numpy python-py python-pytest
 sudo apt-get install -y python3-dev python3-numpy python3-py python3-pytest
 
-
+#### Install the CUDA 8 packages
 sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb
 
-# TODO 3rd Aug. Test CUDA install of GFX driver
 sudo apt-key add /var/cuda-repo-8-0-local-ga2/7fa2af80.pub
 sudo apt-key add /var/cuda-repo-8-0-local-cublas-performance-update/7fa2af80.pub
 
 sudo apt update
 
-
 # Note the line below is needed, don't iunderstand why the dpkg -i does not install CUDA ???
 sudo apt install -y cuda
 sudo apt update
 
+#### If we have the cuDNN files install that to
 if $usecuDNN ; then
     sudo dpkg -i libcudnn7_7.0.5.15-1+cuda8.0_amd64.deb
     sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda8.0_amd64.deb
@@ -209,7 +180,6 @@ if $usecuDNN ; then
 fi
 
 
-# TODO 3rd Aug. Test CUDA install of GFX driver
 sudo apt-get install -y --reinstall ubuntu-desktop unity compizconfig-settings-manager upstart
 
 #### You need to add the following to the environment variable. Done below automatically
@@ -237,11 +207,6 @@ sudo rm -f /usr/lib/libnvcuvid.so.1
 
 sudo ln -s /usr/lib/nvidia-384/libnvcuvid.so /usr/lib/libnvcuvid.so
 sudo ln -s /usr/lib/nvidia-384/libnvcuvid.so.1 /usr/lib/libnvcuvid.so.1
-
-#### This version did not work (1. August 2018)
-#### sudo ln -s /usr/lib/nvidia-396/libnvcuvid.so /usr/lib/libnvcuvid.so
-#### sudo ln -s /usr/lib/nvidia-396/libnvcuvid.so.1 /usr/lib/libnvcuvid.so.1
-
 
 #### Configure your git client. Required for doing cherry picking.
 #### You can look at the Git configuration with:
@@ -311,14 +276,10 @@ cmake \
     ../opencv
 
 
-
 ####  TODO: Add support for new / all architectures
 ####   For GTX 680 Ti
 ####    -DCUDA_ARCH_BIN=30 \
 ####    -DCUDA_ARCH_PTX=30 \
-
-
-####  TODO -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 \  >>>    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
 
 
 #### Make clean in case we run script multiple times
