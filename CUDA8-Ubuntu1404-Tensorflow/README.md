@@ -12,7 +12,17 @@ Automated script according to the following description
 sudo apt-get install -y libcupti-dev
 sudo apt install python-pip
 pip install --user --upgrade pip
-ash -d pip
+hash -d pip
 pip install --upgrade pip
 pip install tensorflow-gpu==1.4.1
+```
+
+
+All the stuff with pip is due to some issue 
+```
+
+Traceback (most recent call last):
+  File "/usr/bin/pip", line 9, in <module>
+    from pip import main
+ImportError: cannot import name main
 ```
