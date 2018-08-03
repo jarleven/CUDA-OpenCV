@@ -60,7 +60,39 @@
 ####
 ####
 
-#### By default the Nvidia CUDA8 files have extension -deb, just change to .deb instead
+
+#### Get the md5sums NVIDIA CUDA® 8 files and the NVIDIA CUDA® Deep Neural Network library (cuDNN)
+wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
+wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudnnfiles.md5
+
+if md5sum -c cudnnfiles.md5; then
+    # The MD5 sum matchedi
+    echo "OK, found cuDNN files"
+else
+    # The MD5 sum didn't match
+    echo "----"
+    read -r -p "The NVIDIA CuDNN files are missing. Continue with the installation? [y/N] " response
+    case "$response" in
+        [yY][eE][sS]|[yY])
+            echo "OK - without the NVIDIA CUDA Deep Neural Network library (cuDNN)"
+            ;;
+        *)
+            echo "Quitting"
+            echo "Download from here https://developer.nvidia.com/rdp/cudnn-download"
+            echo "The following files are needed:"
+            echo " libcudnn7_7.0.5.15-1+cuda8.0_amd64.deb"
+            echo " libcudnn7-dev_7.0.5.15-1+cuda8.0_amd64.deb"
+            echo " libcudnn7-doc_7.0.5.15-1+cuda8.0_amd64.deb"
+
+            exit 1
+            ;;
+    esac
+fi
+
+echo "Moving on...."
+
+
+#### By default the Nvidia CUDA8 files have extension -deb, just change to .deb instead. Just in case you downloaded them manually.
 mv ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
 mv ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64-deb ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb
 
@@ -81,10 +113,6 @@ else
    wget --quiet --show-progress -O ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb https://developer.nvidia.com/compute/cuda/8.0/Prod2/patches/2/cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1
 fi
 
-
-#### Get the md5sums NVIDIA CUDA® 8 files and the NVIDIA CUDA® Deep Neural Network library (cuDNN)
-wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
-wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudnnfiles.md5
 
 if md5sum -c cudafiles.md5; then
     # The MD5 sum matchedi
