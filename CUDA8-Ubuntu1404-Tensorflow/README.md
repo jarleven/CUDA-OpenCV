@@ -8,11 +8,11 @@ Automated script according to the following description
  * cuDNN v5.1 (cuDNN v6 if on TF v1.3)
 
 
-
-* sudo apt-get install -y libcupti-dev
-* pip install --user --upgrade pip
-* pip install tensorflow-gpu==1.4.1
-
+```
+sudo apt-get install -y libcupti-dev
+pip install --user --upgrade pip
+pip install tensorflow-gpu==1.4.1
+```
 
 ### pip install --upgrade pip
 ### hash -d pip
