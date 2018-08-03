@@ -82,8 +82,9 @@ else
 fi
 
 
-# Get the md5sums of the CUDA 8 files
+#### Get the md5sums NVIDIA CUDA® 8 files and the NVIDIA CUDA® Deep Neural Network library (cuDNN)
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
+wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudnnfiles.md5
 
 if md5sum -c cudafiles.md5; then
     # The MD5 sum matchedi
