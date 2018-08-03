@@ -7,9 +7,10 @@ Tested on Nvidia
 Just install Ubuntu 16.04
 
 Then do :
-* wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh && chmod +x install-CUDA-OpenCV.sh
-* ./install-CUDA-OpenCV.sh
-
+'''
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh && chmod +x install-CUDA-OpenCV.sh
+./install-CUDA-OpenCV.sh
+'''
 
 
 
