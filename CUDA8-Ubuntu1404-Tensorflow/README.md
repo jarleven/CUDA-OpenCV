@@ -1,6 +1,5 @@
 Automated script according to the following description
- * https://www.nvidia.com/en-us/data-center/gpu-accelerated-applications/tensorflow/
- 
+ * 
  
  
  * 64-bit Linux
@@ -10,8 +9,10 @@ Automated script according to the following description
 
 
 
-sudo apt-get install -y libcupti-dev
-sudo apt install -y python-pip
+* sudo apt-get install -y libcupti-dev
+* pip install --user --upgrade pip
+* pip install tensorflow-gpu==1.4.1
+
 
 ### pip install --upgrade pip
 ### hash -d pip
