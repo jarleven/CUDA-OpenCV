@@ -67,7 +67,7 @@ wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-Op
 
 usecuDNN=true
 if md5sum -c cudnnfiles.md5; then
-    # The MD5 sum matchedi
+    # The MD5 sum matched
     echo "OK, found cuDNN files"
 else
     # The MD5 sum didn't match
@@ -112,12 +112,12 @@ if [ -f $FILE ]; then
    echo "File $FILE exists."
 else
    echo "File $FILE does not exist. Downloading"
-   wget --quiet --show-progress -O ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb https://developer.nvidia.com/compute/cuda/8.0/Prod2/patches/2/cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1
+   wget --quiet --show-progress -O ./cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb https://developer.nvidia.com/compute/cuda/8.0/Prod2/patches/2/cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64-deb
 fi
 
 
 if md5sum -c cudafiles.md5; then
-    # The MD5 sum matchedi
+    # The MD5 sum matched
     echo "OK"
 else
     # The MD5 sum didn't match
