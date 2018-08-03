@@ -61,7 +61,7 @@
 ####
 
 
-#### Get the md5sums NVIDIA CUDA® 8 files and the NVIDIA CUDA® Deep Neural Network library (cuDNN)
+#### Get the md5sums for NVIDIA CUDA® 8 files and the NVIDIA CUDA® Deep Neural Network library (cuDNN) files.
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudafiles.md5
 wget  --quiet --show-progress https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/cudnnfiles.md5
 
