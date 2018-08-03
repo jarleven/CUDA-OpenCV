@@ -60,11 +60,12 @@ sudo apt-get update
 #### Start with clean Nvidia drivers
 sudo apt purge -y nvidia-*
 #### Add the PPA
-sudo add-apt-repository -y ppa:graphics-drivers/ppa
+# TODO 3rd Aug. Test CUDA install of GFX driver
+#sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
 
 #### Install NVIDIA driver
-sudo apt-get install -y nvidia-384
+#sudo apt-get install -y nvidia-384
 #### Refering to 384 below due to security installs 
 #### sudo apt-get install -y nvidia-367
 
@@ -75,15 +76,15 @@ sudo apt-get install -y nvidia-384
 #sudo apt-get install -y nvidia-396
 #sudo apt-get install -y nvidia-396-dev
 
-sudo rm -fr ~/.cache/compizconfig-1
-sudo rm -fr ~/.compiz
+#sudo rm -fr ~/.cache/compizconfig-1
+#sudo rm -fr ~/.compiz
 
-sudo rm -fr ~/.Xauthority
-sudo rm -fr ~/.config/autostart
+#sudo rm -fr ~/.Xauthority
+#sudo rm -fr ~/.config/autostart
 
 
-
-sudo apt-get install -y --reinstall ubuntu-desktop unity compizconfig-settings-manager upstart
+# TODO 3rd Aug. Test CUDA install of GFX driver
+#sudo apt-get install -y --reinstall ubuntu-desktop unity compizconfig-settings-manager upstart
 
 sudo apt-get install -y cmake cmake-qt-gui
 sudo apt install --assume-yes build-essential cmake git pkg-config unzip ffmpeg qtbase5-dev python-dev python3-dev python-numpy python3-numpy
@@ -97,17 +98,6 @@ sudo apt-get install -y libgtkglext1 libgtkglext1-dev
 
 
 
-#### You need to add the following to the environment variable. Done below automatically
-#export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
-#export PATH=/usr/local/cuda/bin/:$PATH
-
-#### In case you run the script multiple times remove the stuff potentially added....
-sed -i '/Add CUDA environment/d' ~/.bashrc
-sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
-
-echo 'Add CUDA environment' >> ~/.bashrc 
-echo 'export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
-echo 'export PATH=/usr/local/cuda/bin/:$PATH' >> ~/.bashrc
 
 
 sudo apt-get install -y libglew-dev libtiff5-dev zlib1g-dev libjpeg-dev libpng12-dev libjasper-dev libavcodec-dev libavformat-dev libavutil-dev libpostproc-dev libswscale-dev libeigen3-dev libtbb-dev libgtk2.0-dev pkg-config
@@ -118,7 +108,14 @@ sudo apt-get install -y python3-dev python3-numpy python3-py python3-pytest
 
 sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-cublas-performance-update_8.0.61-1_amd64.deb
+
+# TODO 3rd Aug. Test CUDA install of GFX driver
+sudo apt-key add /var/cuda-repo-8-0-local-ga2/7fa2af80.pub
+sudo apt-key add /var/cuda-repo-8-0-local-cublas-performance-update/7fa2af80.pub
+
 sudo apt update
+
+
 # Note the line below is needed, don't iunderstand why the dpkg -i does not install CUDA ???
 sudo apt install -y cuda
 
@@ -126,6 +123,30 @@ sudo dpkg -i libcudnn7_7.0.5.15-1+cuda8.0_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.0.5.15-1+cuda8.0_amd64.deb
 sudo dpkg -i libcudnn7-doc_7.0.5.15-1+cuda8.0_amd64.deb
 sudo apt update
+
+
+# TODO 3rd Aug. Test CUDA install of GFX driver
+sudo apt-get install -y --reinstall ubuntu-desktop unity compizconfig-settings-manager upstart
+
+#### You need to add the following to the environment variable. Done below automatically
+####    export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH
+####    export PATH=/usr/local/cuda/bin/:$PATH
+
+#### In case you run the script multiple times remove the stuff potentially added....
+sed -i '/Add CUDA environment/d' ~/.bashrc
+sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
+
+echo 'Add CUDA environment' >> ~/.bashrc 
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
+echo 'export PATH=/usr/local/cuda/bin/:$PATH' >> ~/.bashrc
+
+
+sudo rm -fr ~/.cache/compizconfig-1
+sudo rm -fr ~/.compiz
+
+sudo rm -fr ~/.Xauthority
+sudo rm -fr ~/.config/autostart
+
 
 sudo rm -f /usr/lib/libnvcuvid.so
 sudo rm -f /usr/lib/libnvcuvid.so.1
@@ -191,8 +212,8 @@ cmake \
     -DWITH_OPENEXR=OFF \
     -DWITH_NVCUVID=ON \
     -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
-    -DCUDA_ARCH_BIN=30 \
-    -DCUDA_ARCH_PTX=30 \
+    -DCUDA_ARCH_BIN='3.0 3.5 5.0 6.0 6.2' \
+    -DCUDA_ARCH_PTX="" \
     -DINSTALL_C_EXAMPLES=ON \
     -DINSTALL_TESTS=ON \
     -DOPENCV_TEST_DATA_PATH=../opencv_extra/testdata \
@@ -201,8 +222,10 @@ cmake \
 
 
 ####  TODO: Add support for new / all architectures
-####    -DCUDA_ARCH_BIN='3.0 3.5 5.0 6.0 6.2' \
-####    -DCUDA_ARCH_PTX="" \
+####   For GTX 680 Ti
+####    -DCUDA_ARCH_BIN=30 \
+####    -DCUDA_ARCH_PTX=30 \
+
 
 ####  TODO -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 \  >>>    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
 
