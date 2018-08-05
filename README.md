@@ -11,3 +11,7 @@ wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV3
 ```
 
 
+Some code for background subtraction and extraction of moving objects (Salmon detection is the goal) are being worked on.
+Tensorflow will be used on the extracted cropped frames to identify if the moving object is a salmon.
+
+
