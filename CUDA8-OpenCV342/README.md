@@ -22,7 +22,6 @@ cd ~/build
 
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_PNG=OFF \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_opencv_java=OFF \
@@ -52,7 +51,7 @@ cmake \
     -DINSTALL_TESTS=ON \
     -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.2/modules \
     -DOPENCV_TEST_DATA_PATH=~/opencv_extra-3.4.2/testdata \
-    -DCMAKE_INSTALL_PREFIX=~/opencv \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
     ../opencv-3.4.2
 
 
@@ -67,3 +66,18 @@ https://github.com/opencv/opencv/issues/10953
 
 ```
     -DOPENCV_TEST_DATA_PATH=~/opencv_extra/testdata \
+    -DCMAKE_INSTALL_PREFIX=~/opencv \
+    
+    
+    Notes compared to the 3.1.0 release
+    The following package was automatically installed and is no longer required:
+  libllvm5.0
+  
+  The following NEW packages will be installed:
+  libx264-dev
+
+For optimization:
+
+sudo apt-get install libatlas-base-dev gfortran pylint
+
+
