@@ -10,8 +10,59 @@ wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.2.zip
 wget -O opencv_extra.zip https://github.com/opencv/opencv_contrib/archive/3.4.2.zip
 
 unzip opencv.zip
-opencv_extra.zip
-mv opencv-3.4.2 opencv
+unzip opencv_extra.zip
+
+mv opencv-3.4.2
 mv opencv_contrib-3.4.2 opencv_extra
 
+mkdir ~/build
+cd ~/build
+
+cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_PNG=OFF \
+    -DBUILD_TIFF=OFF \
+    -DBUILD_TBB=OFF \
+    -DBUILD_JPEG=OFF \
+    -DBUILD_JASPER=OFF \
+    -DBUILD_ZLIB=OFF \
+    -DBUILD_EXAMPLES=ON \
+    -DBUILD_opencv_java=OFF \
+    -DBUILD_opencv_nonfree=ON \
+    -DBUILD_opencv_python=ON \
+    -DWITH_OPENCL=ON \
+    -DWITH_OPENGL=ON \
+    -DWITH_OPENMP=OFF \
+    -DWITH_FFMPEG=ON \
+    -DWITH_GSTREAMER=OFF \
+    -DWITH_GSTREAMER_0_10=OFF \
+    -DWITH_CUDA=ON \
+    -D CUDA_FAST_MATH=1 \
+    -D ENABLE_FAST_MATH=1 \
+    -D WITH_CUBLAS=1 \
+    -DWITH_GTK=ON \
+    -DWITH_QT=ON \
+    -DWITH_VTK=OFF \
+    -DWITH_TBB=ON \
+    -DWITH_1394=OFF \
+    -DWITH_OPENEXR=OFF \
+    -DWITH_NVCUVID=ON \
+    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
+    -DCUDA_ARCH_BIN='3.0 3.5 5.0 6.0 6.2' \
+    -DCUDA_ARCH_PTX="" \
+    -DINSTALL_C_EXAMPLES=ON \
+    -DINSTALL_TESTS=ON \
+    -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.2/modules \
+    -DCMAKE_INSTALL_PREFIX=~/opencv \
+    ../opencv-3.4.2
+
+
+make -j7
+sudo make install
+reboot
+
+
+
 ```
+    -DOPENCV_TEST_DATA_PATH=~/opencv_extra/testdata \
