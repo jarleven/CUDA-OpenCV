@@ -17,6 +17,7 @@ In case there is movement beyond a threshold we download the image to the CPU an
 
 
 At the time of writing 10minutes of video can be processed in 20seconds on an NVIDIA GTX 1080 Ti
+15000 frames of 1280x960  (750 frames per second)
 ```
   Metadata:
     major_brand     : isom
