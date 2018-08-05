@@ -27,7 +27,7 @@ cmake \
     -DBUILD_JPEG=OFF \
     -DBUILD_JASPER=OFF \
     -DBUILD_ZLIB=OFF \
-    -DBUILD_EXAMPLES=ON \
+    -DBUILD_EXAMPLES=OFF \
     -DBUILD_opencv_java=OFF \
     -DBUILD_opencv_nonfree=ON \
     -DBUILD_opencv_python=ON \
@@ -62,6 +62,9 @@ make -j7
 sudo make install
 reboot
 
+Modified with examples off. Need to look into the flags again. See that TBB is both on and off!!!
+
+https://github.com/opencv/opencv/issues/10953
 
 
 ```
