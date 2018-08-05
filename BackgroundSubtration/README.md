@@ -16,3 +16,16 @@ In case there is movement beyond a threshold we download the image to the CPU an
 
 
 
+At the time of writing 10minutes of video can be processed in 20seconds on an NVIDIA GTX 1080 Ti
+```
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    title           : RTSP Session
+    encoder         : Lavf57.71.100
+  Duration: 00:10:00.00, start: 0.000000, bitrate: 4450 kb/s
+    Stream #0:0(und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p, 1280x960, 4449 kb/s, 25 fps, 25 tbr, 12800 tbn, 50 tbc (default)
+    Metadata:
+      handler_name    : VideoHandler
+```
