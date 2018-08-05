@@ -23,7 +23,6 @@ cd ~/build
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_PNG=OFF \
-    -DBUILD_EXAMPLES=OFF \
     -DBUILD_opencv_java=OFF \
     -DBUILD_opencv_nonfree=ON \
     -DBUILD_opencv_python=ON \
