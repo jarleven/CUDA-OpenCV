@@ -1,4 +1,6 @@
 Motion detection using CUDA and accelerated video decoding.
+Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 
+
 
 Please note this is work in progress.
 
