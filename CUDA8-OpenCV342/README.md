@@ -7,9 +7,11 @@ Got some of the hints from this page : http://www.python36.com/how-to-install-op
 In case you have installed OpenCV already from source go to your current opencv folder and do "sudo make uninstall"
 ```
 wget -O opencv.zip https://github.com/opencv/opencv/archive/3.4.2.zip
-wget -O opencv_extra.zip https://github.com/opencv/opencv_contrib/archive/3.4.2.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/3.4.2.zip
+wget -O opencv_extra.zip https://github.com/opencv/opencv_extra/archive/3.4.2.zip
 
 unzip opencv.zip
+unzip opencv_contrib.zip
 unzip opencv_extra.zip
 
 mv opencv-3.4.2
@@ -22,11 +24,6 @@ cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_PNG=OFF \
-    -DBUILD_TIFF=OFF \
-    -DBUILD_TBB=OFF \
-    -DBUILD_JPEG=OFF \
-    -DBUILD_JASPER=OFF \
-    -DBUILD_ZLIB=OFF \
     -DBUILD_EXAMPLES=OFF \
     -DBUILD_opencv_java=OFF \
     -DBUILD_opencv_nonfree=ON \
@@ -35,8 +32,7 @@ cmake \
     -DWITH_OPENGL=ON \
     -DWITH_OPENMP=OFF \
     -DWITH_FFMPEG=ON \
-    -DWITH_GSTREAMER=OFF \
-    -DWITH_GSTREAMER_0_10=OFF \
+    -DWITH_GSTREAMER=ON \
     -DWITH_CUDA=ON \
     -D CUDA_FAST_MATH=1 \
     -D ENABLE_FAST_MATH=1 \
@@ -52,8 +48,10 @@ cmake \
     -DCUDA_ARCH_BIN='3.0 3.5 5.0 6.0 6.2' \
     -DCUDA_ARCH_PTX="" \
     -DINSTALL_C_EXAMPLES=ON \
+    -DINSTALL_PYTHON_EXAMPLES=ON \
     -DINSTALL_TESTS=ON \
     -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.2/modules \
+    -DOPENCV_TEST_DATA_PATH=~/opencv_extra-3.4.2/testdata \
     -DCMAKE_INSTALL_PREFIX=~/opencv \
     ../opencv-3.4.2
 
