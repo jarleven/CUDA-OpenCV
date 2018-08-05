@@ -14,11 +14,8 @@ unzip opencv.zip
 unzip opencv_contrib.zip
 unzip opencv_extra.zip
 
-mv opencv-3.4.2
-mv opencv_contrib-3.4.2 opencv_extra
-
-mkdir ~/build
-cd ~/build
+mkdir ~/buildocv
+cd ~/buildocv
 
 cmake \
     -DCMAKE_BUILD_TYPE=Release \
