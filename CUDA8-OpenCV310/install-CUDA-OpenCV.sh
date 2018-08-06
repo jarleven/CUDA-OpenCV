@@ -242,7 +242,6 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_PNG=OFF \
     -DBUILD_TIFF=OFF \
-    -DBUILD_TBB=OFF \
     -DBUILD_JPEG=OFF \
     -DBUILD_JASPER=OFF \
     -DBUILD_ZLIB=OFF \
@@ -258,18 +257,20 @@ cmake \
     -DWITH_GSTREAMER_0_10=OFF \
     -DWITH_CUDA=ON \
     -D CUDA_FAST_MATH=1 \
+    -D CUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
     -D ENABLE_FAST_MATH=1 \
     -D WITH_CUBLAS=1 \
     -DWITH_GTK=ON \
     -DWITH_QT=ON \
     -DWITH_VTK=OFF \
     -DWITH_TBB=ON \
+    -DWITH_V4L=ON \
     -DWITH_1394=OFF \
     -DWITH_OPENEXR=OFF \
     -DWITH_NVCUVID=ON \
     -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
-    -DCUDA_ARCH_BIN='3.0 3.5 5.0 6.0 6.2' \
-    -DCUDA_ARCH_PTX="" \
+    -DCUDA_ARCH_BIN="6.1" \
+    -DCUDA_ARCH_PTX="6.1" \
     -DINSTALL_C_EXAMPLES=ON \
     -DINSTALL_TESTS=ON \
     -DOPENCV_TEST_DATA_PATH=../opencv_extra/testdata \
@@ -278,9 +279,16 @@ cmake \
 
 ####  TODO: Add support for new / all architectures
 ####   For GTX 680 Ti
-####    -DCUDA_ARCH_BIN=30 \
-####    -DCUDA_ARCH_PTX=30 \
+####    -DCUDA_ARCH_BIN="3.0" \
+####    -DCUDA_ARCH_PTX="3.0" \
 
+####   For GTX 1080 Ti
+####    -DCUDA_ARCH_BIN="6.1" \
+####    -DCUDA_ARCH_PTX="6.1" \
+
+
+####    -DCUDA_ARCH_BIN='3.0 3.5 5.0 6.0 6.2' \
+####    -DCUDA_ARCH_PTX="" \
 
 #### Make clean in case we run script multiple times
 make clean
