@@ -23,3 +23,9 @@ In other workds save you a lot of manual work !
 For cuDNN you also need to download a few files from NVIDIA and register a developer account on their pages.
 https://developer.nvidia.com/rdp/cudnn-download
 
+
+Things to try:
+Inspired by work done here : http://poodar.me/Ubuntu-16.04-+-CUDA8.0-+-OpenCV-3.2.0-+-Anaconda-Python-3.6/
+Video 4 Linux  -D WITH_V4L=ON \
+-D BUILD_OPENCV_PYTHON3=ON \
+-D CUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
