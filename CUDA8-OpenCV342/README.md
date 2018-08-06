@@ -47,7 +47,7 @@ cmake \
     -DINSTALL_TESTS=ON \
     -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.4.2/modules \
     -DOPENCV_TEST_DATA_PATH=~/opencv_extra-3.4.2/testdata \
-    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     ../opencv-3.4.2
 
 
