@@ -1,10 +1,9 @@
 Motion detection using CUDA and accelerated video decoding.
 Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 (Installscript in this repository)
 
-wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh
-
-
-wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh
+ * wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh
+ 
+ * wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/BackgroundSubtractionCPP/video_reader.cpp
 
 Please note this is work in progress.
 
