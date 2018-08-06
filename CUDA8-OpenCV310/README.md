@@ -4,6 +4,9 @@ Tested on the following NVIDIA GFX adapters:
 * GTX 680. 
 * GTX 1080 Ti
 
+### Note compute capability is set to 6.1 at the moment
+GTX 1080Ti is compute capability 6.1 https://developer.nvidia.com/cuda-gpus
+
 Just install Ubuntu 16.04
 
 Then do :
