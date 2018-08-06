@@ -5,6 +5,10 @@ Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 (Installscript in this repository
  
  * wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/BackgroundSubtractionCPP/video_reader.cpp
 
+
+g++ -ggdb video_reader.cpp -o video_reader `pkg-config --cflags --libs opencv` -I /usr/local/cuda/include/
+
+
 Please note this is work in progress.
 
 Process a video, find moving objects save moving objects to a 240x240pixels image for analysis in Tensorflow. The Tensorflow analysis is done in another process.
