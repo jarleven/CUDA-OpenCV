@@ -11,6 +11,8 @@ Then do :
 wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh && chmod +x install-CUDA-OpenCV.sh
 ./install-CUDA-OpenCV.sh
 
+Wait for the CUDA files to download, enter the root password. In the end, after OpenCV have compiled you will need to enter the root password again as it times out (at least on my computer).
+
 ```
 
 Now go put on the coffe, then drink a few cups. Your PC will be busy the next hour or so at least.
