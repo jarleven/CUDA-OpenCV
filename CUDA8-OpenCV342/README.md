@@ -1,5 +1,5 @@
 
-
+### DO NOT USE THIS - CURRENTLY NOT WORKING
 A quick test to see if I can get OpenCV 3.4.2 working on CUDA 8
 
 Got some of the hints from this page : http://www.python36.com/how-to-install-opencv340-on-ubuntu1604/
