@@ -1,5 +1,5 @@
 Motion detection using CUDA and accelerated video decoding.
-Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 
+Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 (Installscript in this repository)
 
 
 Please note this is work in progress.
@@ -7,7 +7,7 @@ Please note this is work in progress.
 Process a video, find moving objects save moving objects to a 240x240pixels image for analysis in Tensorflow. The Tensorflow analysis is done in another process.
 
 
-A mix of the 
+A mix of the following:
 * opencv/samples/gpu/video_reader.cpp
 * opencv/samples/cpp/bgfg_segm.cpp
 
@@ -20,7 +20,7 @@ In case there is movement beyond a threshold we download the image to the CPU an
 
 At the time of writing 10minutes of video can be processed in 20seconds on an NVIDIA GTX 1080 Ti
 
-15000 frames of 1280x960  (750 frames per second)
+15000 frames of 1280x960pixels  (750 frames per second)
 ```
   Metadata:
     major_brand     : isom
