@@ -20,32 +20,21 @@ print ('Argument List:', str(sys.argv))
 if len(sys.argv) == 2:
     inputfile = str(sys.argv[1])
 else:
-    #inputfile = 'c:\\git\\349\\cam_out_0006.mp4'
-    #inputfile = 'C:\\Users\\jareng\\Downloads\\ipcam-2--00002.mp4'
-    #inputfile = 'c:\\git\\video\\capture-01116.mp4'
-    inputfile = 'C:\\tmp\Aure.mp4'
+    print("Please specify input file")
 
 
 inPath, inFile = os.path.split(inputfile)
 
-#camera = cv2.VideoCapture("rtsp://192.168.1.10:554/user=admin&password=&channel=1&stream=0.sdp")
-#camera = cv2.VideoCapture("rtsp://192.168.1.88:554/user=admin&password=&channel=1&stream=0.sdp")
-#camera = cv2.VideoCapture(0)
 camera = cv2.VideoCapture(inputfile)
+
 
 bShadowDetection = False
 history = 300
 varThreshold = 100
 
 fgbg = cv2.createBackgroundSubtractorMOG2(history, varThreshold, bShadowDetection)
-#fgbg = cv2.createBackgroundSubtractorMOG2()
-#fgbg = cv2.createBackgroundSubtractorMOG2(history=120, varThreshold=200)
-#fgbg = cv2.BackgroundSubtractorCNT()
 
-
-t = open('helloworld.txt','a')
-
-
+t = open('contourslog.txt','a')
 
 print("Procesing %s " % inputfile)
 
@@ -78,6 +67,9 @@ while(1):
     ret, mat = camera.read()
     crop_original = mat
     frame = cv2.UMat(mat)
+
+    continue
+
     frame_copy= frame
 
     if ret == False:
@@ -159,29 +151,7 @@ while(1):
 
         cv2.rectangle(frame,(xpos,ypos),(xpos+lengde,ypos+lengde),(0,255,255),2)	
 
-     
-        ''' 
-        y=y-radius
-        
-        if x+(radius*2) > width:
-            x=width-(radius*2)
-        else:
-            x=x-radius
-            
-        if x<0:
-            x=0
-
-
-        if y+(radius*2) > height:
-            y=height-(radius*2)
-        else:
-            y=y-radius
-            
-        if y<0:
-            y=0
-        '''
-
-        
+          
         #print("box left:upper  %d:%d   width = %d" % (x, y, radius*2 ))
         
         
