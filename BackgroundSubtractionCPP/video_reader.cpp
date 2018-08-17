@@ -53,7 +53,6 @@ int main(int argc, const char* argv[])
     cv::namedWindow("CPU", cv::WINDOW_NORMAL);
     cv::namedWindow("Mask", cv::WINDOW_NORMAL);
     cv::namedWindow("GPU", cv::WINDOW_OPENGL);
-    cv::namedWindow("CROP", cv::WINDOW_OPENGL);
     cv::cuda::setGlDevice();
 
     cv::Mat frame;
@@ -84,26 +83,26 @@ int main(int argc, const char* argv[])
     clock_t start, end;
     double elapsed;
     start = clock();
- int counter = 0;
- int framenum = 0;
+    int counter = 0;
+    int framenum = 0;
 
 /* DIALATE */
-        int erosionDilation_size = 5;// Was 5
-        Mat element = cv::getStructuringElement(MORPH_RECT, Size(2*erosionDilation_size + 1,    2*erosionDilation_size+1));
+    int erosionDilation_size = 5;// Was 5
+    Mat element = cv::getStructuringElement(MORPH_RECT, Size(2*erosionDilation_size + 1,    2*erosionDilation_size+1));
 
-        cv::cuda::GpuMat d_element(element);
+    cv::cuda::GpuMat d_element(element);
 
-	// MORPH_OPEN  MORPH_DILATE MORPH_CLOSE
-        Ptr<cuda::Filter> dilateFilter = cuda::createMorphologyFilter(MORPH_CLOSE, d_fgmask.type(), element);
+    // MORPH_OPEN  MORPH_DILATE MORPH_CLOSE
+    Ptr<cuda::Filter> dilateFilter = cuda::createMorphologyFilter(MORPH_CLOSE, d_fgmask.type(), element);
 
-        Mat element2 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(40, 40));
-        cv::cuda::GpuMat d_element2(element2);
-        Ptr<cuda::Filter> dilateFilter2 = cuda::createMorphologyFilter(MORPH_CLOSE, d_fgmask.type(), element2);
+    Mat element2 = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(40, 40));
+    cv::cuda::GpuMat d_element2(element2);
+    Ptr<cuda::Filter> dilateFilter2 = cuda::createMorphologyFilter(MORPH_CLOSE, d_fgmask.type(), element2);
 
 	
  for (;;)
     {
-    framenum++;
+        framenum++;
         if (!d_reader->nextFrame(d_frame))
             break;
 
@@ -117,163 +116,147 @@ int main(int argc, const char* argv[])
 
         int pixels =  cv::cuda::countNonZero(d_fgmask);
 
-	//if ((pixels > 8000) && (framenum > 1) ){
-        if (pixels > 3000  || showall){
+	if ((pixels > 3000) && (framenum > 1) ){
+        //if (pixels > 3000  || showall){
 
-	        dilateFilter2->apply(d_fgmask, d_fgmask);
-
-
-		counter++;
-		d_frame.download(frame);
-                d_fgmask.download(fgmask);
-		d_frame.download(orig_frame);
+            dilateFilter2->apply(d_fgmask, d_fgmask);
 
 
+            counter++;
+            d_frame.download(frame);
+            d_fgmask.download(fgmask);
+            d_frame.download(orig_frame);
 
 
-                vector<vector<Point> > contours;
-                vector<Vec4i> hierarchy;
-
-		double maxcontour = 0;
-                findContours( fgmask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
 
-                for( int i = 0; i< contours.size(); i++ ) {
+            vector<vector<Point> > contours;
+            vector<Vec4i> hierarchy;
+
+            double maxcontour = 0;
+            findContours( fgmask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+
+
+            for( int i = 0; i< contours.size(); i++ ) {
 			
-			double a=contourArea( contours[i],false);  //  Find the area of contour
-			if (a > maxcontour) {
-				maxcontour = a;
-			}
+                double a=contourArea( contours[i],false);  //  Find the area of contour
+                if (a > maxcontour) {
+                    maxcontour = a;
 		}
+            }
 
-  		saveimg = true;
-		if(saveimg && maxcontour > 200) {
+            saveimg = true;
+            if(saveimg && maxcontour > 200) {
 
+            /// Approximate contours to polygons + get bounding rects and circles
+            vector<vector<Point> > contours_poly( contours.size() );
+            vector<Rect> boundRect( contours.size() );
+            vector<Point2f>center( contours.size() );
+            vector<float>radius( contours.size() );
 
-			////
-			  /// Approximate contours to polygons + get bounding rects and circles
-			  vector<vector<Point> > contours_poly( contours.size() );
-			  vector<Rect> boundRect( contours.size() );
-			  vector<Point2f>center( contours.size() );
-			  vector<float>radius( contours.size() );
-
-			  for( int i = 0; i < contours.size(); i++ )
-			     { approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
-			       minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
-			     }
-
-
-			  /// Draw polygonal contour + bonding rects + circles
-			  for( int i = 0; i< contours.size(); i++ )
-			     {
-				Scalar color = Scalar( 128, 255, 255 );
-
-				drawContours( frame, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
-
-			       if((int)radius[i] > 40) {
-				circle( frame, center[i], 2*(int)radius[i], color, 2, 8, 0 );
+            for( int i = 0; i < contours.size(); i++ ) {
+                approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+                minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
+            }
 
 
-				int x = (int)center[i].x;
-				int y = (int)center[i].y;
-				int xyradius = 2*(int)radius[i];
+            /// Draw polygonal contour + bonding rects + circles
+            for( int i = 0; i< contours.size(); i++ ) {
+                Scalar color = Scalar( 128, 255, 255 );
 
-				int xpos = 0;
-				int ypos = 0;
-				int height = 960;
-				int width = 1280;
+                drawContours( frame, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
+
+                if((int)radius[i] > 40) {
+                    circle( frame, center[i], 2*(int)radius[i], color, 2, 8, 0 );
+
+
+                    int x = (int)center[i].x;
+                    int y = (int)center[i].y;
+                    int xyradius = 2*(int)radius[i];
+
+                    int xpos = 0;
+                    int ypos = 0;
+                    int height = 960;
+                    int width = 1280;
 
 				
-      if(xyradius > x) {
-         xpos = 0 ;
-	std::cout << "Left border\n"; 
+                    if(xyradius > x) {
+                        xpos = 0 ;
+                        std::cout << "Left border\n"; 
+                    }
 
-	}
+                    else if (xyradius+x > width) {
+                        xpos = width - (2*xyradius);
+                        std::cout << "Right border\n"; 
 
-      else if (xyradius+x > width){
-         xpos = width - (2*xyradius);
+                    }
+                    else {
+                        xpos = x-xyradius;
+                        std::cout << "Horisontal center\n"; 
+                    }
 
-	std::cout << "Right border\n"; 
-	
-}
-        else {
+                    if (xyradius > y) {
+                        ypos = 0;
+                        std::cout << "Top border\n"; 
+                    }
 
-		std::cout << "Horisontal center\n"; 
-        	xpos = x-xyradius;
-	}
-        if (xyradius > y){
-         ypos = 0;
+                    else if (xyradius+y > height) {
+                        ypos = height - (2*xyradius);
+                        std::cout << "Bottom border\n"; 
+                    }
+                    else {
+                        ypos = y-xyradius;
+                        std::cout << "Vertical center\n"; 
+                    }
 
-		std::cout << "Top border\n"; 
+                    int lengde=2*xyradius;
 
-}
+                    cv::Rect rect(xpos, ypos, lengde-1, lengde-1);
 
-        else if (xyradius+y > height) {
-         ypos = height - (2*xyradius);
-		std::cout << "Bottom border\n"; 
-
-}
-        else {
-		std::cout << "Vertical center\n"; 
-
-         ypos = y-xyradius;
-
-	}
-
-        int lengde=2*xyradius;
-
-	cv::Rect rect(xpos, ypos, lengde-1, lengde-1);
-
-	//Mat cropedImage = frame(rect);
 
 	
-		int clen=xpos+lengde;
-		int ch=ypos+lengde;
-				std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n"; 
+                    int clen=xpos+lengde;
+                    int ch=ypos+lengde;
+                    std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n"; 
 	
-	if(clen<=width && ch<=height){
-	cv::Rect rect2(600, 600, 200, 200);
-  	cv::Mat croppedImage = orig_frame(rect);
+                    if(clen<=width && ch<=height){
+                        cv::Rect rect2(600, 600, 200, 200);
+                        cv::Mat croppedImage = orig_frame(rect);
 
-	cv::Size size(240,240);
-	cv::Mat resized;//dst image
-	resize(croppedImage,resized,size);//resize image
+                        cv::Size size(240,240);
+                        cv::Mat resized;//dst image
+                        resize(croppedImage,resized,size);//resize image
 
-	cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
-
-//        rectangle(frame,(xpos,ypos),(xpos+lengde,ypos+lengde),(0,255,255),2);
-
-			char filenamec[30] = {0};
-	                //(unsigned char const *,int,unsigned char const *,int,bool);
-        	        sprintf(filenamec,"file-%04d_crop%04d.jpg",counter, i);
-	                imwrite(filenamec, resized );
-	
-	}
-
-				}
-			     }
+                        cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
 
 
-			char filename[30] = {0};
-	                //(unsigned char const *,int,unsigned char const *,int,bool);
-        	        sprintf(filename,"file-%04d.jpg",counter);
-	                imwrite(filename, frame );
-	                //sprintf(filename,"fgmask-%04d.jpg",counter);
-	                //imwrite(filename, fgmask );
-		}
+                        char filenamec[30] = {0};
+                        sprintf(filenamec,"file-%04d_crop%04d.jpg",counter, i);
+                        imwrite(filenamec, resized );
 
-                std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
+                    }
+
+                }
+            }
 
 
-		showimg = true;
-		if(showimg && maxcontour > 200) {
-			cv::imshow("CPU", frame);
-	                cv::imshow("Mask", fgmask);
+            char filename[30] = {0};
+            sprintf(filename,"file-%04d.jpg",counter);
+            imwrite(filename, frame );
+        }    
 
-        		if (cv::waitKey(1) > 0)
-        			break;
-		}
-	}
+        std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
+
+
+        showimg = true;
+        if(showimg && maxcontour > 200) {
+            cv::imshow("CPU", frame);
+            cv::imshow("Mask", fgmask);
+
+            if (cv::waitKey(1) > 0)
+                break;
+            }
+        }
     }
 
 
@@ -284,6 +267,8 @@ int main(int argc, const char* argv[])
 
     return 0;
 }
+
+
 
 #else
 
