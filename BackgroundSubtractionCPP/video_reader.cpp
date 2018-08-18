@@ -5,6 +5,8 @@
 
 #include "opencv2/opencv_modules.hpp"
 
+#include <fstream>
+
 #if defined(HAVE_OPENCV_CUDACODEC)
 
 #include <string>
@@ -42,6 +44,26 @@ int main(int argc, const char* argv[])
 {
     if (argc != 2)
         return -1;
+
+
+    // Create the logfile, append text to the end.
+    std::ofstream logfile;
+    logfile.open ("blobsLog.txt", std::ofstream::out | std::ofstream::app);
+
+    // For now just test that the logging is working.
+    cv::String testString = "OpenCV is a great library for creating Computer Vision software";
+    logfile << testString << std::endl;
+
+
+    cout
+        << "------------------------------------------------------------------------------" << endl
+        << "This program will analyse a video for moving objects."                          << endl
+        << "Objects large enough will be logged and a 240x240pixel image will be saved."    << endl
+        << "Usage:"                                                                         << endl
+        << "./video-reader <input_video_name>"                                              << endl
+        << "------------------------------------------------------------------------------" << endl
+        << endl;
+
 
     bool showimg = true;
     bool saveimg = false;
@@ -262,8 +284,13 @@ int main(int argc, const char* argv[])
 
     end = clock();
     elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
-    std::cout << "Processed video in " << elapsed << "seconds\n";
 
+    cv::String logText = cv::format("Processed %05d frames in %f seconds",framenum, elapsed);
+    logfile << logText << std::endl;
+    std::cout << logText << std::endl;
+
+    // Close the logfile
+    logfile.close(); 
 
     return 0;
 }
