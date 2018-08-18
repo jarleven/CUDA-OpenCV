@@ -41,8 +41,10 @@ using namespace cv::cuda;
 
 int main(int argc, const char* argv[])
 {
-    if (argc != 2)
+    if (argc != 2) {
+        std::cout << "Please specify video source file!" << endl; 
         return -1;
+    }
 
 
     // Create the logfile, append text to the end.
@@ -216,31 +218,31 @@ int main(int argc, const char* argv[])
 				
                     if(xyradius > x) {
                         xpos = 0 ;
-                        std::cout << "Left border\n"; 
+                        //std::cout << "Left border\n"; 
                     }
 
                     else if (xyradius+x > width) {
                         xpos = width - (2*xyradius);
-                        std::cout << "Right border\n"; 
+                        //std::cout << "Right border\n"; 
 
                     }
                     else {
                         xpos = x-xyradius;
-                        std::cout << "Horisontal center\n"; 
+                        //std::cout << "Horisontal center\n"; 
                     }
 
                     if (xyradius > y) {
                         ypos = 0;
-                        std::cout << "Top border\n"; 
+                        //std::cout << "Top border\n"; 
                     }
 
                     else if (xyradius+y > height) {
                         ypos = height - (2*xyradius);
-                        std::cout << "Bottom border\n"; 
+                        //std::cout << "Bottom border\n"; 
                     }
                     else {
                         ypos = y-xyradius;
-                        std::cout << "Vertical center\n"; 
+                        //std::cout << "Vertical center\n"; 
                     }
 
                     int lengde=2*xyradius;
@@ -251,7 +253,7 @@ int main(int argc, const char* argv[])
 	
                     int clen=xpos+lengde;
                     int ch=ypos+lengde;
-                    std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n"; 
+                    //std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n"; 
 	
                     if(clen<=width && ch<=height){
                         cv::Rect rect2(600, 600, 200, 200);
@@ -279,7 +281,7 @@ int main(int argc, const char* argv[])
             imwrite(filename, frame );
         }    
 
-        std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
+        //std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
 
 
         showimg = true;
