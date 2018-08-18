@@ -5,7 +5,7 @@
 
 #include "opencv2/opencv_modules.hpp"
 
-#include <fstream>
+#include <fstream>                        // File read/write
 
 #if defined(HAVE_OPENCV_CUDACODEC)
 
@@ -16,7 +16,6 @@
 
 #include "opencv2/cudafilters.hpp"
 #include "opencv2/cudaimgproc.hpp"
-
 
 #include <opencv2/core.hpp>
 #include <opencv2/core/opengl.hpp>
@@ -121,13 +120,28 @@ int main(int argc, const char* argv[])
     cv::cuda::GpuMat d_element2(element2);
     Ptr<cuda::Filter> dilateFilter2 = cuda::createMorphologyFilter(MORPH_CLOSE, d_fgmask.type(), element2);
 
-	
+
+ bool started = false;	
+ int height = 0;
+ int width = 0;
+
+
+
  for (;;)
     {
         framenum++;
         if (!d_reader->nextFrame(d_frame))
             break;
 
+        if (!started) {
+            started = true;
+            d_frame.download(frame);
+            width = frame.size().width;
+            height = frame.size().height;
+
+            cout << "Width : " << width << endl;
+            cout << "Height: " << height << endl;
+        }
 
         mog2->apply(d_frame, d_fgmask);
 //        mog2->getBackgroundImage(d_bgimg);
@@ -198,8 +212,6 @@ int main(int argc, const char* argv[])
 
                     int xpos = 0;
                     int ypos = 0;
-                    int height = 960;
-                    int width = 1280;
 
 				
                     if(xyradius > x) {
