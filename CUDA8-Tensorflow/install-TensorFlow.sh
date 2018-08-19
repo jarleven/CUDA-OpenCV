@@ -14,7 +14,7 @@ sudo chown -R $USER:$USER /usr/local/bin/
 
 pip install --ignore-installed tensorflow-gpu==1.4.1
 
-
+cd ~
 git clone https://github.com/tensorflow/models.git
-cd models/tutorials/image/imagenet
+cd ~/models/tutorials/image/imagenet
 python classify_image.py
