@@ -292,9 +292,11 @@ int main(int argc, const char* argv[])
                         cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
 
 
-                        char filenamec[30] = {0};
-                        sprintf(filenamec,"file-%04d_crop%04d.jpg",counter, i);
+                        char filenamec[30] = "";
+                        sprintf(filenamec,"%s_%04d_crop_%04d.jpg", filename.c_str(), framenum, i);
                         imwrite(filenamec, resized );
+
+                        logfile << fname << " " << filename  << " " << filenamec << " " << framenum << endl;
 
                     }
 
@@ -302,9 +304,9 @@ int main(int argc, const char* argv[])
             }
 
 
-            char filename[30] = {0};
-            sprintf(filename,"file-%04d.jpg",counter);
-            imwrite(filename, frame );
+            char savename[30] = {0};
+            sprintf(savename,"%s_%04d.jpg", filename.c_str(), framenum);
+            imwrite(savename, frame );
         }
 
         //std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
