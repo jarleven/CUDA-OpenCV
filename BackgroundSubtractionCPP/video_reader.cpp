@@ -1,11 +1,9 @@
 #include <iostream>
-#include <string>
-
+#include <fstream>                        // File read/write
 #include <time.h>
 
 #include "opencv2/opencv_modules.hpp"
 
-#include <fstream>                        // File read/write
 
 #if defined(HAVE_OPENCV_CUDACODEC)
 
@@ -37,12 +35,36 @@ using namespace cv;
 using namespace cv::cuda;
 
 
+/**
+ * Get the filename from the path.
+ * Borrwed this piece of code from here.
+ * https://www.safaribooksonline.com/library/view/c-cookbook/0596007612/ch10s15.html
+ *
+ */
+string getFileName(const string& s) {
+
+   char sep = '/';
+
+#ifdef _WIN32
+   sep = '\\';
+#endif
+
+   size_t i = s.rfind(sep, s.length());
+   if (i != string::npos) {
+      return(s.substr(i+1, s.length() - i));
+   }
+
+   return("");
+}
 
 
+/**
+ * Main code
+ */
 int main(int argc, const char* argv[])
 {
     if (argc != 2) {
-        std::cout << "Please specify video source file!" << endl; 
+        std::cout << "Please specify video source file!" << endl;
         return -1;
     }
 
@@ -72,7 +94,7 @@ int main(int argc, const char* argv[])
 
 
     const std::string fname(argv[1]);
-   
+
     cv::namedWindow("CPU", cv::WINDOW_NORMAL);
     cv::namedWindow("Mask", cv::WINDOW_NORMAL);
     cv::namedWindow("GPU", cv::WINDOW_OPENGL);
@@ -87,7 +109,7 @@ int main(int argc, const char* argv[])
     cv::cuda::GpuMat d_frame;
     cv::cuda::GpuMat d_fgmask;
     cv::cuda::GpuMat d_bgimg;
- 
+
 
     cv::Ptr<cv::cudacodec::VideoReader> d_reader = cv::cudacodec::createVideoReader(fname);
 
@@ -123,10 +145,14 @@ int main(int argc, const char* argv[])
     Ptr<cuda::Filter> dilateFilter2 = cuda::createMorphologyFilter(MORPH_CLOSE, d_fgmask.type(), element2);
 
 
- bool started = false;	
+ bool started = false;
  int height = 0;
  int width = 0;
 
+
+  cout << "Opening file : " << fname << endl;
+  string filename = getFileName(fname);
+  cout << filename << endl;
 
 
  for (;;)
@@ -147,7 +173,7 @@ int main(int argc, const char* argv[])
 
         mog2->apply(d_frame, d_fgmask);
 //        mog2->getBackgroundImage(d_bgimg);
-	
+
 //        dilateFilter->apply(d_fgmask, d_fgmask);
 //        dilateFilter2->apply(d_fgmask, d_fgmask);
 
@@ -176,7 +202,7 @@ int main(int argc, const char* argv[])
 
 
             for( int i = 0; i< contours.size(); i++ ) {
-			
+
                 double a=contourArea( contours[i],false);  //  Find the area of contour
                 if (a > maxcontour) {
                     maxcontour = a;
@@ -215,34 +241,34 @@ int main(int argc, const char* argv[])
                     int xpos = 0;
                     int ypos = 0;
 
-				
+
                     if(xyradius > x) {
                         xpos = 0 ;
-                        //std::cout << "Left border\n"; 
+                        //std::cout << "Left border\n";
                     }
 
                     else if (xyradius+x > width) {
                         xpos = width - (2*xyradius);
-                        //std::cout << "Right border\n"; 
+                        //std::cout << "Right border\n";
 
                     }
                     else {
                         xpos = x-xyradius;
-                        //std::cout << "Horisontal center\n"; 
+                        //std::cout << "Horisontal center\n";
                     }
 
                     if (xyradius > y) {
                         ypos = 0;
-                        //std::cout << "Top border\n"; 
+                        //std::cout << "Top border\n";
                     }
 
                     else if (xyradius+y > height) {
                         ypos = height - (2*xyradius);
-                        //std::cout << "Bottom border\n"; 
+                        //std::cout << "Bottom border\n";
                     }
                     else {
                         ypos = y-xyradius;
-                        //std::cout << "Vertical center\n"; 
+                        //std::cout << "Vertical center\n";
                     }
 
                     int lengde=2*xyradius;
@@ -250,11 +276,11 @@ int main(int argc, const char* argv[])
                     cv::Rect rect(xpos, ypos, lengde-1, lengde-1);
 
 
-	
+
                     int clen=xpos+lengde;
                     int ch=ypos+lengde;
-                    //std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n"; 
-	
+                    //std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n";
+
                     if(clen<=width && ch<=height){
                         cv::Rect rect2(600, 600, 200, 200);
                         cv::Mat croppedImage = orig_frame(rect);
@@ -279,7 +305,7 @@ int main(int argc, const char* argv[])
             char filename[30] = {0};
             sprintf(filename,"file-%04d.jpg",counter);
             imwrite(filename, frame );
-        }    
+        }
 
         //std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
 
@@ -304,7 +330,7 @@ int main(int argc, const char* argv[])
     std::cout << logText << std::endl;
 
     // Close the logfile
-    logfile.close(); 
+    logfile.close();
 
     return 0;
 }
@@ -313,6 +339,10 @@ int main(int argc, const char* argv[])
 
 #else
 
+/**
+ * Main code in case there is no CUDA support.
+ *
+ */
 int main()
 {
     std::cout << "OpenCV was built without CUDA Video decoding support\n" << std::endl;
