@@ -293,7 +293,7 @@ int main(int argc, const char* argv[])
 
 
                         char filenamec[30] = "";
-                        sprintf(filenamec,"%s_%04d_crop_%04d.jpg", filename.c_str(), framenum, i);
+                        sprintf(filenamec,"%s_%04d_crop_%05d.jpg", filename.c_str(), framenum, i);
                         imwrite(filenamec, resized );
 
                         logfile << fname << " " << filename  << " " << filenamec << " " << framenum << endl;
