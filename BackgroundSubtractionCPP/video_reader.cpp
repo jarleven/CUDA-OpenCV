@@ -54,7 +54,7 @@ string getFileName(const string& s) {
       return(s.substr(i+1, s.length() - i));
    }
 
-   return("");
+   return(s);
 }
 
 
