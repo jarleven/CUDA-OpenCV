@@ -34,6 +34,9 @@ using namespace std;
 using namespace cv;
 using namespace cv::cuda;
 
+#define CROPSIZE 299
+#define FULLIMGSAVEPATH "/media/jarleven/Laksen/movement2/"
+#define CROPIMGSAVEPATH "/media/jarleven/Laksen/movement2/cropped/"
 
 /**
  * Get the filename from the path.
@@ -56,6 +59,58 @@ string getFileName(const string& s) {
 
    return(s);
 }
+
+
+                    cv::Rect findCrop(int x,int y,int radius,int height, int width) {
+
+                    int xpos = 0;
+                    int ypos = 0;
+
+                    int diameter = 2*radius;
+
+                    if(diameter > x) {
+                        xpos = 0 ;
+                    }
+
+                    else if (diameter+x > width) {
+                        xpos = width - (2*diameter);
+                    }
+                    else {
+                        xpos = x-diameter;
+                    }
+
+                    if (diameter > y) {
+                        ypos = 0;
+                    }
+
+                    else if (diameter+y > height) {
+                        ypos = height - (2*diameter);
+                    }
+                    else {
+                        ypos = y-diameter;
+                    }
+
+
+                    int lengde=2*diameter;
+
+                    if(xpos < 0) {xpos = 0;}
+                    if(ypos < 0) {ypos = 0;}
+
+
+                    if(lengde > height) {
+                         lengde = height;
+                    }
+
+                    if(lengde > width) {
+                         lengde = height;
+                    }
+
+
+                        int rectheight = lengde;
+                        int rectwidth = lengde;
+                        return cv::Rect(xpos, ypos, rectheight, rectwidth);
+                    }
+
 
 
 /**
@@ -95,9 +150,10 @@ int main(int argc, const char* argv[])
 
     const std::string fname(argv[1]);
 
-    cv::namedWindow("CPU", cv::WINDOW_NORMAL);
+
     cv::namedWindow("Mask", cv::WINDOW_NORMAL);
     cv::namedWindow("GPU", cv::WINDOW_OPENGL);
+    cv::namedWindow("CPU", cv::WINDOW_FULLSCREEN);
     cv::cuda::setGlDevice();
 
     cv::Mat frame;
@@ -233,79 +289,31 @@ int main(int argc, const char* argv[])
                 if((int)radius[i] > 40) {
                     circle( frame, center[i], 2*(int)radius[i], color, 2, 8, 0 );
 
-
                     int x = (int)center[i].x;
                     int y = (int)center[i].y;
-                    int xyradius = 2*(int)radius[i];
 
-                    int xpos = 0;
-                    int ypos = 0;
+  
+                    cv::Rect rect = findCrop(x,y, (int)radius[i], height, width);
+                    cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
+                    
+                    cv::Mat croppedImage = orig_frame(rect);
 
-
-                    if(xyradius > x) {
-                        xpos = 0 ;
-                        //std::cout << "Left border\n";
-                    }
-
-                    else if (xyradius+x > width) {
-                        xpos = width - (2*xyradius);
-                        //std::cout << "Right border\n";
-
-                    }
-                    else {
-                        xpos = x-xyradius;
-                        //std::cout << "Horisontal center\n";
-                    }
-
-                    if (xyradius > y) {
-                        ypos = 0;
-                        //std::cout << "Top border\n";
-                    }
-
-                    else if (xyradius+y > height) {
-                        ypos = height - (2*xyradius);
-                        //std::cout << "Bottom border\n";
-                    }
-                    else {
-                        ypos = y-xyradius;
-                        //std::cout << "Vertical center\n";
-                    }
-
-                    int lengde=2*xyradius;
-
-                    cv::Rect rect(xpos, ypos, lengde-1, lengde-1);
+                    cv::Size size(CROPSIZE,CROPSIZE);
+                    cv::Mat resized;//dst image
+                    resize(croppedImage,resized,size);//resize image
 
 
+                    char filenamec[100] = "";
+                    sprintf(filenamec,"%s%s_%04d_crop_%05d.jpg", CROPIMGSAVEPATH, filename.c_str(), framenum, i);
+                    imwrite(filenamec, resized );
 
-                    int clen=xpos+lengde;
-                    int ch=ypos+lengde;
-                    //std::cout << xpos << "- " << clen << " -- " << ypos << "-" << ch << "\n";
-
-                    if(clen<=width && ch<=height){
-                        cv::Rect rect2(600, 600, 200, 200);
-                        cv::Mat croppedImage = orig_frame(rect);
-
-                        cv::Size size(240,240);
-                        cv::Mat resized;//dst image
-                        resize(croppedImage,resized,size);//resize image
-
-                        cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
-
-
-                        char filenamec[30] = "";
-                        sprintf(filenamec,"%s_%04d_crop_%05d.jpg", filename.c_str(), framenum, i);
-                        imwrite(filenamec, resized );
-
-                        logfile << fname << " " << filename  << " " << filenamec << " " << framenum << endl;
-
-                    }
+                    logfile << fname << " " << filename  << " " << filenamec << " " << framenum << endl;
 
                 }
             }
 
-
-            char savename[30] = {0};
-            sprintf(savename,"%s_%04d.jpg", filename.c_str(), framenum);
+            char savename[100] = {0};
+            sprintf(savename,"%s%s_%04d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
             imwrite(savename, frame );
         }
 
