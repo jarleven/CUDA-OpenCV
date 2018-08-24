@@ -1,12 +1,12 @@
 
 Automatic script for setting up OpenCV 3.1.0 with CUDA 8 on Ubuntu 16.04
 Tested on the following NVIDIA GFX adapters:
-* GTX 680. 
-* GTX 1080 Ti
+* GTX 680 compute capability 3.0
+* GTX 1080 Ti  compute capability 6.1 (Default for this script)
+* Quadro K5000 compute capability 3.0
 
 ### Note compute capability is set to 6.1 at the moment
 GTX 1080Ti is compute capability 6.1 https://developer.nvidia.com/cuda-gpus
-Quadro K5000 is	3.0
 
 Just install Ubuntu 16.04
 
