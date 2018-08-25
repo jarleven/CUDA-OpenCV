@@ -43,3 +43,30 @@ cd models/tutorials/image/imagenet
 python classify_image.py
 ```
 
+
+```
+A little experiment 25.08.2018 (Non GPU and Python3)
+Tensorflow versions are here : https://www.tensorflow.org/versions/
+
+"use --user at last of your install command, so that the package will be installed only for the current user, not for all."
+
+pip install xxxxxx --user
+
+sudo apt-get install -y libcupti-dev
+sudo apt install python3-pip
+
+pip3 install --user --upgrade pip
+
+hash -d pip3
+pip3 install --upgrade pip
+
+pip3 show pip
+
+pip3 install tensorflow==1.10 --user
+
+
+Good exersise, the --user flag probably fixed my issues from before !
+
+```
+
+
