@@ -64,8 +64,23 @@ pip3 show pip
 
 pip3 install tensorflow==1.10 --user
 
+# Getting an error about six "ImportError: No module named six.moves"
+sudo apt-get install python3-six
+pip3 uninstall six
+pip3 install six
+
 
 Good exersise, the --user flag probably fixed my issues from before !
+
+
+# Better use this way to install .... I will try again with 
+
+sudo python3 -m pip uninstall -y six
+sudo python3 -m pip install six
+sudo python3 -m pip install tensorflow==1.10
+
+sudo python3 -m pip install tensorflow==1.10 --ignore-installed
+
 
 ```
 
