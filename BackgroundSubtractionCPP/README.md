@@ -33,6 +33,11 @@ In case there is movement beyond a threshold we download the image to the CPU an
 
 At the time of writing 10minutes of video can be processed in 20seconds on an NVIDIA GTX 1080 Ti
 
+A video (realtime playback) of the background subtraction in action is available on YouTube:
+https://www.youtube.com/watch?v=hSvo7JRpksI&list=PL6vyHeCsjuLHlRjYMd-YMICqimBUr4X3J
+
+
+
 15000 frames of 1280x960pixels  (750 frames per second)
 ```
   Metadata:
