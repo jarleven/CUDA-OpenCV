@@ -12,6 +12,7 @@ cd ~/opencv/samples/gpu
 wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/BackgroundSubtractionCPP/background_subtraction.cpp
 g++ -ggdb background_subtraction.cpp -o video_reader `pkg-config --cflags --libs opencv` -I /usr/local/cuda/include/
 
+g++ -ggdb background_subtraction.cpp -o ~/background_subtraction `pkg-config --cflags --libs opencv` -I /usr/local/cuda/include/
 
 
 ```
