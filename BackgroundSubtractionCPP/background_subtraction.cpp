@@ -34,13 +34,19 @@ using namespace std;
 using namespace cv;
 using namespace cv::cuda;
 
+/*
+  Files will be made for the Inception V4 (ImageNet) classifier Input size: 299x299
+  Currently classification is done on Google Coral Edge TPU
+  https://coral.withgoogle.com/models/
+*/
+
 #define CROPSIZE 299
-#define FULLIMGSAVEPATH "/media/jarleven/Laksen/movement2/"
-#define CROPIMGSAVEPATH "/media/jarleven/Laksen/movement2/cropped/"
+#define FULLIMGSAVEPATH "~/foreground/full/"
+#define CROPIMGSAVEPATH "~/foreground/cropped/"
 
 /**
  * Get the filename from the path.
- * Borrwed this piece of code from here.
+ * Borrowed this piece of code from here.
  * https://www.safaribooksonline.com/library/view/c-cookbook/0596007612/ch10s15.html
  *
  */
@@ -136,16 +142,16 @@ int main(int argc, const char* argv[])
     cout
         << "------------------------------------------------------------------------------" << endl
         << "This program will analyse a video for moving objects."                          << endl
-        << "Objects large enough will be logged and a 240x240pixel image will be saved."    << endl
+        << "Objects large enough will be logged and a 299x299pixel image will be saved."    << endl
         << "Usage:"                                                                         << endl
-        << "./video-reader <input_video_name>"                                              << endl
+        << "./background_subtraction <input_video_name>"                                    << endl
         << "------------------------------------------------------------------------------" << endl
         << endl;
 
 
     bool showimg = true;
     bool saveimg = false;
-    bool showall = false;
+    //bool showall = false;
 
 
     const std::string fname(argv[1]);
@@ -292,10 +298,10 @@ int main(int argc, const char* argv[])
                     int x = (int)center[i].x;
                     int y = (int)center[i].y;
 
-  
+
                     cv::Rect rect = findCrop(x,y, (int)radius[i], height, width);
                     cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
-                    
+
                     cv::Mat croppedImage = orig_frame(rect);
 
                     cv::Size size(CROPSIZE,CROPSIZE);
