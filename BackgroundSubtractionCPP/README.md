@@ -4,6 +4,7 @@ Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 (Installscript in this repository
  * wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA8-OpenCV310/install-CUDA-OpenCV.sh
  
 ## Download and compile the background subtraction program
+You need to setup graphics divers and CUDA first.
 ```
 
 cd ~/opencv/samples/gpu
