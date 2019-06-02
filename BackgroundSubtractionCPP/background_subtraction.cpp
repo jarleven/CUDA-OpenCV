@@ -41,8 +41,8 @@ using namespace cv::cuda;
 */
 
 #define CROPSIZE 299
-#define FULLIMGSAVEPATH "~/foreground/full/"
-#define CROPIMGSAVEPATH "~/foreground/cropped/"
+#define FULLIMGSAVEPATH "/home/jarleven/foreground/full/"
+#define CROPIMGSAVEPATH "/home/jarleven/foreground/cropped/"
 
 /**
  * Get the filename from the path.
@@ -149,10 +149,9 @@ int main(int argc, const char* argv[])
         << endl;
 
 
+    // TODO add as parameter to CLI
     bool showimg = true;
-    bool saveimg = false;
-    //bool showall = false;
-
+    bool saveimg = true;
 
     const std::string fname(argv[1]);
 
@@ -243,7 +242,6 @@ int main(int argc, const char* argv[])
         int pixels =  cv::cuda::countNonZero(d_fgmask);
 
 	if ((pixels > 3000) && (framenum > 1) ){
-        //if (pixels > 3000  || showall){
 
             dilateFilter2->apply(d_fgmask, d_fgmask);
 
