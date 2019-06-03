@@ -1,4 +1,6 @@
 # OpenCV 3.4.3 on Ubuntu 18.04.2 with CUDA 10
 
-Used https://averyuslaner.com/blog/configuring-ubuntu-1804-cuda-nvidia-gpu-deep-learning-opencv-python-bindings/ as a startingpoint for setting up a automated configuration script.
+### 03. June 2019
+Crash and burn. CUDA 10 does not support what I need. The CUDA Codec is being replaced by the "NVIDIA VIDEO CODEC SDK"
+
 
