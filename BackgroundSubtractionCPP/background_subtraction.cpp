@@ -21,13 +21,9 @@
 #include <opencv2/highgui.hpp>
 #include "opencv2/core/utility.hpp"
 #include "opencv2/cudabgsegm.hpp"
-#include "opencv2/cudalegacy.hpp"
 #include "opencv2/video.hpp"
-#include "opencv2/highgui.hpp"
 
 #include "opencv2/cudaarithm.hpp"
-
-#include "tick_meter.hpp"
 
 
 using namespace std;
