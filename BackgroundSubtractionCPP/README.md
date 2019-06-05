@@ -7,6 +7,12 @@ Tested in OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04 (Installscript in this repository
 You need to setup graphics divers and CUDA first.
 ```
 
+Making tags for the background subtractor for different versions of OpenCV/CUDA
+For OpenCV 3.1.0 / CUDA 8 / Ubuntu 16.04
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/cac6b2a75077806ec9e0a18bef7f383351621b6c/BackgroundSubtractionCPP/background_subtraction.cpp
+
+
+
 cd ~/opencv/samples/gpu
 
 wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/BackgroundSubtractionCPP/background_subtraction.cpp
