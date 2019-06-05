@@ -177,7 +177,7 @@ int main(int argc, const char* argv[])
     Ptr<BackgroundSubtractor> mog2 = cuda::createBackgroundSubtractorMOG2(history, varThreshold, bShadowDetection);
 
 
-    TickMeter tm;
+    cv::TickMeter tm;
     std::vector<double> cpu_times;
     std::vector<double> gpu_times;
 
