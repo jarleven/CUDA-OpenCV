@@ -255,20 +255,12 @@ git clone https://github.com/opencv/opencv.git
 cd ~/opencv
 git checkout -b v4.1.0 4.1.0
 
-### For some reason we need to reset the branch ???
-#git reset --hard
-#git cherry-pick 10896
-#git cherry-pick cdb9c
-#git cherry-pick 24dbb
 
-# In the same base directory from which you cloned OpenCV
 cd ~/
 git clone https://github.com/opencv/opencv_extra.git
 cd ~/opencv_extra
 git checkout -b v4.1.0 4.1.0
 
-
-#!/bin/sh
 
 cd ~/
 git clone https://github.com/opencv/opencv_contrib.git
