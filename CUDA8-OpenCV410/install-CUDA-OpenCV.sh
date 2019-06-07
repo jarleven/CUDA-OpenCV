@@ -175,7 +175,7 @@ sudo apt -y install libopenblas-dev, libopenblas-base
 sudo ln -s /usr/include/lapacke.h /usr/include/x86_64-linux-gnu # corrected path for the library 
 sudo apt -y install flake8
 sudo apt install -y libatlas-base-dev libatlas3-base
-
+sudo apt install -y libopencv-dev
 
 
 # For some reason pip 19.1.1 is broken 
@@ -221,7 +221,7 @@ sudo apt-get install -y --reinstall ubuntu-desktop unity compizconfig-settings-m
 sed -i '/Add CUDA environment/d' ~/.bashrc
 sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
 
-echo 'Add CUDA environment' >> ~/.bashrc 
+echo '# Add CUDA environment' >> ~/.bashrc 
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda/targets/x86_64-linux/lib:$LD_LIBRARY_PATH' >> ~/.bashrc
 echo 'export PATH=/usr/local/cuda/bin/:$PATH' >> ~/.bashrc
 
@@ -306,6 +306,7 @@ cmake \
     -D WITH_V4L=ON \
     -D WITH_1394=OFF \
     -D WITH_NVCUVID=ON \
+    -D OPENCV_GENERATE_PKGCONFIG=ON \
     -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
     -D CUDA_ARCH_BIN="6.1" \
     -D CUDA_ARCH_PTX="6.1" \
@@ -346,6 +347,17 @@ sudo make install
 sudo updatedb && locate libopencv_core.so.2.4
 sudo ldconfig -v
 
+
+# Added this for OpenCV 4.1.0 7th June 2019
+# See comment 26.May 2019 https://github.com/opencv/opencv/issues/13154
+
+# https://prateekvjoshi.com/2013/10/18/package-opencv-not-found-lets-find-it/
+
+pkg-config --cflags opencv4
+pkg-config --libs opencv4
+
+pkg-config --cflags opencv
+pkg-config --libs opencv
 
 #### Reboot to make all the changes take effect
 echo "-----------------------    "
