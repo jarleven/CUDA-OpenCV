@@ -1,0 +1,25 @@
+
+
+https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/
+
+
+
+g++ -std=c++11 test.cpp `pkg-config --libs --cflags opencv4` -o result
+
+
+---
+
+
+vi /usr/local/lib/pkgconfig/opencv4.pc
+
+includedir_old=${prefix}/include/opencv4/opencv       <= You have to modify this line
+modify 
+includedir_old=${prefix}/include/opencv4/opencv2
+
+
+# Open .bashrc file
+sudo vi ~/.bashrc
+ 
+# Add the following 2 lines at the end of the file i.e. copy the following lines at the end of .bashrc file.
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH
