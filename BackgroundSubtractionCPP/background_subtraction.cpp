@@ -4,6 +4,13 @@
 
 #include "opencv2/opencv_modules.hpp"
 
+// ----- from contours2.cpp
+// #include "opencv2/imgproc.hpp"
+// #include "opencv2/highgui.hpp"
+// #include <math.h>
+// #include <iostream>
+// -----
+
 
 #if defined(HAVE_OPENCV_CUDACODEC)
 
@@ -253,7 +260,9 @@ int main(int argc, const char* argv[])
             vector<Vec4i> hierarchy;
 
             double maxcontour = 0;
-            findContours( fgmask, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
+            findContours( fgmask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0) );
+//             findContours( img, contours0, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE); from samples/cpp/contours2.cpp
+
 
 
             for( int i = 0; i< contours.size(); i++ ) {
