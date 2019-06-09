@@ -2,6 +2,10 @@
 g++ -std=c++11 bgfg_segm.cpp `pkg-config --cflags --libs opencv4`
 
 
+https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/
+https://www.tensorflow.org/install/gpu
+
+
 jarleven@CUDA:~/opencv/samples/gpu$ g++ -std=c++11 bgfg_segm.cpp `pkg-config --cflags --libs opencv4`
 jarleven@CUDA:~/opencv/samples/gpu$ g++ -std=c++11 bgfg_segm.cpp `pkg-config --cflags --libs opencv4` -I /usr/local/cuda/include/
 
