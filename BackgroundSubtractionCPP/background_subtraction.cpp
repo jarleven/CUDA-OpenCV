@@ -253,7 +253,15 @@ int main(int argc, const char* argv[])
             d_fgmask.download(fgmask);
             d_frame.download(orig_frame);
 
+/*
+  This is a major prerformance hit !
+  Finding contours in the GPU memory would really speed things up in noisy and shaky videos.
+  
+  Digging into the issue :
+    https://answers.opencv.org/question/59413/cuda-based-connected-component-labeling/
+    https://github.com/opencv/opencv_contrib/blob/master/modules/cudalegacy/src/graphcuts.cpp
 
+*/
 
 
             vector<vector<Point> > contours;
