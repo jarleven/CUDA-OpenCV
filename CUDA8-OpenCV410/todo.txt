@@ -1,4 +1,8 @@
 
+Some documentation :
+   https://www.nvidia.com/content/nvision2008/tech_presentations/Game_Developer_Track/NVISION08-Image_Processing_and_Video_with_CUDA.pdf 
+
+
 g++ -std=c++11 bgfg_segm.cpp `pkg-config --cflags --libs opencv4`
 
 
