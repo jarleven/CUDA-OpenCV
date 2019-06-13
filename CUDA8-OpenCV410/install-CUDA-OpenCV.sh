@@ -316,9 +316,13 @@ cmake \
     -D OPENCV_TEST_DATA_PATH=../opencv_extra/testdata \
     ..
 
+#### https://developer.nvidia.com/cuda-gpus
+#### Quadro K2000 	3.0
+
 
 ####  TODO: Add support for new / all architectures
-####   For GTX 680 Ti
+####   For GTX 680 Ti       Arch 3.0
+####       Quadro K2000 	Arch 3.0
 ####    -DCUDA_ARCH_BIN="3.0" \
 ####    -DCUDA_ARCH_PTX="3.0" \
 
