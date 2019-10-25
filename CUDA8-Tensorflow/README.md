@@ -94,7 +94,7 @@ sudo apt install -y python3-pip
 
 python3 -m pip install --upgrade --user pip 
 
-export PATH=$PATH:/home/jarleven/.local/bin
+export PATH=$PATH:~/.local/bin
 
 python3 -m pip install --upgrade --force-reinstall --user six
 
