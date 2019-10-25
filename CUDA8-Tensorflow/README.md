@@ -111,9 +111,24 @@ python3 classify_image.py
 
 ```
 
+Output is 
+```
+>> Downloading inception-2015-12-05.tgz 100.0%
+Successfully downloaded inception-2015-12-05.tgz 88931400 bytes.
+2019-10-25 12:51:16.934624: W tensorflow/core/framework/op_def_util.cc:346] Op BatchNormWithGlobalNormalization is deprecated. It will cease to work in GraphDef version 9. Use tf.nn.batch_normalization().
+2019-10-25 12:51:17.098627: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-10-25 12:51:17.271974: W tensorflow/core/framework/allocator.cc:108] Allocation of 8257536 exceeds 10% of system memory.
+giant panda, panda, panda bear, coon bear, Ailuropoda melanoleuca (score = 0.89107)
+indri, indris, Indri indri, Indri brevicaudatus (score = 0.00779)
+lesser panda, red panda, panda, bear cat, cat bear, Ailurus fulgens (score = 0.00296)
+custard apple (score = 0.00147)
+earthstar (score = 0.00117)
+```
 
-# Version 2 not supported !
-# python3 -m pip install --upgrade --force-reinstall tensorflow --user
+
+
+ Version 2 not supported !
+ python3 -m pip install --upgrade --force-reinstall tensorflow --user
 
 
 
