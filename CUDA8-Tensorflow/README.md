@@ -109,6 +109,7 @@ cd models/tutorials/image/imagenet
 
 python3 classify_image.py
 
+
 ```
 
 Output is 
@@ -125,10 +126,17 @@ custard apple (score = 0.00147)
 earthstar (score = 0.00117)
 ```
 
+To classify your image use this style
+```
+python classify_image.py --NameOfYourImage.jpg
+```
+
 
 
  Version 2 not supported !
- python3 -m pip install --upgrade --force-reinstall tensorflow --user
+```
+python3 -m pip install --upgrade --force-reinstall tensorflow --user
+```
 
 
 
