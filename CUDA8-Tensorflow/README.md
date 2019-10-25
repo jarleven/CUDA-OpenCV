@@ -133,7 +133,7 @@ python classify_image.py --NameOfYourImage.jpg
 
 
 
- Version 2 not supported !
+ Version 2 not supported. If you don't specify a version as above you get v2 of Tensorflow!
 ```
 python3 -m pip install --upgrade --force-reinstall tensorflow --user
 ```
