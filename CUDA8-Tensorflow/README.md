@@ -103,6 +103,7 @@ export PATH=$PATH:~/.local/bin
 python3 -m pip install --upgrade --force-reinstall --user six
 
 python3 -m pip install --upgrade --force-reinstall tensorflow==1.10 --user
+# Edit At the time 1.15 is the lastest. Will test with this version.
 
 
 cd ~
