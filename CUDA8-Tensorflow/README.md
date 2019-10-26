@@ -97,6 +97,9 @@ setxkbmap no
 # Set path (Need to test again when to do this. Does this path exist after installing Ubuntu ?)
 export PATH=$PATH:~/.local/bin
 
+# Add it permanently
+# echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_profile
+
 # Install 
 sudo apt install -y git
 sudo apt install -y python3-pip
