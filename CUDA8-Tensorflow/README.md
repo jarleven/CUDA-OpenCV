@@ -88,6 +88,9 @@ Tested : Ubuntu 18.04.3 LTS
 Trying to make a simple description for some students
 Date 25. Oct 2019
 ```
+# Norwegian keyboard map
+setxkbmap no
+
 
 sudo apt install -y git
 sudo apt install -y python3-pip
@@ -104,7 +107,7 @@ python3 -m pip install --upgrade --force-reinstall tensorflow==1.10 --user
 cd ~
 
 git clone https://github.com/tensorflow/models.git
-cd models/tutorials/image/imagenet
+cd ~/models/tutorials/image/imagenet
 
 
 python3 classify_image.py
