@@ -134,6 +134,18 @@ To classify your image use this style
 python classify_image.py --NameOfYourImage.jpg
 ```
 
+Info about Python and PIP versions
+```
+
+python --version
+Python 2.7.15+
+
+python3 -m pip --version
+pip 19.3.1 from /home/jarleven/.local/lib/python3.6/site-packages/pip (python 3.6)
+
+
+```
+
 
 
  Version 2 not supported. If you don't specify a version as above you get v2 of Tensorflow!
