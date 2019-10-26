@@ -90,6 +90,7 @@ sudo python3 -m pip install tensorflow==1.10 --ignore-installed
 
 ```
 Download : http://releases.ubuntu.com/18.04/ubuntu-18.04.3-desktop-amd64.iso
+Tensorflow versions are here : https://www.tensorflow.org/versions/
 
 # Norwegian keyboard map
 setxkbmap no
