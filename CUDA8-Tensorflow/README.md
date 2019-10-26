@@ -84,8 +84,8 @@ sudo python3 -m pip install tensorflow==1.10 --ignore-installed
 
 ```
 
-Tested : Ubuntu 18.04.3 LTS
-Trying to make a simple description for some students
+## Tested : Ubuntu 18.04.3 LTS
+## Trying to make a simple description for some students
 Date 25. Oct 2019
 ```
 # Norwegian keyboard map
