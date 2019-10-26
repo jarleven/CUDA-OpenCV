@@ -89,29 +89,32 @@ sudo python3 -m pip install tensorflow==1.10 --ignore-installed
 * Date 25. Oct 2019
 
 ```
+Download : http://releases.ubuntu.com/18.04/ubuntu-18.04.3-desktop-amd64.iso
+
 # Norwegian keyboard map
 setxkbmap no
 
+# Set path (Need to test again when to do this. Does this path exist after installing Ubuntu ?)
+export PATH=$PATH:~/.local/bin
 
+# Install 
 sudo apt install -y git
 sudo apt install -y python3-pip
 
 python3 -m pip install --upgrade --user pip 
 
-export PATH=$PATH:~/.local/bin
-
+# Some dependency issue, this is not installed by Tensorflow 
 python3 -m pip install --upgrade --force-reinstall --user six
 
 python3 -m pip install --upgrade --force-reinstall tensorflow==1.10 --user
 # Edit At the time 1.15 is the lastest. Will test with this version.
 
-
+# Get the "Models and examples built with TensorFlow"
 cd ~
-
 git clone https://github.com/tensorflow/models.git
 cd ~/models/tutorials/image/imagenet
 
-
+# Test if everything works
 python3 classify_image.py
 
 
