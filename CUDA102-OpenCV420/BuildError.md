@@ -15,3 +15,6 @@ make: *** [all] Error 2
 jarleven@Stue:~$ cudacodec/src/precomp.hpp:64:18: fatal error: nvcuvid.h: No such file or directory
 -bash: cudacodec/src/precomp.hpp:64:18:: No such file or directory
 ´´´
+Changed
+-D WITH_NVCUVID=ON \  >> -D WITH_NVCUVID=OFF \ 
+Will try this project with FFMPEG for reading video files. https://developer.nvidia.com/ffmpeg
