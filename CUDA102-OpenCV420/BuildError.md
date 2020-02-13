@@ -18,3 +18,16 @@ jarleven@Stue:~$ cudacodec/src/precomp.hpp:64:18: fatal error: nvcuvid.h: No suc
 Changed
 -D WITH_NVCUVID=ON \  >> -D WITH_NVCUVID=OFF \ 
 Will try this project with FFMPEG for reading video files. https://developer.nvidia.com/ffmpeg
+
+
+Running samples
+
+./example_gpu_bgfg_segm 
+[ERROR:0] global /home/jarleven/opencv/modules/videoio/src/cap.cpp (116) open VIDEOIO(CV_IMAGES): raised OpenCV exception:
+
+OpenCV(4.2.0) /home/jarleven/opencv/modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): ../data/vtest.avi in function 'icvExtractPattern'
+
+
+
+cp ~/opencv/samples/data/* ~/opencv/build/data/
+cp: -r not specified; omitting directory '/home/jarleven/opencv/samples/data/dnn'
