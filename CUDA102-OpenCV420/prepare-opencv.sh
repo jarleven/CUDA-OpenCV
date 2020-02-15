@@ -11,7 +11,7 @@ sudo apt update
 
 
 sudo apt install -y cmake-qt-gui
-sudo apt install -y build-essential cmake git pkg-config unzip ffmpeg qtbase5-dev
+sudo apt install -y build-essential cmake git pkg-config unzip qtbase5-dev
 sudo apt install -y libhdf5-dev
 sudo apt install -y libgtk-3-dev libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff5-dev libjasper-dev
 sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
