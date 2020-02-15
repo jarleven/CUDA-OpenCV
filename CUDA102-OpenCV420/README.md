@@ -14,8 +14,8 @@ Tensorflow 2.0.0
 ```
 sudo apt install -y vim ssh git screen
 cd ~
-git clone 
-cd 
+git clone https://github.com/jarleven/CUDA-OpenCV.git
+cd CUDA-OpenCV/CUDA102-OpenCV420/
 
 prepare
 OPencv
