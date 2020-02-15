@@ -6,7 +6,6 @@
 
 sudo apt install -y vim ssh screen
 
-sudo apt-add-repository universe
 sudo apt update
 
 
