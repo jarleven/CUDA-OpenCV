@@ -58,4 +58,8 @@ make -j$(nproc)
 #### TODO. Try to fix this issue....
 sudo make install 
 
+# Setup the CUDA path's (FFMPEG would not compile without)
+
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH="/usr/local/cuda/bin/:$PATH"
 
