@@ -9,3 +9,17 @@ Python 3
 cuDNN - cuDNN v7.6.5 (November 18th, 2019), for CUDA 10.2
 Tensorflow 2.0.0
 ```
+
+
+```
+sudo apt install -y vim ssh git screen
+cd ~
+git clone 
+cd 
+
+prepare
+OPencv
+cuDNN
+ffmpeg
+
+```
