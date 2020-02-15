@@ -11,10 +11,6 @@ cmake \
     -D BUILD_JPEG=OFF \
     -D BUILD_JASPER=OFF \
     -D BUILD_ZLIB=OFF \
-    -D BUILD_EXAMPLES=ON \
-    -D BUILD_opencv_java=OFF \
-    -D BUILD_opencv_nonfree=OFF \
-    -D BUILD_opencv_python=OFF \
     -D WITH_OPENCL=OFF \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=OFF \
@@ -26,6 +22,7 @@ cmake \
     -D CUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
     -D ENABLE_FAST_MATH=1 \
     -D WITH_CUBLAS=1 \
+    -D OPENCV_DNN_CUDA=ON \
     -D WITH_CUFFT=1 \
     -D WITH_GTK=ON \
     -D WITH_QT=ON \
@@ -33,12 +30,17 @@ cmake \
     -D WITH_TBB=ON \
     -D WITH_V4L=ON \
     -D WITH_1394=OFF \
-    -D WITH_NVCUVID=ON \
+    -D WITH_NVCUVID=OFF \
     -D OPENCV_GENERATE_PKGCONFIG=ON \
     -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
     -D CUDA_ARCH_BIN="6.1" \
     -D CUDA_ARCH_PTX="6.1" \
+    -D BUILD_EXAMPLES=ON \
     -D INSTALL_C_EXAMPLES=ON \
+    -D OPENCV_ENABLE_NONFREE=ON \
+    -D BUILD_opencv_java=OFF \
+    -D HAVE_opencv_python3=ON \
+    -D OPENCV_ENABLE_NONFREE=ON \
     -D INSTALL_TESTS=ON \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules .. \
     -D OPENCV_TEST_DATA_PATH=../opencv_extra/testdata \

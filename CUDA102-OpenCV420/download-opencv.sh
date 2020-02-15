@@ -41,6 +41,15 @@ sudo apt-get update
 sudo apt-get -y install cuda
 
 
+# TODO ADD TO ~/.bashrc
+# export PATH=/usr/local/cuda-10.2/bin:$PATH
+# export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64
+
+#source ~/.bashrc
+
+
+
+
 # A few commands to test
 # nvidia-smi
 
