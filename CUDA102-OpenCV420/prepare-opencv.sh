@@ -7,6 +7,7 @@
 sudo apt install -y vim ssh screen
 
 sudo apt update
+sudo apt upgrade -y
 
 
 sudo apt install -y cmake-qt-gui
