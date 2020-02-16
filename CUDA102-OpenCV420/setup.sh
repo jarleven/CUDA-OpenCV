@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# 
+# lspci | grep -i GTX
+# 01:00.0 VGA compatible controller: NVIDIA Corporation GP106 [GeForce GTX 1060 3GB] (rev a1)
+
+
 
 source .setupstate
 
