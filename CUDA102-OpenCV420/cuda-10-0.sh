@@ -30,5 +30,5 @@ sudo apt-get install -y cuda-10-0
 sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-nvjpeg-update-1_1.0-1_amd64.deb
 
 sudo apt update
-sudp apt upgrade -y
+sudo apt upgrade -y
 
