@@ -10,6 +10,11 @@ sudo apt-get --purge remove ffmpeg
 sudo apt install -y yasm
 
 cd ~
+
+# 16. Feb 2020 I got this info about the git archive.
+# ~/nv-codec-headers$ git describe --tags
+# n9.1.23.1-1-g250292d
+
 git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 cd nv-codec-headers
 sudo make install
