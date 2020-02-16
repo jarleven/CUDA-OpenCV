@@ -4,8 +4,6 @@
 # sed s/' '/\\n/g prepare-opencv.sh | sort | uniq -c | sort -n
 
 
-sudo apt install -y vim ssh screen
-
 sudo apt update
 sudo apt upgrade -y
 
@@ -58,7 +56,7 @@ pip install opencv-contrib-python
 pip install scikit-image
 pip install pillow
 pip install imutils
-
+pip install pylint
 
 pip install scikit-learn
 pip install matplotlib

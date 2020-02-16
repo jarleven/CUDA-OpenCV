@@ -14,7 +14,7 @@ cmake \
     -D WITH_OPENCL=OFF \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=OFF \
-    -D WITH_FFMPEG=ON \
+    -D WITH_FFMPEG=OFF \
     -D WITH_GSTREAMER=OFF \
     -D WITH_GSTREAMER_0_10=OFF \
     -D WITH_CUDA=ON \
@@ -39,7 +39,10 @@ cmake \
     -D INSTALL_C_EXAMPLES=ON \
     -D OPENCV_ENABLE_NONFREE=ON \
     -D BUILD_opencv_java=OFF \
+    -D BUILD_NEW_PYTHON_SUPPORT=ON \
+    -D BUILD_opencv_python3=ON \
     -D HAVE_opencv_python3=ON \
+    -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
     -D OPENCV_ENABLE_NONFREE=ON \
     -D INSTALL_TESTS=ON \
     -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules .. \
@@ -60,6 +63,6 @@ sudo make install
 
 # Setup the CUDA path's (FFMPEG would not compile without)
 
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export PATH="/usr/local/cuda/bin/:$PATH"
+#export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+#export PATH="/usr/local/cuda/bin/:$PATH"
 
