@@ -6,8 +6,8 @@
 cd ~
 
 
-sudo apt update
-sudo apt upgrade -y
+#sudo apt update
+#sudo apt upgrade -y
 
 
 sudo apt install -y cmake-qt-gui
@@ -44,6 +44,16 @@ sudo apt install -y libopenblas-dev liblapack-dev gfortran
 sudo apt install -y libhdf5-serial-dev
 
 # PYTHON 3 (Assuming without Python2 and pip2)
+alias python=python3
+
+#### In case you run the script multiple times remove the stuff potentially added in bashrc ....
+sed -i '/alias python=python3/d' ~/.bashrc
+sed -i '/Add Python alias/d' ~/.bashrc
+
+echo 'Add Python alias' >> ~/.bashrc 
+echo 'alias python=python3' >> ~/.bashrc
+
+
 
 wget https://bootstrap.pypa.io/get-pip.py
 sudo -H python3 get-pip.py

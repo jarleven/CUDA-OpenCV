@@ -7,7 +7,7 @@
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
 # TODO Is FFMPEG istalled in Ubuntu 18.04
-sudo apt-get --purge remove ffmpeg
+sudo apt-get --purge remove -y ffmpeg
 sudo apt -y remove x264 libx264-dev
 
 # TODO put in common file ?
@@ -15,12 +15,12 @@ sudo apt install -y yasm
 
 sudo dpkg --add-architecture i386
 sudo apt-get update
-sudo apt-get install build-essential git yasm unzip wget sysstat nasm libc6:i386 libavcodec-dev libavformat-dev libavutil-dev pkgconf g++ freeglut3-dev libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
+sudo apt-get install -y build-essential git yasm unzip wget sysstat nasm libc6:i386 libavcodec-dev libavformat-dev libavutil-dev pkgconf g++ freeglut3-dev libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 
 
 
-cp ffmpeg.md5 ~/
-cp videocodecsdk.md5 ~/
+# cp ffmpeg.md5 ~/
+# cp videocodecsdk.md5 ~/
 
 cd ~
 
