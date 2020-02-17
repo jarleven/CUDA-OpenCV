@@ -35,7 +35,7 @@ sudo apt install -y gcc-6 g++-6
 sudo apt install -y libglu1-mesa libglu1-mesa-dev
 
 sudo apt install -y libpng-dev libtiff-dev
-sudo apt install -y libx264-dev
+#sudo apt install -y libx264-dev # FFMPEG compile from source
 
 sudo apt install -y libopenblas-dev liblapack-dev gfortran
 

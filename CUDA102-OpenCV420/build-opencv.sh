@@ -14,7 +14,7 @@ cmake \
     -D WITH_OPENCL=OFF \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=OFF \
-    -D WITH_FFMPEG=OFF \
+    -D WITH_FFMPEG=ON \
     -D WITH_GSTREAMER=OFF \
     -D WITH_GSTREAMER_0_10=OFF \
     -D WITH_CUDA=ON \
@@ -60,6 +60,9 @@ make -j$(nproc)
 #### At this point the sudo password have timed out, you need to enter it again 
 #### TODO. Try to fix this issue....
 sudo make install 
+
+#TODO I'm not certain, need to investigare
+sudo ldconfig
 
 # Setup the CUDA path's (FFMPEG would not compile without)
 

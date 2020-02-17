@@ -1,25 +1,25 @@
 #!/bin/bash
 
-echo "   ---------------------   Ubuntu version     ---------------------   "
+echo -e "\n\n\n   ---------------------   Ubuntu version     ---------------------   "
 cat /etc/issue
 
-echo "   ---------------------   Python version     ---------------------   "
+echo -e "\n\n\n    ---------------------   Python version     ---------------------   "
 python --version
 
-echo "   ---------------------   Python 3 version   ---------------------   "
+echo -e "\n\n\n    ---------------------   Python 3 version   ---------------------   "
 python3 --version
 
-echo "   ---------------------   pip version        ---------------------   "
+echo -e "\n\n\n    ---------------------   pip version        ---------------------   "
 pip --version
 
-echo "   ---------------------   nvcc version       ---------------------   "
+echo -e "\n\n\n    ---------------------   nvcc version       ---------------------   "
 nvcc -V
 
-echo "   ---------------------   NVIDIA driver      ---------------------   "
+echo -e "\n\n\n    ---------------------   NVIDIA driver      ---------------------   "
 nvidia-smi 
 
-echo "   ---------------------   FFMPEG version     ---------------------   "
+echo -e "\n\n\n    ---------------------   FFMPEG version     ---------------------   "
 ffmpeg -version
 
-echo "   ---------------------   Tensorflow         ---------------------   "
+echo -e "\n\n\n    ---------------------   Tensorflow         ---------------------   "
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
