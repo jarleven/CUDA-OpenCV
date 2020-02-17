@@ -3,6 +3,8 @@
 # Keep this file clean with the following check to remove duplicates
 # sed s/' '/\\n/g prepare-opencv.sh | sort | uniq -c | sort -n
 
+cd ~
+
 
 sudo apt update
 sudo apt upgrade -y
