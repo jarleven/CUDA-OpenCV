@@ -34,11 +34,24 @@ case $OPENCV_SETUPSTATE in
 
     cp md5/*.md5 ~/
 
+    #TODO ADD 
+
+    # #includedir /etc/sudoers.d
+    # jarleven ALL=(ALL) NOPASSWORD:ALL
+    # Add this to /etc/sudoers.d ??
+
+    echo "Bootstrapping this script, will run on next login"
+    mkdir ~/.config/autostart
+    cp opencv.desktop ~/.config/autostart/
+
+
     sudo apt update
     
     sudo apt upgrade -y
     sudo apt install -y vim vlc screen ssh
     sleep 10
+    echo "Exit in 10 seconds"
+
     echo "OPENCV_SETUPSTATE="2"" > .setupstate
     sudo reboot
 
@@ -60,6 +73,7 @@ case $OPENCV_SETUPSTATE in
     sudo apt update
     sudo apt upgrade -y
     sleep 10
+    echo "Exit in 10 seconds"
     echo "OPENCV_SETUPSTATE="3"" > .setupstate
     sudo reboot
     ;;
@@ -71,6 +85,7 @@ case $OPENCV_SETUPSTATE in
     sudo apt update
     sudo apt upgrade -y
     sleep 10
+    echo "Exit in 10 seconds"
     echo "OPENCV_SETUPSTATE="4"" > .setupstate
     sudo reboot
 
@@ -82,6 +97,7 @@ case $OPENCV_SETUPSTATE in
     sudo apt update
     sudo apt upgrade -y
     sleep 10
+    echo "Exit in 10 seconds"
     echo "OPENCV_SETUPSTATE="5"" > .setupstate
     sudo reboot
     ;;
@@ -93,6 +109,7 @@ case $OPENCV_SETUPSTATE in
     sudo apt update
     sudo apt upgrade -y
     sleep 10
+    echo "Exit in 10 seconds"
     echo "OPENCV_SETUPSTATE="6"" > .setupstate
     sudo reboot
     ;;
@@ -100,6 +117,16 @@ case $OPENCV_SETUPSTATE in
 
   *)
     echo -e "unknown install state \n\n"
+
+    rm ~/.config/autostart/opencv.desktop
+    echo "Deleting my own bootstrap"
+    echo "Exit in 30 seconds"
+    sleep 30
+
+    #TODO ADD
+    # #includedir /etc/sudoers.d
+    # jarleven ALL=(ALL) NOPASSWORD:ALL
+
     ;;
 esac
 
