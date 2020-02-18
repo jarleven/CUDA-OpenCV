@@ -38,7 +38,11 @@ case $OPENCV_SETUPSTATE in
     #echo "# Added by OpenCV setup script" | (sudo su -c 'EDITOR="tee -a" visudo')
     #echo "$USER ALL=(ALL) NOPASSWORD:ALL" | (sudo su -c 'EDITOR="tee -a" visudo')
     echo "# Added by OpenCV setup script" | sudo EDITOR='tee -a' visudo
-    echo "$USER ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo
+    echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
+
+#includedir /etc/sudoers.d
+#jarleven ALL=(ALL) NOPASSWD: ALL
+
 
 
     echo "Bootstrapping this script, will run on next login"
