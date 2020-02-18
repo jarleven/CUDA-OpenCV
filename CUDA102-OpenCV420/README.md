@@ -22,6 +22,8 @@ cp * ~/
 
 sudo apt install -y vim ssh git screen
 
+#!/bin/bash
+
 sudo apt install -y git
 cd ~
 git clone https://github.com/jarleven/CUDA-OpenCV.git
