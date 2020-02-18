@@ -17,7 +17,12 @@ Install Ubuntu 18.04  (Set login without password)
 Copy cuDNN and a few other files requiering NVIDIA login to ~/
 Then do the following. After setup is executed the script will reboot your machine a few times
 
+cd /media/jarleven/NYTT\ VOLUM/
+cp * ~/
+
 sudo apt install -y vim ssh git screen
+
+sudo apt install -y git
 cd ~
 git clone https://github.com/jarleven/CUDA-OpenCV.git
 cd CUDA-OpenCV/CUDA102-OpenCV420/
