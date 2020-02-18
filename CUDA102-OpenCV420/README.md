@@ -23,9 +23,10 @@ Install git and fire up the script with the command below
    Your PC will reboot multiple times and the process takes a long time.
    I suggest spending the next hours away from your computer :-)
 ```
+Please no not run this on any critical systems or any system containing important data. Test at your own risk preferably on a fresh installed system!
 
 ```
 
-cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup
+cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup.sh
 
 ```
