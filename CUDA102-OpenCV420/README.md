@@ -12,10 +12,17 @@ Tensorflow 2.0.0
 
 
 ```
+Install Ubuntu 18.04  (Set login without password)
+
+Copy cuDNN and a few other files requiering NVIDIA login to ~/
+Then do the following. After setup is executed the script will reboot your machine a few times
+
 sudo apt install -y vim ssh git screen
 cd ~
 git clone https://github.com/jarleven/CUDA-OpenCV.git
 cd CUDA-OpenCV/CUDA102-OpenCV420/
+./setup.sh
+
 
 prepare
 OPencv
