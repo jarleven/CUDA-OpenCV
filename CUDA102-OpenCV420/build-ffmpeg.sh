@@ -6,6 +6,9 @@
 
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
+
+exit
+
 # TODO Is FFMPEG istalled in Ubuntu 18.04
 sudo apt-get --purge remove -y ffmpeg
 sudo apt -y remove x264 libx264-dev

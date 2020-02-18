@@ -34,11 +34,10 @@ case $OPENCV_SETUPSTATE in
 
     cp md5/*.md5 ~/
 
-    #TODO ADD 
+    # Don't prompt for sudo password
+    echo "# Added by OpenCV setup script" | (sudo su -c 'EDITOR="tee -a" visudo')
+    echo "$USER ALL=(ALL) NOPASSWORD:ALL" | (sudo su -c 'EDITOR="tee -a" visudo')
 
-    # #includedir /etc/sudoers.d
-    # jarleven ALL=(ALL) NOPASSWORD:ALL
-    # Add this to /etc/sudoers.d ??
 
     echo "Bootstrapping this script, will run on next login"
     mkdir ~/.config/autostart
@@ -106,6 +105,7 @@ case $OPENCV_SETUPSTATE in
     echo -e "Build OpenCV \n\n"
     ./build-opencv.sh
 
+    sudo apt autoremove
     sudo apt update
     sudo apt upgrade -y
     sleep 10
@@ -117,6 +117,9 @@ case $OPENCV_SETUPSTATE in
 
   *)
     echo -e "unknown install state \n\n"
+
+    ./versions.sh
+    read  -n 1 -p "Input Selection:"
 
     rm ~/.config/autostart/opencv.desktop
     echo "Deleting my own bootstrap"
