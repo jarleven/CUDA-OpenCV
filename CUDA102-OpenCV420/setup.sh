@@ -21,6 +21,7 @@ case $OPENCV_SETUPSTATE in
 
   1)
 
+    cp md5/*.md5 ~/
     echo -e "Check if you have all nonfree files and do first update of system\n\n"
     ./pre-start.sh
 
@@ -32,11 +33,12 @@ case $OPENCV_SETUPSTATE in
         exit
     fi
 
-    cp md5/*.md5 ~/
-
+    
     # Don't prompt for sudo password
-    echo "# Added by OpenCV setup script" | (sudo su -c 'EDITOR="tee -a" visudo')
-    echo "$USER ALL=(ALL) NOPASSWORD:ALL" | (sudo su -c 'EDITOR="tee -a" visudo')
+    #echo "# Added by OpenCV setup script" | (sudo su -c 'EDITOR="tee -a" visudo')
+    #echo "$USER ALL=(ALL) NOPASSWORD:ALL" | (sudo su -c 'EDITOR="tee -a" visudo')
+    echo "# Added by OpenCV setup script" | sudo EDITOR='tee -a' visudo
+    echo "$USER ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo
 
 
     echo "Bootstrapping this script, will run on next login"

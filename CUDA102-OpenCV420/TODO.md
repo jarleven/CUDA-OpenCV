@@ -48,16 +48,13 @@ jarleven@stue:~$ cp CUDA-OpenCV/CUDA102-OpenCV420/opencv.desktop ~/.config/autos
 
 
 
+    echo "$USER ALL=(ALL) NOPASSWORD:ALL" | sudo EDITOR='tee -a' visudo
 
 
 
+echo "$USER ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo
 
-
-
-
-
-
-echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
+echo 'jarleven ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
 
 sudo -u jarleven /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/setup.sh
 
