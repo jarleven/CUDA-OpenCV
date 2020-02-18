@@ -26,10 +26,10 @@ sudo apt -y install cuda
 
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
-sed -i '/Add CUDA environment/d' ~/.bashrc
+sed -i '/#Add CUDA environment/d' ~/.bashrc
 sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
 
-echo 'Add CUDA environment' >> ~/.bashrc 
+echo '#Add CUDA environment' >> ~/.bashrc 
 echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 echo 'PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}' >> ~/.bashrc
 

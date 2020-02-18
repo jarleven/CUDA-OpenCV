@@ -51,9 +51,9 @@ alias python=python3
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
 sed -i '/alias python=python3/d' ~/.bashrc
-sed -i '/Add Python alias/d' ~/.bashrc
+sed -i '/#Add Python alias/d' ~/.bashrc
 
-echo 'Add Python alias' >> ~/.bashrc 
+echo '#Add Python alias' >> ~/.bashrc 
 echo 'alias python=python3' >> ~/.bashrc
 
 
