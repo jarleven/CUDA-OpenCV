@@ -54,6 +54,10 @@ case $OPENCV_SETUPSTATE in
     
     sudo apt upgrade -y
     sudo apt install -y vim vlc screen ssh
+    
+    sudo add-apt-repository -y ppa:graphics-drivers/ppa
+    sudo apt install -y nvidia-driver-440
+    
     sleep 10
     echo "Exit in 10 seconds"
 
