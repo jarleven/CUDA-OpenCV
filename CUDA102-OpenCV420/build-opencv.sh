@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir ~/opencv/build
+
 cd ~/opencv/build
 
 # Some applications have hardcoded links to example data files like samples/gpu/bgfg_segm.cpp 

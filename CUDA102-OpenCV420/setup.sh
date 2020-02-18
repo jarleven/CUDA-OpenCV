@@ -91,6 +91,7 @@ case $OPENCV_SETUPSTATE in
 
   3)
     echo -e "Install OpenCV requirements \n\n"
+    ./download-opencv.sh
     ./prepare-opencv.sh
 
     sudo apt update
