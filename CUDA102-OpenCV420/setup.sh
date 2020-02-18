@@ -61,9 +61,8 @@ case $OPENCV_SETUPSTATE in
     #sudo add-apt-repository -y ppa:graphics-drivers/ppa
     #sudo apt install -y nvidia-driver-440
     
-    sleep 10
     echo "Exit in 10 seconds"
-
+    sleep 10
     echo "OPENCV_SETUPSTATE="2"" > .setupstate
     sudo reboot
 
@@ -84,8 +83,8 @@ case $OPENCV_SETUPSTATE in
 
     sudo apt update
     sudo apt upgrade -y
-    sleep 10
     echo "Exit in 10 seconds"
+    sleep 10
     echo "OPENCV_SETUPSTATE="3"" > .setupstate
     sudo reboot
     ;;
@@ -97,8 +96,8 @@ case $OPENCV_SETUPSTATE in
 
     sudo apt update
     sudo apt upgrade -y
-    sleep 10
     echo "Exit in 10 seconds"
+    sleep 10
     echo "OPENCV_SETUPSTATE="4"" > .setupstate
     sudo reboot
 
@@ -109,8 +108,8 @@ case $OPENCV_SETUPSTATE in
     ./build-ffmpeg.sh
     sudo apt update
     sudo apt upgrade -y
-    sleep 10
     echo "Exit in 10 seconds"
+    sleep 10
     echo "OPENCV_SETUPSTATE="5"" > .setupstate
     sudo reboot
     ;;
@@ -122,8 +121,8 @@ case $OPENCV_SETUPSTATE in
     sudo apt autoremove -y
     sudo apt update
     sudo apt upgrade -y
-    sleep 10
     echo "Exit in 10 seconds"
+    sleep 10
     echo "OPENCV_SETUPSTATE="6"" > .setupstate
     sudo reboot
     ;;
@@ -140,7 +139,7 @@ case $OPENCV_SETUPSTATE in
     echo "Exit in 30 seconds"
     sleep 30
 
-    #TODO ADD
+    # TODO enable sudo password again
     # #includedir /etc/sudoers.d
     # jarleven ALL=(ALL) NOPASSWORD:ALL
 

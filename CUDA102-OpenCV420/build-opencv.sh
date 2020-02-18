@@ -3,6 +3,10 @@
 
 cd ~/opencv/build
 
+# Some applications have hardcoded links to example data files like samples/gpu/bgfg_segm.cpp 
+# Link in the sample data
+ln -s ~/opencv/samples/data/* ~/opencv/build/data/
+
 cmake \
     -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
