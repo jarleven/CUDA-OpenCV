@@ -118,3 +118,13 @@ git config --global user.name "Jarl Even Englund"
 sudo add-apt-repository ppa:graphics-drivers/ppa
 
 
+
+# 
+# lspci | grep -i GTX
+# 01:00.0 VGA compatible controller: NVIDIA Corporation GP106 [GeForce GTX 1060 3GB] (rev a1)
+
+#sudo apt install -y git wget
+# git clone
+# cd ~/CUDA
+# ./setup.sh
+

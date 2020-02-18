@@ -9,7 +9,7 @@
 
 # sudo apt-get upgrade -y
 
-cd /media/jarleven/NYTT\ VOLUM/
+cd /media/jarleven/CUDA/
 
 pwd
 
@@ -19,7 +19,7 @@ cp cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
 cd ~
 
-sudo apt install -y git
+cd ~&& sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup
 
 git config --global user.email "jarleven@gmail.com"
 git config --global user.name "Jarl Even Englund"

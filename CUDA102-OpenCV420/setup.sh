@@ -1,14 +1,5 @@
 #!/bin/bash
 
-# 
-# lspci | grep -i GTX
-# 01:00.0 VGA compatible controller: NVIDIA Corporation GP106 [GeForce GTX 1060 3GB] (rev a1)
-
-#sudo apt install -y git wget
-# git clone
-# cd ~/CUDA
-# ./setup.sh
-
 
 cd "$(dirname "$0")"
 source .setupstate
@@ -20,6 +11,17 @@ case $OPENCV_SETUPSTATE in
 
 
   1)
+  
+    # The files are locaded on a USB drive named CUDA
+    cp /media/jarleven/CUDA/Video_Codec_SDK_9.1.23.zip ~/
+    cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
+    cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
+  
+    # Just in case I need to modify something (Sorry)
+    git config --global user.email "jarleven@gmail.com"
+    git config --global user.name "Jarl Even Englund"
+
+  
 
     cp md5/*.md5 ~/
     echo -e "Check if you have all nonfree files and do first update of system\n\n"
@@ -35,13 +37,9 @@ case $OPENCV_SETUPSTATE in
 
     
     # Don't prompt for sudo password
-    #echo "# Added by OpenCV setup script" | (sudo su -c 'EDITOR="tee -a" visudo')
-    #echo "$USER ALL=(ALL) NOPASSWORD:ALL" | (sudo su -c 'EDITOR="tee -a" visudo')
     echo "# Added by OpenCV setup script" | sudo EDITOR='tee -a' visudo
     echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 
-#includedir /etc/sudoers.d
-#jarleven ALL=(ALL) NOPASSWD: ALL
 
 
 
@@ -60,8 +58,8 @@ case $OPENCV_SETUPSTATE in
     gsettings set org.gnome.desktop.session idle-delay 0
 
     
-    sudo add-apt-repository -y ppa:graphics-drivers/ppa
-    sudo apt install -y nvidia-driver-440
+    #sudo add-apt-repository -y ppa:graphics-drivers/ppa
+    #sudo apt install -y nvidia-driver-440
     
     sleep 10
     echo "Exit in 10 seconds"
@@ -75,11 +73,11 @@ case $OPENCV_SETUPSTATE in
 
   2)
     echo -e "Install CUDA and Graphics driver\n\n"
-    ./cuda-10-0.sh
+    ./cuda-10-2.sh
  
 
     echo -e "Install cuDNN\n\n"
-    ./cudnn-10-0.sh
+    ./cudnn-10-2.sh
 
 
 

@@ -1,12 +1,10 @@
 #!/bin/bash
 
 # CUDA 10.2
-# sudo apt --purge remove -y "*cublas*" "cuda*"
 
 sudo apt update
 sudo apt upgrade -y
 
-# cp cuda-10-2.md5 ~/
 cd ~
 
 if md5sum -c cuda-10-2.md5; then
@@ -34,9 +32,6 @@ sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
 echo 'Add CUDA environment' >> ~/.bashrc 
 echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 echo 'PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}' >> ~/.bashrc
-
-#export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}
-#export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 
 sudo apt update

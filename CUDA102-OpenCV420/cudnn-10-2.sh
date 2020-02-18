@@ -6,10 +6,7 @@
 # https://developer.nvidia.com/rdp/cudnn-download#a-collapse765-10
 
 
-#cp cudnn-10-2.md5 ~/
-
 cd ~
-
 
 while true
 do
@@ -20,7 +17,6 @@ do
 
         tar -zxf cudnn-10.2-linux-x64-v7.6.5.32.tgz
 
-        # tar -zxf  cudnn-10.0-linux-x64-v7.6.5.32.tgz
         cd cuda
         sudo cp -P lib64/* /usr/local/cuda-10.2/lib64/
         sudo cp -P include/* /usr/local/cuda-10.2/include/
