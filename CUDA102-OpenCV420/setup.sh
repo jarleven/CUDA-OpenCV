@@ -120,7 +120,7 @@ case $OPENCV_SETUPSTATE in
     echo -e "Build OpenCV \n\n"
     ./build-opencv.sh
 
-    sudo apt autoremove
+    sudo apt autoremove -y
     sudo apt update
     sudo apt upgrade -y
     sleep 10
