@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir ~/opencv/build
+
 cd ~/opencv/build
 
 cmake \
