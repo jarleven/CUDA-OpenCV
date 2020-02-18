@@ -55,6 +55,11 @@ case $OPENCV_SETUPSTATE in
     sudo apt upgrade -y
     sudo apt install -y vim vlc screen ssh
     
+    # Disable the powersaving, to keep track of the progress
+    gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
+    gsettings set org.gnome.desktop.session idle-delay 0
+
+    
     sudo add-apt-repository -y ppa:graphics-drivers/ppa
     sudo apt install -y nvidia-driver-440
     
