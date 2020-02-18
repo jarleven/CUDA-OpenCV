@@ -112,3 +112,9 @@ https://www.pyimagesearch.com/2016/07/11/compiling-opencv-with-cuda-support/
 
 
 
+git config --global user.email "jarleven@gmail.com" \
+git config --global user.name "Jarl Even Englund"
+
+sudo add-apt-repository ppa:graphics-drivers/ppa
+
+
