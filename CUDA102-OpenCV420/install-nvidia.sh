@@ -13,6 +13,8 @@ sleep 30
 sudo add-apt-repository ppa:graphics-drivers/ppa
 sudo apt install -y nvidia-driver-440
 
+#sudo apt install -y $SCRIPT_NVIDIAVER
+
 sudo apt-get update
 sudo reboot
 

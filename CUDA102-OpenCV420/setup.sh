@@ -5,10 +5,17 @@ cd "$(dirname "$0")"
 source .setupstate
 
 
-# We use theese variables 
+# We use theese variables thoughout the install process
 
+# TODO, why not just export ? We run this script every time the computer starts anyway.
+
+# TODO, Driver ver nvidia 
+# TODO, tensorflow ver ?
+# TODO, OpenCV ver 
 
 SCRIPT_CUDAVER="10.0"
+export SCRIPT_NVIDIAVER="nvidia-driver-440"
+
 
 echo "SCRIPT_CUDAVER=$SCRIPT_CUDAVER"" >> .scriptvars
 echo "SCRIPT_CUDAPATH="/usr/local/cuda-$SCRIPT_CUDAVER"" >> .scriptvars
