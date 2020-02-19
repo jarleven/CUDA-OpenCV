@@ -102,6 +102,16 @@ case $OPENCV_SETUPSTATE in
 
     # TODO remove .bashrc additions in case we run again
 
+
+    #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
+    sed -i '/#Add CUDA/d' ~/.bashrc
+    sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
+
+    echo '#Add CUDA environment' >> ~/.bashrc 
+    echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+    echo 'PATH=/usr/local/cuda-10.1/bin${PATH:+:${PATH}}' >> ~/.bashrc
+
+
     echo '#Add CUDA CUPTI environment' >> ~/.bashrc
     echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.1/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 

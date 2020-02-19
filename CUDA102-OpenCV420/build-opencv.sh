@@ -39,7 +39,7 @@ cmake \
     -D WITH_1394=OFF \
     -D WITH_NVCUVID=OFF \
     -D OPENCV_GENERATE_PKGCONFIG=ON \
-    -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
+    -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.1 \
     -D CUDA_ARCH_BIN="6.1" \
     -D CUDA_ARCH_PTX="6.1" \
     -D BUILD_EXAMPLES=ON \
