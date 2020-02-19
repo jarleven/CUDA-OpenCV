@@ -28,3 +28,7 @@ sleep 30
 cd ~/opencv/build/bin/
 ./example_gpu_bgfg_segm
 
+
+# https://stackoverflow.com/questions/52337791/verify-that-cublas-is-installed
+# You could copy an example of C code that uses cuBLAS from https://docs.nvidia.com/cuda/cublas/index.html and then try to compile it: nvcc cublas_test.c -o cublas_test.out -lcublas and then run it: ./cublas_test.out.
+

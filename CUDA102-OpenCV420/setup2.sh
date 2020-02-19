@@ -66,6 +66,10 @@ case $OPENCV_SETUPSTATE in
 
     # Install NVIDIA driver
     sudo apt install -y --no-install-recommends nvidia-driver-418
+    
+# FFMPEG instructions to test
+#    sudo apt-get install nvidia-kernel-source-430 nvidia-driver-430   from https://superuser.com/questions/1444978/using-ffmpeg-with-nvidia-gpu
+
 
     # Reboot. Check that GPUs are visible using the command: nvidia-smi
 

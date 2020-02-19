@@ -23,6 +23,3 @@ mv opencv_contrib-4.2.0 opencv_contrib
 mv opencv_extra-4.2.0 opencv_extra
 
 
-mkdir ~/opencv/build
-
-

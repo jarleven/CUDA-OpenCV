@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Tensorflow example part 1of2
+# https://www.tensorflow.org/install/gpu
+
 # Add NVIDIA package repositories
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
 sudo dpkg -i cuda-repo-ubuntu1804_10.1.243-1_amd64.deb
@@ -11,7 +14,12 @@ sudo apt-get update
 
 # Install NVIDIA driver
 sudo apt-get install -y --no-install-recommends nvidia-driver-418
+
 # Reboot. Check that GPUs are visible using the command: nvidia-smi
+
+# Tensorflow example part 2of2
+# https://www.tensorflow.org/install/gpu
+
 
 # Install development and runtime libraries (~4GB)
 sudo apt-get install -y --no-install-recommends \
@@ -27,7 +35,7 @@ sudo apt-get install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.1 \
 
 
 # Add to bashrc !
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 
 
 echo '#Add CUDA CUPTI environment' >> ~/.bashrc
