@@ -5,12 +5,21 @@
 # cuDNN
 # Video Codec
 
+# Copy all the md5 files so we can check them with ease later
+cp md5/*.md5 ~/
+
+# Assume we have the files
 MissingFiles=0
+
 
 cd ~
 
 if [ $SCRIPT_FFMPEG== "ON" ]
 then
+	# TODO be smarter than this.
+	# The files are locaded on a USB drive named CUDA
+    	cp /media/jarleven/CUDA/Video_Codec_SDK_9.1.23.zip ~/
+
 	if md5sum -c videocodecsdk.md5; then
 	    echo "Nvidia video Codec SDK already downloaded"
 	else
@@ -21,6 +30,10 @@ fi
 
 if [ SCRIPT_CUDAVER == "10.0" ]
 then
+	# TODO be smarter than this.
+	# The files are locaded on a USB drive named CUDA
+    	cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
+
 	if md5sum -c cudnn-10-0.md5; then
 	    # The MD5 sum matched
 	    echo "OK, found cuDNN files"
@@ -33,6 +46,9 @@ fi
 
 if [ SCRIPT_CUDAVER == "10.2" ]
 then
+	# TODO be smarter than this.
+	# The files are locaded on a USB drive named CUDA
+    	cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
 	if md5sum -c cudnn-10-2.md5; then
 	    # The MD5 sum matched

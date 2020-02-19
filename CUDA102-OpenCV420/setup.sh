@@ -2,32 +2,38 @@
 
 
 cd "$(dirname "$0")"
+
 source .setupstate
 
 
 # We use theese variables thoughout the install process
 
-# TODO, why not just export ? We run this script every time the computer starts anyway.
-
 # TODO, Driver ver nvidia 
 # TODO, tensorflow ver ?
 # TODO, OpenCV ver 
 
-SCRIPT_CUDAVER="10.0"
+export SCRIPT_CUDAVER="10.0"
 export SCRIPT_NVIDIAVER="nvidia-driver-440"
+export SCRIPT_CUDAPATH=/usr/local/cuda-$SCRIPT_CUDAVER
+export SCRIPT_FFMPEG="OFF"
+export SCRIPT_CUDA_ARCH_BIN="6.1"
+export SCRIPT_CUDA_ARCH_PTX="6.1"
 
 
-echo "SCRIPT_CUDAVER=$SCRIPT_CUDAVER"" >> .scriptvars
-echo "SCRIPT_CUDAPATH="/usr/local/cuda-$SCRIPT_CUDAVER"" >> .scriptvars
+
+#SCRIPT_CUDAVER="10.0"
+#export SCRIPT_NVIDIAVER="nvidia-driver-440"
+#echo "SCRIPT_CUDAVER=$SCRIPT_CUDAVER"" >> .scriptvars
+#echo "SCRIPT_CUDAPATH="/usr/local/cuda-$SCRIPT_CUDAVER"" >> .scriptvars
 #echo 'SCRIPT_CUDAPATH="/usr/local/cuda-10.0"' >> .scriptvars
-echo 'SCRIPT_FFMPEG="OFF"' >> .scriptvars
-echo 'SCRIPT_CUDA_ARCH_BIN="6.1"' >> .scriptvars
-echo 'SCRIPT_CUDA_ARCH_PTX="6.1"' >> .scriptvars
+#echo 'SCRIPT_FFMPEG="OFF"' >> .scriptvars
+#echo 'SCRIPT_CUDA_ARCH_BIN="6.1"' >> .scriptvars
+#echo 'SCRIPT_CUDA_ARCH_PTX="6.1"' >> .scriptvars
+#source .scriptvars
 
 # Check your GPU capability https://developer.nvidia.com/cuda-gpus
 
 
-source .scriptvars
 
 
 echo "We are at sate $OPENCV_SETUPSTATE "
@@ -39,11 +45,6 @@ case $OPENCV_SETUPSTATE in
   1)
     echo -e "Check if you have all nonfree files and do first update of system and install NVIDIA driver \n\n"
  
-    # TODO be smarter than this.
-    # The files are locaded on a USB drive named CUDA
-    cp /media/jarleven/CUDA/Video_Codec_SDK_9.1.23.zip ~/
-    cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
-    cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
     # Just in case I need to modify this repository (Sorry)
     if [ $USER == "jarleven" ]
@@ -53,9 +54,7 @@ case $OPENCV_SETUPSTATE in
 
     fi
    
-    # Copy all the md5 files so we can check them with ease later
-    cp md5/*.md5 ~/
- 
+
     # Check if we have the NVIDIA cuDNN files and Nvidia video Codec SDK files. 
     ./pre-start.sh
 
@@ -63,7 +62,7 @@ case $OPENCV_SETUPSTATE in
     if [ $retVal -eq 0 ]; then
         echo "NVIDIA files found"
     else
-        echo "NVIDIA files _NOT_ found. Please download the missing files and restart the script"
+        echo "\n\n\n NVIDIA files _NOT_ found. Please download the missing files and restart the script \n\n\n"
         exit
     fi
 
@@ -90,7 +89,7 @@ case $OPENCV_SETUPSTATE in
     install-nvidia.sh
 
 
-    echo "Exit in 10 seconds"
+    echo "Reboot in 10 seconds"
     sleep 10
     echo "OPENCV_SETUPSTATE="2"" > .setupstate
     sudo reboot
@@ -125,7 +124,7 @@ case $OPENCV_SETUPSTATE in
  
     sudo apt update
     sudo apt upgrade -y
-    echo "Exit in 10 seconds"
+    echo "Reboot in 10 seconds"
     sleep 10
     echo "OPENCV_SETUPSTATE="3"" > .setupstate
     sudo reboot
@@ -138,7 +137,7 @@ case $OPENCV_SETUPSTATE in
 
     sudo apt update
     sudo apt upgrade -y
-    echo "Exit in 10 seconds"
+    echo "Reboot in 10 seconds"
     sleep 10
     echo "OPENCV_SETUPSTATE="4"" > .setupstate
     sudo reboot
@@ -150,7 +149,7 @@ case $OPENCV_SETUPSTATE in
     ./build-ffmpeg.sh
     sudo apt update
     sudo apt upgrade -y
-    echo "Exit in 10 seconds"
+    echo "Reboot in 10 seconds"
     sleep 10
     echo "OPENCV_SETUPSTATE="5"" > .setupstate
     sudo reboot
@@ -160,10 +159,10 @@ case $OPENCV_SETUPSTATE in
     echo -e "Build OpenCV \n\n"
     ./build-opencv.sh
 
-    sudo apt autoremove -y
+    #sudo apt autoremove -y
     sudo apt update
     sudo apt upgrade -y
-    echo "Exit in 10 seconds"
+    echo "Reboot in 10 seconds"
     sleep 10
     echo "OPENCV_SETUPSTATE="6"" > .setupstate
     sudo reboot
