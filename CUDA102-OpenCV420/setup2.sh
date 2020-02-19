@@ -52,6 +52,8 @@ case $OPENCV_SETUPSTATE in
     echo -e "Install NVIDIA Graphics driver \n\n"
     sleep 10
     
+    # http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/
+    
     # Tensorflow example part 1of2
     # https://www.tensorflow.org/install/gpu
 
