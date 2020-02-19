@@ -6,9 +6,6 @@ mkdir ~/opencv/build
 
 cd ~/opencv/build
 
-# Some applications have hardcoded links to example data files like samples/gpu/bgfg_segm.cpp 
-# Link in the sample data
-ln -s ~/opencv/samples/data/* ~/opencv/build/data/
 
 cmake \
     -D CMAKE_BUILD_TYPE=RELEASE \
@@ -70,6 +67,11 @@ sudo make install
 
 #TODO I'm not certain, need to investigare
 sudo ldconfig
+
+# Some applications have hardcoded links to example data files like samples/gpu/bgfg_segm.cpp 
+# Link in the sample data
+ln -s ~/opencv/samples/data/* ~/opencv/build/data/
+
 
 # Setup the CUDA path's (FFMPEG would not compile without)
 
