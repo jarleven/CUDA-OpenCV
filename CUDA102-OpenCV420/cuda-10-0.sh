@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # CUDA 10.0
+# https://devtalk.nvidia.com/default/topic/1069698/cuda-setup-and-installation/installing-cuda-toolkit-10-0-on-ubuntu-18-results-in-black-boot-screen/
 
 sudo apt update
 sudo apt upgrade -y
@@ -15,15 +16,17 @@ else
     wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64
     wget http://developer.download.nvidia.com/compute/cuda/10.0/Prod/patches/1/cuda-repo-ubuntu1804-10-0-local-nvjpeg-update-1_1.0-1_amd64.deb
     mv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb
-
 fi
 
 sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb
 sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
 sudo apt-get update
 
-sudo apt-get install -y cuda-10-0
+# This is the essence, just install the toolkit. If you install cuda-10-0 then the drivers in the package are also installed!
+sudo apt-get install -y cuda-toolkit-10-0
+
 sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-nvjpeg-update-1_1.0-1_amd64.deb
+sudo apt update
 
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
@@ -35,6 +38,6 @@ echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_P
 echo 'PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}' >> ~/.bashrc
 
 
-sudo apt update
+
 sudo apt upgrade -y
 

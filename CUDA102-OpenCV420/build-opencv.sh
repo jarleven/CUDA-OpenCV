@@ -1,10 +1,24 @@
 #!/bin/bash
 
 
+# In case of rebuild, delete everything before building
 rm -rf ~/opencv/build
 mkdir ~/opencv/build
 
+source .scriptvars
+
+# A few variables we read from the .scriptvars
+#    -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.1 \
+#    -D CUDA_TOOLKIT_ROOT_DIR=$SCRIPTCUDAPATH \
+
+#    -D CUDA_ARCH_BIN="6.1" \
+#    -D CUDA_ARCH_PTX="6.1" \
+#    -D WITH_FFMPEG=OFF \
+
+
+# We build here
 cd ~/opencv/build
+
 
 
 cmake \
@@ -18,7 +32,7 @@ cmake \
     -D WITH_OPENCL=OFF \
     -D WITH_OPENGL=ON \
     -D WITH_OPENMP=OFF \
-    -D WITH_FFMPEG=OFF \
+    -D WITH_FFMPEG=$SCRIPT_FFMPEG \
     -D WITH_GSTREAMER=OFF \
     -D WITH_GSTREAMER_0_10=OFF \
     -D WITH_CUDA=ON \
@@ -36,9 +50,9 @@ cmake \
     -D WITH_1394=OFF \
     -D WITH_NVCUVID=OFF \
     -D OPENCV_GENERATE_PKGCONFIG=ON \
-    -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.1 \
-    -D CUDA_ARCH_BIN="6.1" \
-    -D CUDA_ARCH_PTX="6.1" \
+    -D CUDA_TOOLKIT_ROOT_DIR=$SCRIPT_CUDAPATH \
+    -D CUDA_ARCH_BIN=$SCRIPT_CUDA_ARCH_BIN \
+    -D CUDA_ARCH_PTX=$SCRIPT_CUDA_ARCH_PTX \
     -D BUILD_EXAMPLES=ON \
     -D INSTALL_C_EXAMPLES=ON \
     -D OPENCV_ENABLE_NONFREE=ON \
@@ -71,10 +85,4 @@ sudo ldconfig
 # Some applications have hardcoded links to example data files like samples/gpu/bgfg_segm.cpp 
 # Link in the sample data
 ln -s ~/opencv/samples/data/* ~/opencv/build/data/
-
-
-# Setup the CUDA path's (FFMPEG would not compile without)
-
-#export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-#export PATH="/usr/local/cuda/bin/:$PATH"
 
