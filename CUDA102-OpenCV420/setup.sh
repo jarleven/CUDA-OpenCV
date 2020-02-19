@@ -100,7 +100,7 @@ case $OPENCV_SETUPSTATE in
 
   2)
   
-    echo -e "Install CUDA and Graphics driver\n\n"
+    echo -e "Install CUDA\n\n"
   
     if [ SCRIPT_CUDAVER == "10.0" ]
     then
@@ -131,15 +131,24 @@ case $OPENCV_SETUPSTATE in
     ;;
 
   3)
-    echo -e "Install OpenCV requirements \n\n"
+    echo -e "Download OpenCV and install dependencies for building OpenCV \n\n"
     ./download-opencv.sh
     ./prepare-opencv.sh
 
     sudo apt update
     sudo apt upgrade -y
+    
+    
+    if [ $SCRIPT_FFMPEG== "ON" ]
+    then
+        echo "OPENCV_SETUPSTATE="4"" > .setupstate
+    else
+        echo "Skipping FFMPEG build"
+        echo "OPENCV_SETUPSTATE="5"" > .setupstate
+    fi
+
     echo "Reboot in 10 seconds"
     sleep 10
-    echo "OPENCV_SETUPSTATE="4"" > .setupstate
     sudo reboot
 
     ;;
@@ -180,9 +189,10 @@ case $OPENCV_SETUPSTATE in
     echo "Exit in 30 seconds"
     sleep 30
 
-    # TODO enable sudo password again
+    # TODO enable sudo password again remove the NOPASSWORD line for your user
+    # Run "sudo visudo"
     # #includedir /etc/sudoers.d
-    # jarleven ALL=(ALL) NOPASSWORD:ALL
+    # foobar ALL=(ALL) NOPASSWD: ALL
 
     ;;
 esac
