@@ -8,31 +8,18 @@ source .setupstate
 
 # We use theese variables thoughout the install process
 
-# TODO, Driver ver nvidia 
 # TODO, tensorflow ver ?
 # TODO, OpenCV ver 
 
+# Check your GPU capability https://developer.nvidia.com/cuda-gpus
+
 export SCRIPT_CUDAVER="10.0"
-export SCRIPT_NVIDIAVER="nvidia-driver-440"
-export SCRIPT_CUDAPATH=/usr/local/cuda-$SCRIPT_CUDAVER
+export SCRIPT_NVIDIAVER="440"
 export SCRIPT_FFMPEG="OFF"
 export SCRIPT_CUDA_ARCH_BIN="6.1"
 export SCRIPT_CUDA_ARCH_PTX="6.1"
 
-
-
-#SCRIPT_CUDAVER="10.0"
-#export SCRIPT_NVIDIAVER="nvidia-driver-440"
-#echo "SCRIPT_CUDAVER=$SCRIPT_CUDAVER"" >> .scriptvars
-#echo "SCRIPT_CUDAPATH="/usr/local/cuda-$SCRIPT_CUDAVER"" >> .scriptvars
-#echo 'SCRIPT_CUDAPATH="/usr/local/cuda-10.0"' >> .scriptvars
-#echo 'SCRIPT_FFMPEG="OFF"' >> .scriptvars
-#echo 'SCRIPT_CUDA_ARCH_BIN="6.1"' >> .scriptvars
-#echo 'SCRIPT_CUDA_ARCH_PTX="6.1"' >> .scriptvars
-#source .scriptvars
-
-# Check your GPU capability https://developer.nvidia.com/cuda-gpus
-
+export SCRIPT_CUDAPATH=/usr/local/cuda-$SCRIPT_CUDAVER
 
 
 
