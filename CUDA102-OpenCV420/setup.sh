@@ -43,7 +43,7 @@ case $OPENCV_SETUPSTATE in
     fi
    
 
-    # Check if we have the NVIDIA cuDNN files and Nvidia video Codec SDK files. 
+    # Check if we have the NVIDIA cuDNN files and NVIDIA video Codec SDK files. 
     ./pre-start.sh
 
     retVal=$?
@@ -60,18 +60,20 @@ case $OPENCV_SETUPSTATE in
     echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 
 
-    echo "Bootstrapping this script, will run on next login"
+    echo "Bootstrapping this script, so it will run on next boot"
     mkdir ~/.config/autostart
     cp opencv.desktop ~/.config/autostart/
+
+ 
+    # Disable the powersaving, to keep track of the progress when user is idle.
+    gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
+    gsettings set org.gnome.desktop.session idle-delay 0
 
 
     sudo apt update
     sudo apt upgrade -y
     sudo apt install -y vim vlc screen ssh
-    
-    # Disable the powersaving, to keep track of the progress when user is idle.
-    gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
-    gsettings set org.gnome.desktop.session idle-delay 0
+ 
 
     # Install NVIDIA driver from ppa:graphics-drivers/ppa
     install-nvidia.sh
