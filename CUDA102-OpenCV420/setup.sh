@@ -43,7 +43,8 @@ case $OPENCV_SETUPSTATE in
 
 
   1)
-    echo -e "Check if you have all nonfree files and do first update of system and install NVIDIA driver \n\n"
+    echo -e "Check if you have all nonfree files, do first update of system and install NVIDIA driver \n\n"
+    sleep 10
  
 
     # Just in case I need to modify this repository (Sorry)
@@ -101,6 +102,7 @@ case $OPENCV_SETUPSTATE in
   2)
   
     echo -e "Install CUDA\n\n"
+    sleep 10
   
     if [ SCRIPT_CUDAVER == "10.0" ]
     then
@@ -112,6 +114,7 @@ case $OPENCV_SETUPSTATE in
  
  
     echo -e "Install cuDNN\n\n"
+    sleep 10
 
     if [ SCRIPT_CUDAVER == "10.0" ]
     then
@@ -132,6 +135,8 @@ case $OPENCV_SETUPSTATE in
 
   3)
     echo -e "Download OpenCV and install dependencies for building OpenCV \n\n"
+    sleep 10
+
     ./download-opencv.sh
     ./prepare-opencv.sh
 
@@ -155,6 +160,8 @@ case $OPENCV_SETUPSTATE in
 
   4)
     echo -e "Build FFMPEG \n\n"
+    sleep 10
+
     ./build-ffmpeg.sh
     sudo apt update
     sudo apt upgrade -y
@@ -166,6 +173,8 @@ case $OPENCV_SETUPSTATE in
 
   5)
     echo -e "Build OpenCV \n\n"
+    sleep 10
+
     ./build-opencv.sh
 
     #sudo apt autoremove -y
@@ -178,8 +187,9 @@ case $OPENCV_SETUPSTATE in
     ;;
 
 
-  *)
-    echo -e "unknown install state \n\n"
+  6)
+    echo -e "Test OpenCV \n\n"
+    sleep 10
 
     ./versions.sh
     read  -n 1 -p "Input Selection:"
@@ -194,6 +204,11 @@ case $OPENCV_SETUPSTATE in
     # #includedir /etc/sudoers.d
     # foobar ALL=(ALL) NOPASSWD: ALL
 
+
+  *)
+    echo -e "unknown install state \n\n"
+    read  -n 1 -p "Input Selection:"
     ;;
+
 esac
 

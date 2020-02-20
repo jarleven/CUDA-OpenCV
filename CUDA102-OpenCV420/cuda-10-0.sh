@@ -3,6 +3,10 @@
 # CUDA 10.0
 # https://devtalk.nvidia.com/default/topic/1069698/cuda-setup-and-installation/installing-cuda-toolkit-10-0-on-ubuntu-18-results-in-black-boot-screen/
 
+# Tensorflow 
+# https://www.tensorflow.org/install/gpu
+
+
 sudo apt update
 sudo apt upgrade -y
 
@@ -22,7 +26,7 @@ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb
 sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub
 sudo apt-get update
 
-# This is the essence, just install the toolkit. If you install cuda-10-0 then the drivers in the package are also installed!
+# This is the essence, just install the toolkit. If you install cuda-10-0 then the NVIDIA driver in the package will be installed!
 sudo apt-get install -y cuda-toolkit-10-0
 
 sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-nvjpeg-update-1_1.0-1_amd64.deb
@@ -30,12 +34,14 @@ sudo apt update
 
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
-sed -i '/#Add CUDA environment/d' ~/.bashrc
+sed -i '/# Added by CUDA setupscript/d' ~/.bashrc
 sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
 
-echo '#Add CUDA environment' >> ~/.bashrc 
+echo '# Added by CUDA setupscript' >> ~/.bashrc 
 echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 echo 'PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}' >> ~/.bashrc
+
+#echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.0/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 
 
 
