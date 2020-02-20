@@ -6,10 +6,7 @@
 # https://developer.nvidia.com/rdp/cudnn-download#a-collapse765-10
 
 
-# cp cudnn-10-0.md5 ~/
-
 cd ~
-
 
 while true
 do

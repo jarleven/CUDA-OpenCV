@@ -1,11 +1,6 @@
 #!/bin/bash
 
 # CUDA 10.0
-# https://devtalk.nvidia.com/default/topic/1069698/cuda-setup-and-installation/installing-cuda-toolkit-10-0-on-ubuntu-18-results-in-black-boot-screen/
-
-# Tensorflow 
-# https://www.tensorflow.org/install/gpu
-
 
 sudo apt update
 sudo apt upgrade -y
@@ -42,6 +37,6 @@ echo 'PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}' >> ~/.bashrc
 #echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.0/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 
 
-
+sudo apt update
 sudo apt upgrade -y
 

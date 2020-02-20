@@ -4,6 +4,11 @@ jarleven@stue:~/opencv/samples/gpu$ nvcc bgfg_segm.cpp -o bgfg_segm `pkg-config 
 
 jarleven@stue:~/opencv/samples/gpu$ g++ -ggdb background_subtraction.cpp -o background_subtraction `pkg-config --cflags --libs opencv4` -I /usr/local/cuda/include/
 
+# https://devtalk.nvidia.com/default/topic/1069698/cuda-setup-and-installation/installing-cuda-toolkit-10-0-on-ubuntu-18-results-in-black-boot-screen/
+
+# Tensorflow 
+# https://www.tensorflow.org/install/gpu
+
 
 
 https://egpu.io/forums/pro-applications/easy-video-encoding-benchmark-test-your-gpu-within-seconds/

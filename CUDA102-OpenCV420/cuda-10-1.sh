@@ -2,8 +2,6 @@
 
 # CUDA 10.1
 
-# ubuntu-drivers devices
-
 sudo apt update
 sudo apt upgrade -y
 
