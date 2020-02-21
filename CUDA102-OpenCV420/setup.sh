@@ -92,27 +92,15 @@ case $OPENCV_SETUPSTATE in
   
     echo -e "Install CUDA\n\n"
     sleep 10
+	
+	./cuda-$SCRIPT_CUDAVER.sh
   
-    if [ SCRIPT_CUDAVER == "10.0" ]
-    then
-        ./cuda-10-0.sh
-    elif [ SCRIPT_CUDAVER == "10.2" ]
-    then
-        ./cuda-10-2.sh
-    fi
- 
  
     echo -e "Install cuDNN\n\n"
     sleep 10
-
-    if [ SCRIPT_CUDAVER == "10.0" ]
-    then
-        ./cudnn-10-0.sh
-    elif [ SCRIPT_CUDAVER == "10.2" ]
-    then
-        ./cudnn-10-2.sh
-    fi     
-     
+	
+	./cudnn-$SCRIPT_CUDAVER.sh
+    
  
     sudo apt update
     sudo apt upgrade -y
