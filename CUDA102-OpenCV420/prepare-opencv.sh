@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Keep this file clean with the following check to remove duplicates
+# Keep this file clean with the following check, it will list duplicates.
 # sed s/' '/\\n/g prepare-opencv.sh | sort | uniq -c | sort -n
 
 cd ~
@@ -50,10 +50,10 @@ sudo apt install -y libhdf5-serial-dev
 alias python=python3
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
+sed -i '/# Add Python alias/d' ~/.bashrc
 sed -i '/alias python=python3/d' ~/.bashrc
-sed -i '/#Add Python alias/d' ~/.bashrc
 
-echo '#Add Python alias' >> ~/.bashrc 
+echo '# Add Python alias' >> ~/.bashrc 
 echo 'alias python=python3' >> ~/.bashrc
 
 

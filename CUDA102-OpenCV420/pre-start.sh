@@ -20,12 +20,11 @@ cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
 cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
 
-
 if [ $SCRIPT_FFMPEG== "ON" ]
 then
 	# TODO be smarter than this.
 	# The files are locaded on a USB drive named CUDA
-    	cp /media/jarleven/CUDA/Video_Codec_SDK_9.1.23.zip ~/
+    cp /media/jarleven/CUDA/Video_Codec_SDK_9.1.23.zip ~/
 
 	if md5sum -c videocodecsdk.md5; then
 	    echo "Nvidia video Codec SDK already downloaded"

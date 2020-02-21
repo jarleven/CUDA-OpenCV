@@ -33,9 +33,8 @@ cd ~
 
 videocodecsdk.md5
 if md5sum -c videocodecsdk.md5; then
-    echo "Nvidia video Codec SDK already downloaded"
+    echo "OK, NVIDIA video Codec SDK found"
 else
-
     echo "Videocodec needed!"
 fi
 
@@ -64,6 +63,7 @@ cd ~
 if md5sum -c ffmpeg-$SCRIPT_FFMPEGVER.md5; then
     echo "FFMPEG already downloaded"
 else
+    echo "Download FFMPEG"
     # From https://www.ffmpeg.org/download.html
     wget https://ffmpeg.org/releases/ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2
 	md5sum ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2 > ffmpeg-$SCRIPT_FFMPEGVER.md5
@@ -84,4 +84,3 @@ make -j$(nproc)
 
 sudo make install
 sudo make install-libs
-
