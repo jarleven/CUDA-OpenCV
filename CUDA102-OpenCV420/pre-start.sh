@@ -14,6 +14,13 @@ MissingFiles=0
 
 cd ~
 
+
+# TODO the USB should have a folder named CUDA-files
+cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
+cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
+
+
+
 if [ $SCRIPT_FFMPEG== "ON" ]
 then
 	# TODO be smarter than this.
@@ -28,36 +35,15 @@ then
 	fi
 fi
 
-if [ SCRIPT_CUDAVER == "10.0" ]
-then
-	# TODO be smarter than this.
-	# The files are locaded on a USB drive named CUDA
-    	cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
 
-	if md5sum -c cudnn-10-0.md5; then
-	    # The MD5 sum matched
-	    echo "OK, found cuDNN files"
-	else
-	    echo "cuDNN installer not found, please download from link below"
-	    echo "https://developer.nvidia.com/rdp/cudnn-download"
-	    MissingFiles=1
-	fi
+if md5sum -c cudnn-$SCRIPT_CUDAVER.md5; then
+	# The MD5 sum matched
+	echo "OK, found cuDNN file"
+else
+	echo "cuDNN installer not found, please download from link below"
+	echo "https://developer.nvidia.com/rdp/cudnn-download"
+	MissingFiles=1
 fi
 
-if [ SCRIPT_CUDAVER == "10.2" ]
-then
-	# TODO be smarter than this.
-	# The files are locaded on a USB drive named CUDA
-    	cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
-
-	if md5sum -c cudnn-10-2.md5; then
-	    # The MD5 sum matched
-	    echo "OK, found cuDNN files"
-	else
-	    echo "cuDNN installer not found, please download from link below"
-	    echo "https://developer.nvidia.com/rdp/cudnn-download"
-	    MissingFiles=1
-	fi
-fi
 
 exit $MissingFiles
