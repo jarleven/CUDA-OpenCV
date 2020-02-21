@@ -64,7 +64,7 @@ sudo -H python3 get-pip.py
 sudo apt install -y python3-dev python3-tk python-imaging-tk
 
 pip install numpy
-pip install tensorflow-gpu==2.0.0
+pip install tensorflow-gpu==$SCRIPT_TENSORFLOWVER
 
 
 pip install opencv-contrib-python

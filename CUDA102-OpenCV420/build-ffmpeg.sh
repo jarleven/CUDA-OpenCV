@@ -7,7 +7,7 @@
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
 
-# TODO Is FFMPEG istalled in Ubuntu 18.04
+# TODO is FFMPEG installed in Ubuntu 18.04
 sudo apt-get --purge remove -y ffmpeg
 sudo apt -y remove x264 libx264-dev
 
@@ -61,17 +61,19 @@ sudo ldconfig
 
 
 cd ~
-if md5sum -c ffmpeg.md5; then
+if md5sum -c ffmpeg-$SCRIPT_FFMPEGVER.md5; then
     echo "FFMPEG already downloaded"
 else
     # From https://www.ffmpeg.org/download.html
-    wget https://ffmpeg.org/releases/ffmpeg-4.2.2.tar.bz2
+    wget https://ffmpeg.org/releases/ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2
+	md5sum ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2 > ffmpeg-$SCRIPT_FFMPEGVER.md5
+	# TODO copy the md5 file to the script folder
 fi
 
 
-tar xjf ffmpeg-4.2.2.tar.bz2
+tar xjf ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2
 
-cd ffmpeg-4.2.2/
+cd ffmpeg-$SCRIPT_FFMPEGVER/
 
 make clean
 

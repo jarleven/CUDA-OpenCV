@@ -3,6 +3,7 @@
 
 cd "$(dirname "$0")"
 
+# Load the state for our statemachine
 source .setupstate
 
 
@@ -15,6 +16,7 @@ source .setupstate
 
 export SCRIPT_CUDAVER="10.0"
 export SCRIPT_NVIDIAVER="440"
+export SCRIPT_TENSORFLOWVER="2.0.0"
 export SCRIPT_FFMPEG="OFF"
 export SCRIPT_CUDA_ARCH_BIN="6.1"
 export SCRIPT_CUDA_ARCH_PTX="6.1"
@@ -117,10 +119,7 @@ case $OPENCV_SETUPSTATE in
     ./download-opencv.sh
     ./prepare-opencv.sh
 
-    sudo apt update
-    sudo apt upgrade -y
-    
-    
+
     if [ $SCRIPT_FFMPEG== "ON" ]
     then
         echo "OPENCV_SETUPSTATE="4"" > .setupstate
@@ -129,6 +128,8 @@ case $OPENCV_SETUPSTATE in
         echo "OPENCV_SETUPSTATE="5"" > .setupstate
     fi
 
+    sudo apt update
+    sudo apt upgrade -y
     echo "Reboot in 10 seconds"
     sleep 10
     sudo reboot
@@ -140,6 +141,7 @@ case $OPENCV_SETUPSTATE in
     sleep 10
 
     ./build-ffmpeg.sh
+
     sudo apt update
     sudo apt upgrade -y
     echo "Reboot in 10 seconds"
