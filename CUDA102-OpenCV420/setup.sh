@@ -8,24 +8,19 @@ source .setupstate
 
 
 # We use theese variables thoughout the install process
-
-# TODO, tensorflow ver ?
-# TODO, OpenCV ver 
-
-# Check your GPU capability https://developer.nvidia.com/cuda-gpus
-
 export SCRIPT_CUDAVER="10.0"
 export SCRIPT_NVIDIAVER="440"
 export SCRIPT_TENSORFLOWVER="2.0.0"
 export SCRIPT_FFMPEG="OFF"
-export SCRIPT_CUDA_ARCH_BIN="6.1"
-export SCRIPT_CUDA_ARCH_PTX="6.1"
+export SCRIPT_FFMPEGVER="4.2.2"
+export SCRIPT_CUDA_ARCH_BIN="6.1"		#  YOUR GPU ARCHITECTURE GTX 1060 is 6.1
+export SCRIPT_CUDA_ARCH_PTX="6.1"		#  Check your GPU capability https://developer.nvidia.com/cuda-gpus
 
 export SCRIPT_CUDAPATH=/usr/local/cuda-$SCRIPT_CUDAVER
 
 
 
-echo "We are at sate $OPENCV_SETUPSTATE "
+echo "We are at state $OPENCV_SETUPSTATE "
 sleep 3
 
 case $OPENCV_SETUPSTATE in
@@ -35,13 +30,14 @@ case $OPENCV_SETUPSTATE in
     echo -e "Check if you have all nonfree files, do first update of system and install NVIDIA driver \n\n"
     sleep 10
  
+    sudo apt install -y vim vlc screen ssh
+
 
     # Just in case I need to modify this repository (Sorry)
     if [ $USER == "jarleven" ]
     then
         git config --global user.email "jarleven@gmail.com"
         git config --global user.name "Jarl Even Englund"
-
     fi
    
 
@@ -67,14 +63,13 @@ case $OPENCV_SETUPSTATE in
     cp opencv.desktop ~/.config/autostart/
 
  
-    # Disable the powersaving, to keep track of the progress when user is idle.
+    # Disable the powersaving to keep track of the install progress when user is idle.
     gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
     gsettings set org.gnome.desktop.session idle-delay 0
 
 
     sudo apt update
     sudo apt upgrade -y
-    sudo apt install -y vim vlc screen ssh
  
 
     # Install NVIDIA driver from ppa:graphics-drivers/ppa
@@ -112,6 +107,7 @@ case $OPENCV_SETUPSTATE in
     sudo reboot
     ;;
 
+
   3)
     echo -e "Download OpenCV and install dependencies for building OpenCV \n\n"
     sleep 10
@@ -136,6 +132,7 @@ case $OPENCV_SETUPSTATE in
 
     ;;
 
+
   4)
     echo -e "Build FFMPEG \n\n"
     sleep 10
@@ -149,6 +146,7 @@ case $OPENCV_SETUPSTATE in
     echo "OPENCV_SETUPSTATE="5"" > .setupstate
     sudo reboot
     ;;
+
 
   5)
     echo -e "Build OpenCV \n\n"
@@ -171,6 +169,8 @@ case $OPENCV_SETUPSTATE in
     sleep 10
 
     ./versions.sh
+	
+	# Stop here and wait for the user.
     read  -n 1 -p "Input Selection:"
 
     rm ~/.config/autostart/opencv.desktop
@@ -182,7 +182,8 @@ case $OPENCV_SETUPSTATE in
     # Run "sudo visudo"
     # #includedir /etc/sudoers.d
     # foobar ALL=(ALL) NOPASSWD: ALL
-
+    ;;
+	
 
   *)
     echo -e "unknown install state \n\n"
