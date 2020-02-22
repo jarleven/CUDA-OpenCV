@@ -27,6 +27,6 @@ Please no not run this on any critical systems or any system containing importan
 
 ```
 
-cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup2.sh
+cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup.sh
 
 ```
