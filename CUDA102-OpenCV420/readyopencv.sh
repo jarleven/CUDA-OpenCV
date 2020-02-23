@@ -9,13 +9,14 @@
 
 # sudo apt-get upgrade -y
 
-cd /media/jarleven/CUDA/
+echo "Copy files form USB"
+cp /media/jarleven/CUDA/CUDAFILES/* ~/
 
-pwd
-
-cp Video_Codec_SDK_9.1.23.zip ~/
-cp cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
-cp cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
+#pwd
+#
+#cp Video_Codec_SDK_9.1.23.zip ~/
+#cp cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
+#cp cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
 cd ~
 

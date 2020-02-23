@@ -24,6 +24,13 @@ ffmpeg -version
 echo -e "\n\n\n    ---------------------   Tensorflow         ---------------------   "
 python3 -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 
+echo -e "\n\n\n    ---------------------   cuDNN              ---------------------   "
+cd  $HOME/cudnn_samples_v7/mnistCUDNN
+./mnistCUDNN
+sleep 10
+
+echo -e "\n\n\n    ---------------------   GPU bgfg           ---------------------   "
+
 sleep 30
 cd ~/opencv/build/bin/
 ./example_gpu_bgfg_segm
