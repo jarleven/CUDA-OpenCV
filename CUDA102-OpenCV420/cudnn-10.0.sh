@@ -40,6 +40,8 @@ sleep 10
 
 
 
+sudo apt update
+sudo apt upgrade -y
 
 
 

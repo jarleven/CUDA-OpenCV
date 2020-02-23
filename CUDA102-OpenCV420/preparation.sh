@@ -32,6 +32,8 @@ cp opencv.desktop ~/.config/autostart/
 gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
 gsettings set org.gnome.desktop.session idle-delay 0
 
+
+# Upgrade the system
 sudo apt update
 sudo apt upgrade -y
 

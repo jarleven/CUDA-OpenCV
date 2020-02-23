@@ -1,0 +1,18 @@
+
+
+
+https://github.com/tensorflow/models/tree/1af55e018eebce03fb61bba9959a04672536107d
+
+
+research/object_detection/data/oid_bbox_trainable_label_map.pbtxt
+  name: "/m/020lf"
+  id: 347
+  display_name: "Mouse"
+}
+item {
+  name: "/m/0by6g"
+  id: 348
+  display_name: "Shark"
+  
+  
+  

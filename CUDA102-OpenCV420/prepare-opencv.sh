@@ -116,6 +116,8 @@ pip install tensorflow-gpu==$SCRIPT_TENSORFLOWVER
 #pip install pandas
 
 
+sudo apt update
+sudo apt upgrade -y
 
 
 
