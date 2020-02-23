@@ -5,6 +5,10 @@
 # Link to cuDNN for CUDA 10.0
 # https://developer.nvidia.com/rdp/cudnn-download#a-collapse765-10
 
+# Links for deb files
+#https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/
+
+
 source .setupvars
 
 cd ~
@@ -19,6 +23,8 @@ sudo dpkg -i libcudnn7-dev_7.6.4.38-1+cuda10.0_amd64.deb
 sudo dpkg -i libcudnn7-doc_7.6.4.38-1+cuda10.0_amd64.deb
 
 
+sudo dpkg -i cuda-cublas-10-0_10.0.130-1_amd64.deb 
+sudo dpkg -i cuda-cublas-dev-10-0_10.0.130-1_amd64.deb 
 
 
 
@@ -26,6 +32,8 @@ cp -r /usr/src/cudnn_samples_v7/ $HOME
 cd  $HOME/cudnn_samples_v7/mnistCUDNN
 make clean && make
 ./mnistCUDNN
+
+sleep 10
 
 # TDOD we can test that this command was OK
 

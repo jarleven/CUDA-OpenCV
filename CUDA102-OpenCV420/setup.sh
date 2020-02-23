@@ -22,7 +22,6 @@ case $OPENCV_SETUPSTATE in
  
     sudo apt install -y vim vlc screen ssh
 
-
     # Just in case I need to modify this repository (Sorry)
     if [ $USER == "jarleven" ]
     then
