@@ -7,7 +7,7 @@ sudo apt upgrade -y
 
 cd ~
 
-if md5sum -c cuda-10-0.md5; then
+if md5sum -c cuda-$SCRIPT_CUDAVER.md5; then
     echo "CUDA 10.0 already downloaded"
 else
     echo "Get the CUDA 10.0 files from NVIDIA"

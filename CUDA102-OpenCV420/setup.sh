@@ -6,17 +6,7 @@ cd "$(dirname "$0")"
 # Load the state for our statemachine
 source .setupstate
 
-
-# We use theese variables thoughout the install process
-export SCRIPT_CUDAVER="10.0"
-export SCRIPT_NVIDIAVER="440"
-export SCRIPT_TENSORFLOWVER="2.1.0"
-export SCRIPT_FFMPEG="OFF"
-export SCRIPT_FFMPEGVER="4.2.2"
-export SCRIPT_CUDA_ARCH_BIN="6.1"		#  YOUR GPU ARCHITECTURE GTX 1060 is 6.1
-export SCRIPT_CUDA_ARCH_PTX="6.1"		#  Check your GPU capability https://developer.nvidia.com/cuda-gpus
-
-export SCRIPT_CUDAPATH=/usr/local/cuda-$SCRIPT_CUDAVER
+source .setupvars
 
 
 
@@ -27,7 +17,7 @@ case $OPENCV_SETUPSTATE in
 
 
   1)
-    echo -e "Check if you have all nonfree files, do first update of system and install NVIDIA driver \n\n"
+    echo -e "Check if you have all nonfree files and do first update of system \n\n"
     sleep 10
  
     sudo apt install -y vim vlc screen ssh
@@ -71,9 +61,25 @@ case $OPENCV_SETUPSTATE in
     sudo apt update
     sudo apt upgrade -y
  
+    echo "Reboot in 10 seconds"
+    sleep 10
+    echo "OPENCV_SETUPSTATE="11"" > .setupstate
+    sudo reboot
+
+
+    ;;
+
+
+  11)
+    echo -e "Install NVIDIA driver \n\n"
+    sleep 10
+ 
+    sudo apt update
+    sudo apt upgrade -y
+ 
 
     # Install NVIDIA driver from ppa:graphics-drivers/ppa
-    install-nvidia.sh
+    ./install-nvidia.sh
 
     sudo apt update
     sudo apt upgrade -y

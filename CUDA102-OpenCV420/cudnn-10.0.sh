@@ -11,7 +11,7 @@ cd ~
 while true
 do
 
-    if md5sum -c cudnn-10-0.md5; then
+    if md5sum -c cudnn-10.0.md5; then
         # The MD5 sum matched
         echo "OK, found cuDNN files"
 

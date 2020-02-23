@@ -20,7 +20,7 @@ cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
 cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
 
-if [ $SCRIPT_FFMPEG== "ON" ]
+if [ $SCRIPT_FFMPEG == "ON" ]
 then
 	# TODO be smarter than this.
 	# The files are locaded on a USB drive named CUDA

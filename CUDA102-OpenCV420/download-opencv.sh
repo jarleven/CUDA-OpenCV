@@ -2,8 +2,10 @@
 
 # Download OpenCV
 
-cp opencv.md5 ~/
+#cp opencv.md5 ~/
+
 cd ~
+
 if md5sum -c opencv.md5; then
     echo "OpenCV already downloaded"
 else

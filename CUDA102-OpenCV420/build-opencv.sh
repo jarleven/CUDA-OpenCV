@@ -2,23 +2,27 @@
 
 
 # In case of rebuild, delete everything before building
-rm -rf ~/opencv/build
+sudo rm -rf ~/opencv/build
 mkdir ~/opencv/build
 
-source .scriptvars
-
-# A few variables we read from the .scriptvars
-#    -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.1 \
-#    -D CUDA_TOOLKIT_ROOT_DIR=$SCRIPTCUDAPATH \
-
-#    -D CUDA_ARCH_BIN="6.1" \
-#    -D CUDA_ARCH_PTX="6.1" \
-#    -D WITH_FFMPEG=OFF \
-
+source .setupvars
 
 # We build here
 cd ~/opencv/build
 
+# The following NEW packages will be installed:
+#  libatk-bridge2.0-dev libatspi2.0-dev libdbus-1-dev libepoxy-dev libgtk-3-dev
+#  libxkbcommon-dev libxtst-dev wayland-protocols x11proto-record-dev
+
+# $ sudo apt-get install build-essential cmake unzip pkg-config
+# $ sudo apt-get install libjpeg-dev libpng-dev libtiff-dev
+# $ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev
+# $ sudo apt-get install libv4l-dev libxvidcore-dev libx264-dev
+# $ sudo apt-get install libgtk-3-dev
+# $ sudo apt-get install libatlas-base-dev gfortran
+# $ sudo apt-get install python3-dev
+
+# python yolo_object_detection.py --input ../example_videos/janie.mp4 --output ../output_videos/yolo_janie.avi --yolo yolo-coco --display 0 --use-gpu 1
 
 
 cmake \
@@ -36,10 +40,11 @@ cmake \
     -D WITH_GSTREAMER=OFF \
     -D WITH_GSTREAMER_0_10=OFF \
     -D WITH_CUDA=ON \
+    -D ENABLE_FAST_MATH=1 \
     -D CUDA_FAST_MATH=1 \
     -D CUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
-    -D ENABLE_FAST_MATH=1 \
     -D WITH_CUBLAS=1 \
+    -D WITH_CUDNN=ON \
     -D OPENCV_DNN_CUDA=ON \
     -D WITH_CUFFT=1 \
     -D WITH_GTK=ON \
@@ -54,17 +59,16 @@ cmake \
     -D CUDA_ARCH_BIN=$SCRIPT_CUDA_ARCH_BIN \
     -D CUDA_ARCH_PTX=$SCRIPT_CUDA_ARCH_PTX \
     -D BUILD_EXAMPLES=ON \
-    -D INSTALL_C_EXAMPLES=ON \
+    -D INSTALL_C_EXAMPLES=OFF \
     -D OPENCV_ENABLE_NONFREE=ON \
     -D BUILD_opencv_java=OFF \
-    -D BUILD_NEW_PYTHON_SUPPORT=ON \
-    -D BUILD_opencv_python3=ON \
     -D HAVE_opencv_python3=ON \
-    -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
+    -D PYTHON_EXECUTABLE=$(which python3) \
     -D OPENCV_ENABLE_NONFREE=ON \
     -D INSTALL_TESTS=ON \
-    -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules .. \
-    -D OPENCV_TEST_DATA_PATH=../opencv_extra/testdata \
+    -D ENABLE_CONTRIB=1 \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+    -D OPENCV_TEST_DATA_PATH=~/opencv_extra/testdata \
     ..
 
 
@@ -85,4 +89,8 @@ sudo ldconfig
 # Some applications have hardcoded links to example data files like samples/gpu/bgfg_segm.cpp 
 # Link in the sample data
 ln -s ~/opencv/samples/data/* ~/opencv/build/data/
+
+# cd ~/.virtualenvs/opencv_cuda/lib/python3.6/site-packages/
+# ln -s /usr/local/lib/python3.6/site-packages/cv2/python-3.6/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
+
 
