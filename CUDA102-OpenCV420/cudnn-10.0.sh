@@ -5,6 +5,7 @@
 # Link to cuDNN for CUDA 10.0
 # https://developer.nvidia.com/rdp/cudnn-download#a-collapse765-10
 
+source .setupvars
 
 cd ~
 

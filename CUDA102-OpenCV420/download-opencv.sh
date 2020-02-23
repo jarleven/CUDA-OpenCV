@@ -2,7 +2,7 @@
 
 # Download OpenCV
 
-#cp opencv.md5 ~/
+source .setupvars
 
 cd ~
 

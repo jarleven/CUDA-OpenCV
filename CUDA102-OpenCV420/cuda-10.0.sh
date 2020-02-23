@@ -2,8 +2,8 @@
 
 # CUDA 10.0
 
-sudo apt update
-sudo apt upgrade -y
+
+source .setupvars
 
 cd ~
 

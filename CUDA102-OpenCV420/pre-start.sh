@@ -8,16 +8,20 @@
 # Copy all the md5 files so we can check them with ease later
 cp md5/*.md5 ~/
 
+source .setupvars
+
 # Assume we have the files
 MissingFiles=0
 
+echo "Copy files form USB"
+cp /media/jarleven/CUDA/CUDAFILES/* ~/
 
 cd ~
 
 
 # TODO the USB should have a folder named CUDA-files
-cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
-cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
+#cp /media/jarleven/CUDA/cudnn-10.0-linux-x64-v7.6.5.32.tgz ~/
+#cp /media/jarleven/CUDA/cudnn-10.2-linux-x64-v7.6.5.32.tgz ~/
 
 
 if [ $SCRIPT_FFMPEG == "ON" ]
