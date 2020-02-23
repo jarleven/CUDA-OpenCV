@@ -10,6 +10,15 @@ source .setupstate
 source .setupvars
 
 
+
+#alias python=python3
+
+#export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+#export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+#export LD_LIBRARY_PATH=/usr/local/cuda-10.0/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+
+
 echo "We are at state $OPENCV_SETUPSTATE "
 sleep 3
 
