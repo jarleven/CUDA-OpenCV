@@ -15,4 +15,5 @@ ubuntu-drivers devices
 sleep 30
 
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
+sudo apt update
 sudo apt install -y nvidia-driver-$SCRIPT_NVIDIAVER
