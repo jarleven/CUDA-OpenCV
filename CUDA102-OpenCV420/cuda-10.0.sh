@@ -3,11 +3,9 @@
 # CUDA 10.0
 
 
-source .setupvars
-
 cd ~
 
-if md5sum -c cuda-$SCRIPT_CUDAVER.md5; then
+if md5sum -c cuda-10.0.md5; then
     echo "CUDA 10.0 already downloaded"
 else
     echo "Get the CUDA 10.0 files from NVIDIA"
@@ -27,14 +25,17 @@ sudo apt update
 
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
-sed -i '/# Added by CUDA setupscript/d' ~/.bashrc
-sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
+# sed -i '/# Added by CUDA setupscript/d' ~/.bashrc
+# sed -i '/\/usr\/local\/cuda/d' ~/.bashrc
 
+echo ' ' >> ~/.bashrc
 echo '# Added by CUDA setupscript' >> ~/.bashrc 
+echo ' ' >> ~/.bashrc
 echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
 echo 'PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}' >> ~/.bashrc
-
 echo 'LD_LIBRARY_PATH=/usr/local/cuda-10.0/extras/CUPTI/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+echo ' ' >> ~/.bashrc
+echo ' ' >> ~/.bashrc
 
 
 sudo apt update

@@ -81,15 +81,15 @@ sudo apt install -y python3-testresources
 
 
 #### In case you run the script multiple times remove the stuff potentially added in bashrc ....
-sed -i '/# Add Python alias/d' ~/.bashrc
-sed -i '/alias python=python3/d' ~/.bashrc
+#sed -i '/# Add Python alias/d' ~/.bashrc
+#sed -i '/alias python=python3/d' ~/.bashrc
 
-echo '# Add Python alias' >> ~/.bashrc 
-echo 'alias python=python3' >> ~/.bashrc
+#echo '# Add Python alias' >> ~/.bashrc 
+#echo 'alias python=python3' >> ~/.bashrc
 
 #TODO verify
-sed -i '/"$HOME/.local/bin/:$PATH"/d' ~/.bashrc
-echo 'PATH="$HOME/.local/bin/:$PATH"' >> ~/.bashrc
+#sed -i '/"$HOME/.local/bin/:$PATH"/d' ~/.bashrc
+#echo 'PATH="$HOME/.local/bin/:$PATH"' >> ~/.bashrc
 
 
 
@@ -104,16 +104,16 @@ pip install tensorflow-gpu==$SCRIPT_TENSORFLOWVER
 
 
 # pip install opencv-contrib-python
-pip install scikit-image
-pip install pillow
-pip install imutils
-pip install pylint
+#pip install scikit-image
+#pip install pillow
+#pip install imutils
+#pip install pylint
 
-pip install scikit-learn
-pip install matplotlib
-pip install progressbar2
-pip install beautifulsoup4
-pip install pandas
+#pip install scikit-learn
+#pip install matplotlib
+#pip install progressbar2
+#pip install beautifulsoup4
+#pip install pandas
 
 
 

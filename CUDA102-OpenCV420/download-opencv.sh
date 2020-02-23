@@ -2,7 +2,6 @@
 
 # Download OpenCV
 
-source .setupvars
 
 cd ~
 

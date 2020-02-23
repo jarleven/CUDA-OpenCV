@@ -9,7 +9,7 @@
 #https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/
 
 
-source .setupvars
+# source .setupvars
 
 cd ~
 
