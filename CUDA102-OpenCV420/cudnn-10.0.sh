@@ -9,11 +9,17 @@ source .setupvars
 
 cd ~
 
-sudo dpkg -i libcudnn7_7.6.5.32-1+cuda10.0_amd64.deb
+#sudo dpkg -i libcudnn7_7.6.5.32-1+cuda10.0_amd64.deb
+#sudo dpkg -i libcudnn7-dev_7.6.5.32-1+cuda10.0_amd64.deb 
+#sudo dpkg -i libcudnn7-doc_7.6.5.32-1+cuda10.0_amd64.deb 
 
-sudo dpkg -i libcudnn7-dev_7.6.5.32-1+cuda10.0_amd64.deb 
 
-sudo dpkg -i libcudnn7-doc_7.6.5.32-1+cuda10.0_amd64.deb 
+sudo dpkg -i libcudnn7_7.6.4.38-1+cuda10.0_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.6.4.38-1+cuda10.0_amd64.deb
+sudo dpkg -i libcudnn7-doc_7.6.4.38-1+cuda10.0_amd64.deb
+
+
+
 
 
 cp -r /usr/src/cudnn_samples_v7/ $HOME
