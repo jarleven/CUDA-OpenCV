@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+
+# We use theese variables thoughout the install process
+SCRIPT_CUDAVER="10.0"
+SCRIPT_NVIDIAVER="418"
+SCRIPT_TENSORFLOWVER="2.0.0"
+SCRIPT_FFMPEG="OFF"
+SCRIPT_FFMPEGVER="4.2.2"
+export SCRIPT_CUDA_ARCH_BIN="6.1"
+export SCRIPT_CUDA_ARCH_PTX="7.0"
+
+export SCRIPT_CUDAPATH=/usr/local/cuda-$SCRIPT_CUDAVER
+
+
+
