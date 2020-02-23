@@ -10,9 +10,10 @@ source .setupvars
 cd ~
 
 echo "What drivers are available ?  Just for information."
-sleep 10
 ubuntu-drivers devices
 sleep 30
+
+echo "Adding PPA and installing nvidia-driver-$SCRIPT_NVIDIAVER"
 
 sudo add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
