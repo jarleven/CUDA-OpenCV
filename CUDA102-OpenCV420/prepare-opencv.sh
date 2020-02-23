@@ -22,7 +22,7 @@ sudo apt-get install -y libgtk-3-dev
 
 
 
-exit
+
 
 #sudo apt update
 #sudo apt upgrade -y
