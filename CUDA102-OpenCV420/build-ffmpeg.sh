@@ -6,6 +6,9 @@
 
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
+source .setupvars
+
+cd ~
 
 # TODO is FFMPEG installed in Ubuntu 18.04
 sudo apt-get --purge remove -y ffmpeg
@@ -78,7 +81,7 @@ cd ffmpeg-$SCRIPT_FFMPEGVER/
 make clean
 
 #./configure --enable-shared --disable-static --enable-cuda-sdk --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.0/include --extra-ldflags=-L/usr/local/cuda-10.0/lib64
-./configure --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
+./configure --enable-shared --disable-static --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
 
 make -j$(nproc)
 
