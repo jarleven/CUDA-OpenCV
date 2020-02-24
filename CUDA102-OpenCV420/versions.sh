@@ -31,7 +31,6 @@ sleep 10
 
 echo -e "\n\n\n    ---------------------   GPU bgfg           ---------------------   "
 
-sleep 30
 cd ~/opencv/build/bin/
 ./example_gpu_bgfg_segm
 
