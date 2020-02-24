@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Training the object detector
+#https://github.com/tzutalin/labelImg
+#https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9
+
+
 cd ~
 
 git clone https://github.com/tzutalin/labelImg.git
