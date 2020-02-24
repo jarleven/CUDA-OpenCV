@@ -1,6 +1,5 @@
 #!/bin/bash
 
-exit
 
 cd "$(dirname "$0")"
 
