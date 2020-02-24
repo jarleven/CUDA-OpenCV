@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Compileing an GPU example like this
+# ~/opencv/samples/gpu$ nvcc `pkg-config --libs opencv4` -L. -L/usr/local/cuda/lib -lcuda -lcudart `pkg-config --cflags opencv4` -I . -I /usr/local/cuda-10.1 bgfg_segm.cpp -o bgfg_seg
 
 # In case of rebuild, delete everything before building
 sudo rm -rf ~/opencv/build
