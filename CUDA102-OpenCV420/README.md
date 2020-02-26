@@ -1,13 +1,14 @@
-New year, new relaeses and new possibilities
+New year, new releases and new possibilities
 
 Trying CUDA 10.0 and OpenCV 4.2.0 on Ubuntu 18.04
+
 ```
 Ubuntu 18.04.4
 OpenCV 4.2.0
-CUDA 10.1
+CUDA 10.0
 Python 3
-cuDNN - cuDNN v7.6.5 (November 18th, 2019), for CUDA 10.1
-Tensorflow 2.1.0
+cuDNN v7.6.4 (September 27, 2019), for CUDA 10.0
+Tensorflow 2.0.0
 ```
 
 
