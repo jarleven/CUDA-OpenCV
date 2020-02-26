@@ -56,7 +56,8 @@ sudo ldconfig
 cd ~
 git clone https://code.videolan.org/videolan/x264.git
 cd x264/
-./configure --disable-cli --enable-static --enable-shared --enable-strip
+#./configure --disable-cli --enable-shared --enable-static--enable-strip
+./configure --disable-cli --enable-shared --disable-static--enable-strip
 make
 sudo make install
 sudo ldconfig

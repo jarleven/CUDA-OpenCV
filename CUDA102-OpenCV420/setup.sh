@@ -95,6 +95,7 @@ case $OPENCV_SETUPSTATE in
         echo "OPENCV_SETUPSTATE="5"" > .setupstate
     else
         echo "Skipping FFMPEG build"
+        sudo apt install -y ffmpeg
         echo "OPENCV_SETUPSTATE="6"" > .setupstate
     fi
 
