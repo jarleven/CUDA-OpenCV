@@ -1,11 +1,19 @@
 #!/bin/bash
 
+#
+# OpenCV 4.2.0
+# Cuda 10.0
+# nvidia-driver-418   (NVIDIA-SMI 430.50       Driver Version: 430.50       CUDA Version: 10.1)
+# CUDA 10.0.130_410.48
+# cuDNN v7.6.4 (September 27, 2019), for CUDA 10.0
+# pip install tensorflow-gpu==2.0.0
+#
 
 
 # We use theese variables thoughout the install process
-SCRIPT_CUDAVER="10.1"
+SCRIPT_CUDAVER="10.0"
 SCRIPT_NVIDIAVER="418"
-SCRIPT_TENSORFLOWVER="2.1.0"
+SCRIPT_TENSORFLOWVER="2.0.0"
 SCRIPT_FFMPEG="ON"
 SCRIPT_FFMPEGVER="4.2.2"
 SCRIPT_CUDA_ARCH_BIN="6.1"

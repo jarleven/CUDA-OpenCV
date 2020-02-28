@@ -20,7 +20,7 @@ sudo apt update
 sudo apt install -y nvidia-driver-$SCRIPT_NVIDIAVER
 
 
-#sudo apt-mark nvidia-driver-$SCRIPT_NVIDIAVER
+sudo apt-mark nvidia-driver-$SCRIPT_NVIDIAVER
 # To reverse this operation run:
 # sudo apt-mark unhold package_name
 

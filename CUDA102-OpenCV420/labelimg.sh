@@ -5,6 +5,9 @@
 #https://towardsdatascience.com/how-to-train-your-own-object-detector-with-tensorflows-object-detector-api-bec72ecfe1d9
 
 
+# Batch download images with Fatkun Batch Download Image
+# https://chrome.google.com/webstore/detail/fatkun-batch-download-ima/nnjjahlikiabnchcpehcpkdeckfgnohf/RK%3D2/RS%3DPnB3CMxxSoOYRnLD3KKFviCVQvs-
+
 cd ~
 
 git clone https://github.com/tzutalin/labelImg.git

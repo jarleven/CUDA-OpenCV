@@ -10,6 +10,17 @@ source .setupvars
 
 
 
+#
+# OpenCV 4.2.0
+# Cuda 10.0
+# nvidia-driver-418   (NVIDIA-SMI 430.50       Driver Version: 430.50       CUDA Version: 10.1)
+# CUDA 10.0.130_410.48
+# cuDNN v7.6.4 (September 27, 2019), for CUDA 10.0
+# pip install tensorflow-gpu==2.0.0
+#
+
+
+
 #alias python=python3
 
 #export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
@@ -84,6 +95,7 @@ case $OPENCV_SETUPSTATE in
         echo "OPENCV_SETUPSTATE="5"" > .setupstate
     else
         echo "Skipping FFMPEG build"
+        sudo apt install -y ffmpeg
         echo "OPENCV_SETUPSTATE="6"" > .setupstate
     fi
 

@@ -24,6 +24,13 @@ jarleven@stue:~/opencv/samples/gpu$ g++ -ggdb background_subtraction.cpp -o back
 # https://www.tensorflow.org/install/gpu
 
 
+#
+# Building this example worked on the CUDA 10.1 setup
+# https://stackoverflow.com/a/27133452
+#
+
+nvcc `pkg-config --libs opencv4` -L. -L/usr/local/cuda/lib -lcuda -lcudart `pkg-config --cflags opencv4` -I . -I /usr/local/cuda-10.1 videostab.cpp -o vidstab
+
 
 https://egpu.io/forums/pro-applications/easy-video-encoding-benchmark-test-your-gpu-within-seconds/
 

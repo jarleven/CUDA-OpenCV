@@ -103,17 +103,16 @@ pip install numpy
 pip install tensorflow-gpu==$SCRIPT_TENSORFLOWVER
 
 
-# pip install opencv-contrib-python
-#pip install scikit-image
-#pip install pillow
-#pip install imutils
-#pip install pylint
+pip install scikit-image
+pip install pillow
+pip install imutils
+pip install pylint
 
-#pip install scikit-learn
-#pip install matplotlib
-#pip install progressbar2
-#pip install beautifulsoup4
-#pip install pandas
+pip install scikit-learn
+pip install matplotlib
+pip install progressbar2
+pip install beautifulsoup4
+pip install pandas
 
 
 sudo apt update
