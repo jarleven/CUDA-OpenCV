@@ -1,5 +1,19 @@
 
 
+ apt install -y python3-testresources
+
+
+
+
+OPencv prepare before PIP
+
+
+PATH="$HOME/.local/bin/:$PATH"
+
+
+
+
+
 jarleven@stue:~/opencv/samples/gpu$ nvcc bgfg_segm.cpp -o bgfg_segm `pkg-config --cflags --libs opencv4`
 
 jarleven@stue:~/opencv/samples/gpu$ g++ -ggdb background_subtraction.cpp -o background_subtraction `pkg-config --cflags --libs opencv4` -I /usr/local/cuda/include/
