@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=InstallOpenCV
+GenericName=Autoinstaller
+Comment=Some description about your script
+Exec=x-terminal-emulator -e /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/setup.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true
+Hidden=false
+NoDisplay=false
+

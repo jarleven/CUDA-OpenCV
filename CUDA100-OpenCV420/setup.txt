@@ -1,0 +1,67 @@
+
+
+sudo -H pip install virtualenv virtualenvwrapper
+sudo rm -rf ~/get-pip.py ~/.cache/pip
+
+bashrc
+
+# virtualenv and virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+
+
+
+
+
+
+rm -rf ~/opencv/build && mkdir ~/opencv/build  && cd ~/opencv/build
+
+
+cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D INSTALL_C_EXAMPLES=OFF \
+	-D OPENCV_ENABLE_NONFREE=ON \
+	-D WITH_CUDA=ON \
+	-D WITH_CUDNN=ON \
+	-D OPENCV_DNN_CUDA=ON \
+	-D ENABLE_FAST_MATH=1 \
+	-D CUDA_FAST_MATH=1 \
+	-D CUDA_ARCH_BIN=6.1 \
+	-D WITH_CUBLAS=1 \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+	-D HAVE_opencv_python3=ON \
+	-D PYTHON_EXECUTABLE=~/.virtualenvs/opencv_cuda/bin/python \
+	-D BUILD_EXAMPLES=ON ..
+
+
+make -j8
+sudo make install
+sudo ldconfig
+
+
+cd ~/.virtualenvs/opencv_cuda/lib/python3.6/site-packages/
+ln -s /usr/local/lib/python3.6/site-packages/cv2/python-3.6/cv2.cpython-36m-x86_64-linux-gnu.so cv2.so
+
+
+
+
+ NVIDIA CUDA:                   YES (ver 10.0, CUFFT CUBLAS FAST_MATH)
+--     NVIDIA GPU arch:             61
+--     NVIDIA PTX archs:
+--
+--   cuDNN:                         YES (ver 7.6.4)
+--
+--   OpenCL:                        YES (no extra features)
+--     Include path:                /home/jarleven/opencv/3rdparty/include/opencl/1.2
+--     Link libraries:              Dynamic load
+--
+--   Python 3:
+--     Interpreter:                 /home/jarleven/.virtualenvs/opencv_cuda/bin/python3 (ver 3.6.9)
+--     Libraries:                   /usr/lib/x86_64-linux-gnu/libpython3.6m.so (ver 3.6.9)
+--     numpy:                       /home/jarleven/.virtualenvs/opencv_cuda/lib/python3.6/site-packages/numpy/core/include (ver 1.18.1)
+--     install path:                lib/python3.6/site-packages/cv2/python-3.6
+--
+--   Python (for build):            /home/jarleven/.virtualenvs/opencv_cuda/bin/python3
+--     Flake8:                      /usr/bin/flake8 (ver: 3.5.0)
