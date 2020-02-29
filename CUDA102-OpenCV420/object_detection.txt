@@ -1,0 +1,23 @@
+pip3 uninstall protobuf
+pip3 install protobuf
+
+
+
+https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
+
+# List fileformat types in a folder
+find . -type f | awk -F. '!a[$NF]++{print $NF}'
+
+
+# rename "s/oldExtension/newExtension/" *.txt
+
+rename "s/jpeg/jpg/" *.jpeg
+rename "s/JPG/jpg/" *.JPG
+rename "s/JPEG/jpg/" *.JPEG
+
+rename "s/PNG/png/" *.PNG
+
+
+# Convert images from png to jpg format
+mogrify -format jpg *.png
+rm *.png
