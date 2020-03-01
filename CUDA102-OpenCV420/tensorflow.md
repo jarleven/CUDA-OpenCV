@@ -7,6 +7,12 @@
 #	* https://github.com/datitran/raccoon_dataset
 #	* https://pythonprogramming.net/training-custom-objects-tensorflow-object-detection-api-tutorial/
 
+cd ~/TensorFlow/workspace/training_demo
+
+rm training/* && cp tmp_bakup/label_map.pbtxt training/ && cp tmp_bakup/ssd_inception_v2_coco.config training/
+python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_inception_v2_coco.config
+
+
 
 
 
