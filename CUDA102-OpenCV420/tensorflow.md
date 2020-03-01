@@ -9,6 +9,7 @@
 
 
 
+
 ###
 # Errors and warninngs (Taken care of but not tested)
 #
@@ -48,12 +49,15 @@ brew install protobuf
 
 # for appending
 # PATH="${PATH:+${PATH}:}$HOME/bin"
+# echo 'export PATH="${PATH:+${PATH}:}$HOME/bin"' >> ~/.bash_profile
 # for prepending 
 # PATH="$HOME/bin${PATH:+:${PATH}}"
 
 echo 'export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/TensorFlow/models/research/object_detection:$HOME/TensorFlow/models/research:$HOME/TensorFlow/models/research/slim"' >> ~/.bash_profile
 
 # Yes this is done above "export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"
+# As print working directory pwd should be done from within the TensorFlow/models/research/ folder in the guides.
+
 
 echo 'export PATH="${PATH:+${PATH}:}$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin"' >> ~/.bash_profile
 
@@ -74,7 +78,19 @@ python3 -m pip install --upgrade --force-reinstall pandas --user
 
 
 # At the time of writing 1.15 is the lastest / final 1.x version.
-python3 -m pip install --upgrade --force-reinstall tensorflow==1.15 --user
+#python3 -m pip install --upgrade --force-reinstall tensorflow==1.15 --user
+
+# Using this without GPU for training is probably in vain a dataset with 1k images will take several days to train
+# Aprox 150x on the GPU compared to the CPU
+# 200ms / step on a GTX1060 3GB		11 hours for 200.000 steps
+# 30sec / step on my CPU			2 months 
+python3 -m pip install --upgrade --force-reinstall tensorflow-gpu==1.15 --user
+
+# Ubuntu 18.04.4 
+# NVIDIA driver Version: 440.59
+# CUDA 10.0
+# cuDNN 7.6.4.38 for CUDA 10.0
+#
 
 
 # Make the folder structure 
@@ -202,7 +218,16 @@ cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/wo
 # The above DID NOT WORK, I had to download a new pipeline.config file
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_inception_v2_coco.config
 
-# TODO investigate diff !
+# TODO investigate diff ! compared to the config in the http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
+
+# In the .config the batch size was set to 2 for a working training
+# OOM and other crashes did happen with 12 and the default 24, PS A VALUE OF 1 ALSO FAILED !!!!
+# 1.14 with and without tensorflow-gpu was tested without luck i ended on the follwoing TensorFlow installation
+# python3 -m pip install --upgrade --force-reinstall tensorflow-gpu==1.15 --user
+
+# train_config: {
+#  batch_size: 2
+#
 
 wget https://raw.githubusercontent.com/developmentseed/label-maker/94f1863945c47e1b69fe0d6d575caa0b42aa8d63/examples/utils/ssd_inception_v2_coco.config
 
