@@ -1,6 +1,5 @@
 ## Extra utilities that goes hand in hand with LabelImg.
  
-
 ### Install Google Chrome
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
