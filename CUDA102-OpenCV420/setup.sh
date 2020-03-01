@@ -3,6 +3,41 @@
 
 cd "$(dirname "$0")"
 
+# setup.sh --arch_bin 12.4 --arch_ptx 17.3
+
+# Allow for passing of CUDA architecture when startring the script
+while [ $# -gt 0 ] ; do
+  case $1 in
+    -b | --arch_bin) SETUP_CUDA_ARCH_BIN="$2" ;;
+    -p | --arch_ptx) SETUP_CUDA_ARCH_PTX="$2" ;;
+
+  esac
+  shift
+done
+
+
+if [ -z $SETUP_CUDA_ARCH_BIN ]; then
+ echo "CUDA ARCH BIN NOT PROVIDED USING DEFAULT"
+else
+  sed -i '/SCRIPT_CUDA_ARCH_BIN/d' .setupvars
+  echo 'SCRIPT_CUDA_ARCH_BIN="'${SETUP_CUDA_ARCH_BIN}'"' >> .setupvars
+fi
+
+if [[ -z "${SETUP_CUDA_ARCH_PTX}" ]]; then
+ echo "CUDA ARCH PTX NOT PROVIDED USING DEFAULT"
+else
+  sed -i '/SCRIPT_CUDA_ARCH_PTX/d' .setupvars
+  echo 'SCRIPT_CUDA_ARCH_PTX="'${SETUP_CUDA_ARCH_PTX}'"' >> .setupvars
+fi
+
+
+cat .setupvars
+
+sleep 10
+
+
+
+
 # Load the state for our statemachine
 source .setupstate
 
