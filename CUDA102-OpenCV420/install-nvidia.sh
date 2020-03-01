@@ -10,8 +10,8 @@ source .setupvars
 cd ~
 
 #echo "What drivers are available ?  Just for information."
-#ubuntu-drivers devices
-#sleep 30
+ubuntu-drivers devices
+sleep 5
 
 echo "Adding PPA and installing nvidia-driver-$SCRIPT_NVIDIAVER"
 
