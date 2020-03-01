@@ -10,8 +10,9 @@ Python 3
 cuDNN v7.6.4 (September 27, 2019), for CUDA 10.0
 Tensorflow 2.0.0
 
-The system have one GTX 1060 GPU if you have another GPU you have to modify the script.
-TODO be more helpful on this part. Pass COMPUTE MODULE AS PARAMETER ?
+The system have one GTX 1060 GPU if you have another GPU with another compute capability you have to modify the command below.
+Link to the NVIDIA documentation for compute capability https://developer.nvidia.com/cuda-gpus
+
 ```
 
 ### To use the automatic script do the following.
@@ -35,7 +36,7 @@ ls /media/$USER/CUDA/CUDAFILES/
 Please no not run this on any critical systems or any system containing important data. Test at your own risk preferably on a fresh installed system!
 
 ```bash
-cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup.sh
+cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup.sh --arch_bin 6.1 --arch_ptx 6.1
 ```
 
 
