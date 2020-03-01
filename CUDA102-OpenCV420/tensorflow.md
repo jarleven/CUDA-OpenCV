@@ -1,19 +1,16 @@
 
 # Making a custom salmon object detector
-# Jurney starts here https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
+# Journey starts here https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
 
-
-# 
-# ssh to your machine
-# Run the following command
-# export DISPLAY=:0
-# If you now run xeyes the x application will pop up on the screen connected to your machine. Not on your remote session.
-#
+# Thanks to :
+#	* https://github.com/tzutalin/labelImg
+#	* https://github.com/datitran/raccoon_dataset
+#	* https://pythonprogramming.net/training-custom-objects-tensorflow-object-detection-api-tutorial/
 
 
 
 ###
-# Errors and warninngs
+# Errors and warninngs (Taken care of but not tested)
 #
 # ERROR: launchpadlib 1.10.6 requires testresources, which is not installed.
 # Warning: /home/linuxbrew/.linuxbrew/bin is not in your PATH.
