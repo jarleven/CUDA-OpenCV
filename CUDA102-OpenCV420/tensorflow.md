@@ -216,7 +216,9 @@ vi ~/TensorFlow/workspace/training_demo/training/ssd_inception_v2_coco.config
 cd ~/TensorFlow/workspace/training_demo
 tensorboard --logdir=training
 
-
+# Follow the training on:
+# http://localhost:6006/
+# http://192.168.3.108:6006/
 
 
 ##### The salmon model is being created. Saved some of the paths for later in case I forgot to log some of the steps done to get here.
