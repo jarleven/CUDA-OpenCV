@@ -23,11 +23,6 @@ echo "# Added by OpenCV setup script" | sudo EDITOR='tee -a' visudo
 echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 
 
-echo "Bootstrapping this script, so it will run on next boot"
-mkdir ~/.config/autostart
-cp opencv.desktop ~/.config/autostart/
-
-
 # Disable the powersaving to keep track of the install progress when user is idle.
 gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
 gsettings set org.gnome.desktop.session idle-delay 0
