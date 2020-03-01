@@ -24,13 +24,14 @@ Install Ubuntu 18.04
 Put a USB named CUDA with your cuDNN files into your PC. You need a developer login at NVIDIA to download the file.
 TODO: Be a bit more helpfull :-)
 The files should be in this folder (USB drive name CUDA and files inside the root folder CUDAFILES)
-```bash
-ls /media/$USER/CUDA/CUDAFILES/
-```
 Install git and fire up the script with the command below
    Your PC will reboot multiple times and the process takes a long time.
    I suggest spending the next hours away from your computer :-)
 ```
+```bash
+ls /media/$USER/CUDA/CUDAFILES/
+```
+
 Please no not run this on any critical systems or any system containing important data. Test at your own risk preferably on a fresh installed system!
 
 ```bash
