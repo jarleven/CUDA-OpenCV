@@ -22,8 +22,8 @@ fdupes .
 - d : Next images
 
 In the LabelImg file menu view set the following for quick annotation of a single class :
-  [x] Auto Save mode
-  [x] Single class mode 
+ - [x] Auto Save mode
+ - [x] Single class mode 
 
 You can find more shortcuts on the [LabelImg github page](https://github.com/tzutalin/labelImg).
 
