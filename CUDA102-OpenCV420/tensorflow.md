@@ -25,18 +25,15 @@ How can we answer "yes" in homebrew?
 brew install protobuf
 ```
 
-### Set paths
+### Set the paths
 
 During this endeavour I have failed to get the "paths" right several times. This topic will be investigated more while completing the custom object detector setup script. 
 
-The right place to define environment variables such as PATH is ~/.profile (or ~/.bash_profile if you don't care about shells other than bash)
-Please refer to  [this link](https://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile/183980#183980) for more information.
+"The right place to define environment variables such as PATH is ~/.profile (or ~/.bash_profile if you don't care about shells other than bash)" Please refer to  [this link](https://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile/183980#183980) for more information.
 
 
-An important point is that, even if system scripts do not use this (I wonder why)*1, the bullet-proof way to add a path (e.g., $HOME/bin) to the PATH environment variable to
-avoid the spurious leading/trailing colon when $PATH is initially empty, which can have undesired side effects and can become a nightmare,
-
-Please refer to  [this link](https://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path) for more information.
+"An important point is that, even if system scripts do not use this (I wonder why)*1, the bullet-proof way to add a path (e.g., $HOME/bin) to the PATH environment variable to
+avoid the spurious leading/trailing colon when $PATH is initially empty, which can have undesired side effects and can become a nightmare" Please refer to  [this link](https://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path) for more information.
 
 Some examples
 ```bash
