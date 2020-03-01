@@ -1,11 +1,13 @@
 
-# Making a custom salmon object detector
+# Making a custom fish object detector to track Atlantic Salmon _Salmo salar_ 
+
 The journey starts here https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
 
 I would like to thank the creators of the following pages:
 - https://github.com/tzutalin/labelImg
 - https://github.com/datitran/raccoon_dataset
 - https://pythonprogramming.net/training-custom-objects-tensorflow-object-detection-api-tutorial/
+- https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
 
 I will try to create a script later but here are my steps towards a custom object detector.
 
