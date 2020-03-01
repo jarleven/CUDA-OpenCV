@@ -9,6 +9,9 @@ CUDA 10.0
 Python 3
 cuDNN v7.6.4 (September 27, 2019), for CUDA 10.0
 Tensorflow 2.0.0
+
+The system have one GTX 1060 GPU if you have another GPU you have to modify the script.
+TODO be more helpful on this part. Pass COMPUTE MODULE AS PARAMETER ?
 ```
 
 ### To use the automatic script do the following.
@@ -20,7 +23,10 @@ Install Ubuntu 18.04
 
 Put a USB named CUDA with your cuDNN files into your PC. You need a developer login at NVIDIA to download the file.
 TODO: Be a bit more helpfull :-)
-
+The files should be in this folder (USB drive name CUDA and files inside the root folder CUDAFILES)
+```bash
+ls /media/$USER/CUDA/CUDAFILES/
+```
 Install git and fire up the script with the command below
    Your PC will reboot multiple times and the process takes a long time.
    I suggest spending the next hours away from your computer :-)
