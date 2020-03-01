@@ -9,7 +9,6 @@ source .setupstate
 source .setupvars
 
 
-
 #
 # OpenCV 4.2.0
 # Cuda 10.0
@@ -40,6 +39,15 @@ case $OPENCV_SETUPSTATE in
     sleep 10
  
     ./preparation.sh
+	
+	echo "Bootstrapping this script, so it will run on next boot"
+	echo "Run the following command to remove the bootstrap/stop the script"
+	echo "rm ~/.config/autostart/opencv.desktop"
+	echo ""
+	
+    mkdir ~/.config/autostart
+    cp opencv.desktop ~/.config/autostart/
+	
  
     echo "Reboot in 10 seconds"
     sleep 10
