@@ -21,31 +21,49 @@
 
 sudo apt-get install -y git ssh build-essential linuxbrew-wrapper
 
+
 # Install PIP for Python 3
 sudo apt install -y python3-pip
 python3 -m pip install --upgrade --user pip
+
+sudo apt install -y python3-testresources
 
 
 # TODO how to answer yes ??
 brew install protobuf
 
 
-# Why not bashrc ??? 
-echo 'export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"' >>~/.bash_profile
-echo 'export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"' >>~/.bash_profile
-echo 'export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"' >>~/.bash_profile
 
-# Set path and update
-# TODO why not bashrc
-echo "export PATH=$PATH:~/.local/bin" >> ~/.bash_profile
+# Set paths
+
+#
+#  The right place to define environment variables such as PATH is ~/.profile (or ~/.bash_profile if you don't care about shells other than bash)
+#  https://superuser.com/questions/183870/difference-between-bashrc-and-bash-profile/183980#183980
+#
+# 
+
+
+# https://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path
+# An important point is that, even if system scripts do not use this (I wonder why)*1, the bullet-proof way to add a path (e.g., $HOME/bin) to the PATH environment variable to
+# avoid the spurious leading/trailing colon when $PATH is initially empty, which can have undesired side effects and can become a nightmare,
+
+# for appending
+# PATH="${PATH:+${PATH}:}$HOME/bin"
+# for prepending 
+# PATH="$HOME/bin${PATH:+:${PATH}}"
+
+echo 'export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/TensorFlow/models/research/object_detection:$HOME/TensorFlow/models/research:$HOME/TensorFlow/models/research/slim"' >> ~/.bash_profile
+
+# Yes this is done above "export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"
+
+echo 'export PATH="${PATH:+${PATH}:}$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin"' >> ~/.bash_profile
+
+
+
+echo 'export MANPATH="${MANPATH:+${MANPATH}:}/home/linuxbrew/.linuxbrew/share/man"' >> ~/.bash_profile
+echo 'export INFOPATH="${INFOPATH:+${INFOPATH}:}/home/linuxbrew/.linuxbrew/share/info"' >> ~/.bash_profile
+
 source ~/.bash_profile
-
-echo 'export PYTHONPATH="$PYTHONPATH:$HOME/TensorFlow/models/research:$HOME/TensorFlow/models/research/slim"' >>~/.bashrc
-
-
-
-source ~/.bash_profile
-source ~/.bashrc
 
 
 
@@ -53,6 +71,7 @@ source ~/.bashrc
 python3 -m pip install --upgrade --force-reinstall Cython --user
 python3 -m pip install --upgrade --force-reinstall pycocotools --user
 python3 -m pip install --upgrade --force-reinstall pandas --user
+
 
 
 # At the time of writing 1.15 is the lastest / final 1.x version.
@@ -115,9 +134,10 @@ cp -r pycocotools ~/TensorFlow/models/research/
 
 
 
-
+# Copy the backup of all the images annotaed with LabelImg
 cp -r /media/jarleven/CUDA/laks ~/
 
+# Split in approx 10% test and 90% train images (I had 800 annotated images)
 cd ~/laks
 cp {00001..00080}.jpg ~/TensorFlow/workspace/training_demo/images/test/
 cp {00001..00080}.xml ~/TensorFlow/workspace/training_demo/images/test/
