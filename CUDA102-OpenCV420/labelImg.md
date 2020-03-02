@@ -65,7 +65,7 @@ Output filenames are 00001.jpg, 00002.jpg .....
 
 a=1
 for i in *.jpg; do
-  new=$(printf "%05.jpg" "$a") 
+  new=$(printf "%05d.jpg" "$a") 
   mv -i -- "$i" "$new"
   let a=a+1
 done

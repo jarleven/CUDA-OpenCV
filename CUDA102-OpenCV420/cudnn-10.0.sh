@@ -1,3 +1,6 @@
+
+# https://developer.nvidia.com/rdp/cudnn-archive
+
 # cudnn 7.6.5 for CUDA 10.2 is available here:
 # https://developer.nvidia.com/rdp/cudnn-download
 
