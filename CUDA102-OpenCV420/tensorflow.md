@@ -295,4 +295,20 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/ga
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+
 ```
+
+
+#### Exporting the model
+
+cd ~/TensorFlow/models/research/object_detection
+
+python3 export_inference_graph.py \
+    --input_type image_tensor \
+    --pipeline_config_path /home/jarleven/TensorFlow/workspace/training_demo/training/ssd_inception_v2_coco.config \
+    --trained_checkpoint_prefix /home/jarleven/TensorFlow/workspace/training_demo/training/model.ckpt-200000 \
+    --output_directory /home/jarleven/TensorFlow/ssd_inception_v2_coco_b001_salmon_salmo_salar
+
+
+
+
