@@ -225,8 +225,9 @@ python3 generate_tfrecord.py --label=salmon --csv_input=/home/jarleven/TensorFlo
 cd ~
 wget http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
 tar xvzf ssd_inception_v2_coco_2018_01_28.tar.gz
-cd ssd_inception_v2_coco_2018_01_28
+cd ~/ssd_inception_v2_coco_2018_01_28
 
+rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
 cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
 cp pipeline.config ~/TensorFlow/workspace/training_demo/training/
@@ -240,7 +241,7 @@ cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/wo
 
 
 ### ==The above DID NOT WORK, I had to download a new pipeline.config file==
-
+cd ~/TensorFlow/workspace/training_demo/
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_inception_v2_coco.config
 
 TODO investigate diff ! compared to the config in the http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
