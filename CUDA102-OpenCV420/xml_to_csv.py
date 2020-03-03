@@ -5,6 +5,11 @@ python xml_to_csv.py -i [PATH_TO_IMAGES_FOLDER]/train -o [PATH_TO_ANNOTATIONS_FO
 
 # Create test data:
 python xml_to_csv.py -i [PATH_TO_IMAGES_FOLDER]/test -o [PATH_TO_ANNOTATIONS_FOLDER]/test_labels.csv
+
+
+The contents of this file is copied from:
+https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
+https://github.com/sglvladi/TensorFlowObjectDetectionTutorial/blob/master/docs/source/training.rst
 """
 
 import os

@@ -6,6 +6,11 @@ python generate_tfrecord.py --label=<LABEL> --csv_input=<PATH_TO_ANNOTATIONS_FOL
 
 # Create test data:
 python generate_tfrecord.py --label=<LABEL> --csv_input=<PATH_TO_ANNOTATIONS_FOLDER>/test_labels.csv  --output_path=<PATH_TO_ANNOTATIONS_FOLDER>/test.record
+
+
+The contents of this file is copied from:
+https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html
+https://github.com/sglvladi/TensorFlowObjectDetectionTutorial/blob/master/docs/source/training.rst
 """
 
 from __future__ import division
