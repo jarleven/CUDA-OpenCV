@@ -272,8 +272,8 @@ vi ~/TensorFlow/workspace/training_demo/training/ssd_inception_v2_coco.config
 #### Fire up the tensorboard 
 ```bash
 
-cd ~/TensorFlow/workspace/training_demo
-tensorboard --logdir=training
+cd ~/TensorFlow/workspace/training_demo && tensorboard --logdir=training
+firefox http://localhost:6006
 ```
 
 Follow the training in your favorite webbrowser 
