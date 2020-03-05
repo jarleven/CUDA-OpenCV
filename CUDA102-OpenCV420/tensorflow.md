@@ -89,9 +89,9 @@ python3 -m pip install --upgrade --force-reinstall tensorflow-gpu==1.15 --user
  
  #### The system
  - Ubuntu 18.04.4 
-- NVIDIA driver Version: 440.59
-- CUDA 10.0
-- cuDNN 7.6.4.38 for CUDA 10.0
+ - NVIDIA driver Version: 440.59
+ - CUDA 10.0
+ - cuDNN 7.6.4.38 for CUDA 10.0
 
 
 
