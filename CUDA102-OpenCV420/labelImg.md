@@ -55,6 +55,10 @@ mogrify -format jpg *.png
 rm *.png
 ```
 
+### Print size of all images in a folder
+```bash
+find . -name "*.jpg" -exec bash -c 'file="{}"; convert "$file" -print "Size: %wx%h\n" /dev/null' \;
+```
 
 
 ### Rename the files in sequence
