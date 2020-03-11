@@ -248,6 +248,15 @@ wget http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coc
 tar xvzf ssd_inception_v2_coco_2018_01_28.tar.gz
 cd ~/ssd_inception_v2_coco_2018_01_28
 
+
+
+http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz"
+http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz"
+
+
+
+
+
 >>>>> cd ~
 >>>>> wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
 >>>>> tar xvzf ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
