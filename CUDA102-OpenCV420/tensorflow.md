@@ -22,6 +22,19 @@ sudo apt install -y python3-testresources
 
 ```
 
+
+2nd run of 
+==> Select the Linuxbrew installation directory
+- Enter your password to install to /home/linuxbrew/.linuxbrew (recommended)
+- Press Control-D to install to /home/jarleven/.linuxbrew
+- Press Control-C to cancel installation
+
+
+
+
+
+
+
 How can we answer "yes" in homebrew?
 ```bash
 brew install protobuf
@@ -167,7 +180,7 @@ cp -r pycocotools ~/TensorFlow/models/research/
 
 Copy the backup of all the images annotaed with LabelImg
 ```bash
-cp -r /media/jarleven/CUDA/laks ~/
+cp -r /media/$USER/CUDA/laks ~/
 ```
 Split in approx 10% test and 90% train images (I had 800 annotated images)
 ```bash
@@ -194,13 +207,21 @@ item {
 
 Paste the xml_to_csv.py from https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html into your own file
 ```bash
-cd ~/TensorFlow/scripts/preprocessing/
-vi xml_to_csv.py
+<<<< cd ~/TensorFlow/scripts/preprocessing/
+<<<< vi xml_to_csv.py
+
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/xml_to_csv.py ~/TensorFlow/scripts/preprocessing/
+
+
+
 ```
 Paste the generate_tfrecord.py from https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/training.html into your own file
 ```bash
-cd ~/TensorFlow/scripts/preprocessing 
-vi generate_tfrecord.py
+<<<< cd ~/TensorFlow/scripts/preprocessing 
+<<<< vi generate_tfrecord.py
+
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/generate_tfrecord.py ~/TensorFlow/scripts/preprocessing
+
 ```
 
 ```bash
@@ -218,14 +239,32 @@ python3 xml_to_csv.py -i ~/TensorFlow/workspace/training_demo/images/test -o ~/T
 In this case the label is ==salmon==
 
 ```bash
-python3 generate_tfrecord.py --label=salmon --csv_input=/home/jarleven/TensorFlow/workspace/training_demo/annotations/train_labels.csv --output_path=/home/jarleven/TensorFlow/workspace/training_demo/annotations/train.record --img_path=/home/jarleven/TensorFlow/workspace/training_demo/images/train
-python3 generate_tfrecord.py --label=salmon --csv_input=/home/jarleven/TensorFlow/workspace/training_demo/annotations/test_labels.csv --output_path=/home/jarleven/TensorFlow/workspace/training_demo/annotations/test.record --img_path=/home/jarleven/TensorFlow/workspace/training_demo/images/test
+python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/workspace/training_demo/annotations/train_labels.csv --output_path=/home/$USER/TensorFlow/workspace/training_demo/annotations/train.record --img_path=/home/$USER/TensorFlow/workspace/training_demo/images/train
+python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/workspace/training_demo/annotations/test_labels.csv --output_path=/home/$USER/TensorFlow/workspace/training_demo/annotations/test.record --img_path=/home/$USER/TensorFlow/workspace/training_demo/images/test
 ```
 ```bash
 cd ~
 wget http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
 tar xvzf ssd_inception_v2_coco_2018_01_28.tar.gz
 cd ~/ssd_inception_v2_coco_2018_01_28
+
+
+
+http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz"
+http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz"
+
+
+
+
+
+>>>>> cd ~
+>>>>> wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+>>>>> tar xvzf ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+>>>>> cd ~/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
+
+>>>>> cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/
+
+
 
 rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
 cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
@@ -244,6 +283,7 @@ cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/wo
 ```bash
 cd ~/TensorFlow/workspace/training_demo/
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_inception_v2_coco.config
+>>>> python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_quantized_pipeline.config
 ```
 
 TODO investigate diff ! compared to the config in the http://download.tensorflow.org/models/object_detection/ssd_inception_v2_coco_2018_01_28.tar.gz
@@ -314,4 +354,65 @@ python3 export_inference_graph.py \
 
 
 
+*****************************************************
 
+
+# From tensorflow/models/research/
+INPUT_TYPE=image_tensor
+PIPELINE_CONFIG_PATH={path to pipeline config file}
+TRAINED_CKPT_PREFIX={path to model.ckpt}
+EXPORT_DIR={path to folder that will be used for export}
+python object_detection/export_inference_graph.py \
+    --input_type=${INPUT_TYPE} \
+    --pipeline_config_path=${PIPELINE_CONFIG_PATH} \
+    --trained_checkpoint_prefix=${TRAINED_CKPT_PREFIX} \
+    --output_directory=${EXPORT_DIR}
+
+
+https://stackoverflow.com/questions/51220978/how-to-convert-a-retrained-model-to-tflite-format
+
+toco \
+  --input_file=frozen_inference_graph.pb \
+  --output_file=optimized_graph.lite \
+  --input_format=TENSORFLOW_GRAPHDEF \
+  --output_format=TFLITE \
+  --input_shape=1,224,224,3 \
+  --input_array=input \
+  --output_array=final_result \
+  --inference_type=FLOAT \
+  --input_data_type=FLOAT
+
+
+WARNING:tensorflow:From /home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/lite/python/convert_saved_model.py:60: load (from tensorflow.python.saved_model.loader_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This function will only be available through the v1 compatibility library as tf.compat.v1.saved_model.loader.load or tf.compat.v1.saved_model.load. There will be a new function for importing SavedModels in Tensorflow 2.0.
+Traceback (most recent call last):
+  File "convert.py", line 3, in <module>
+    converter = tf.lite.TFLiteConverter.from_saved_model("frozen_inference_graph.pb")
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/lite/python/lite.py", line 762, in from_saved_model
+    output_arrays, tag_set, signature_key)
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/lite/python/convert_saved_model.py", line 187, in freeze_saved_model
+    meta_graph = get_meta_graph_def(saved_model_dir, tag_set)
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/lite/python/convert_saved_model.py", line 60, in get_meta_graph_def
+    return loader.load(sess, tag_set, saved_model_dir)
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/python/util/deprecation.py", line 324, in new_func
+    return func(*args, **kwargs)
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/python/saved_model/loader_impl.py", line 268, in load
+    loader = SavedModelLoader(export_dir)
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/python/saved_model/loader_impl.py", line 284, in __init__
+    self._saved_model = parse_saved_model(export_dir)
+  File "/home/jarleven/.local/lib/python3.6/site-packages/tensorflow_core/python/saved_model/loader_impl.py", line 83, in parse_saved_model
+    constants.SAVED_MODEL_FILENAME_PB))
+OSError: SavedModel file does not exist at: frozen_inference_graph.pb/{saved_model.pbtxt|saved_model.pb}
+
+
+tflite_convert \
+  --output_file=foo.tflite \
+  --saved_model_dir=./saved_model
+
+
+tflite_convert \
+  --output_file=/tmp/foo.tflite \
+  --graph_def_file=frozen_inference_graph.pb \
+  --input_arrays=input \
+  --output_arrays=MobilenetV1/Predictions/Reshape_1
