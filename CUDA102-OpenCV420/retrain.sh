@@ -70,4 +70,84 @@ python3 setup.py build
 sudo python3 setup.py install
 
 
+# TODO ADD some text
+
+#cd ~
+#git clone https://github.com/cocodataset/cocoapi.git
+#cd cocoapi/PythonAPI
+
+#==TODO edit python to python3 two places in the Makefile==
+
+#git diff --ignore-space-at-eol -b -w --ignore-blank-lines > ~/TensorFlow/patches/cocoapi-python3.diff
+ 
+#make
+#cp -r pycocotools ~/TensorFlow/models/research/
+
+
+
+# Copy the backup of all the images annotaed with LabelImg
+cp -r /media/$USER/CUDA/laks ~/
+# Split in approx 10% test and 90% train images (I had 800 annotated images)
+cd ~/laks
+cp {00001..00080}.jpg ~/TensorFlow/workspace/training_demo/images/test/
+cp {00001..00080}.xml ~/TensorFlow/workspace/training_demo/images/test/
+cp * ~/TensorFlow/workspace/training_demo/images/train
+
+# Copy the label map file
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/label_map.pbtxt ~/TensorFlow/workspace/training_demo/annotations/label_map.pbtxt
+
+
+# Some utilities
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/xml_to_csv.py ~/TensorFlow/scripts/preprocessing/
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/generate_tfrecord.py ~/TensorFlow/scripts/preprocessing
+
+
+cd ~/TensorFlow/scripts/preprocessing 
+python3 xml_to_csv.py -i ~/TensorFlow/workspace/training_demo/images/train -o ~/TensorFlow/workspace/training_demo/annotations/train_labels.csv
+python3 xml_to_csv.py -i ~/TensorFlow/workspace/training_demo/images/test -o ~/TensorFlow/workspace/training_demo/annotations/test_labels.csv
+
+# NOTE ABSOLUTE PATHE IS OF IMPORTANCE HERE
+python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/workspace/training_demo/annotations/train_labels.csv --output_path=/home/$USER/TensorFlow/workspace/training_demo/annotations/train.record --img_path=/home/$USER/TensorFlow/workspace/training_demo/images/train
+python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/workspace/training_demo/annotations/test_labels.csv --output_path=/home/$USER/TensorFlow/workspace/training_demo/annotations/test.record --img_path=/home/$USER/TensorFlow/workspace/training_demo/images/test
+
+
+
+###
+# http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
+#
+
+cd ~
+wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
+tar xvzf ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
+cd ~/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
+
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
+cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+
+
+
+
+
+###
+# http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz"
+#
+
+# cd ~
+# wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+# tar xvzf ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+# cd ~/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
+
+# cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
+# cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+
+
+
+
+cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/workspace/training_demo/
+
+python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
+
+
 

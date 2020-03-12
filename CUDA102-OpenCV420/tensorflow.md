@@ -298,7 +298,7 @@ cd ~/TensorFlow/models/research/object_detection
 
 
 python3 export_tflite_ssd_graph.py \
-  --pipeline_config_path="/home/jarleven/TensorFlow/workspace/training_demo/training/ssd_mobilenet_v2_quantized_pipeline.config" \
+  --pipeline_config_path="/home/jarleven/TensorFlow/workspace/training_demo/training/ssd_mobilenet_v2_quantized_pipeline.config" \   <<<<<<<<<<<<<<  pipeline.config
   --trained_checkpoint_prefix="/home/jarleven/TensorFlow/workspace/training_demo/training/model.ckpt-51718" \
   --output_directory="/home/jarleven/frozen" \
   --add_postprocessing_op=true
