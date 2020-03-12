@@ -10,7 +10,7 @@ while [ $# -gt 0 ] ; do
   case $1 in
     -b | --arch_bin) SETUP_CUDA_ARCH_BIN="$2" ;;
     -p | --arch_ptx) SETUP_CUDA_ARCH_PTX="$2" ;;
-
+    -t | --tensorflow_ver) SETUP_TENSORFLOWVER="$" ;;  
   esac
   shift
 done
@@ -28,6 +28,14 @@ if [[ -z "${SETUP_CUDA_ARCH_PTX}" ]]; then
 else
   sed -i '/SCRIPT_CUDA_ARCH_PTX/d' .setupvars
   echo 'SCRIPT_CUDA_ARCH_PTX="'${SETUP_CUDA_ARCH_PTX}'"' >> .setupvars
+fi
+
+
+if [[ -z "${SETUP_TENSORFLOWVER}" ]]; then
+ echo "Tensorflow version not provided, using default"
+else
+  sed -i '/SCRIPT_TENSORFLOWVER/d' .setupvars
+  echo 'SCRIPT_TENSORFLOWVER="'${SETUP_TENSORFLOWVER}'"' >> .setupvars
 fi
 
 

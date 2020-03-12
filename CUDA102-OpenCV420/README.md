@@ -36,7 +36,7 @@ ls /media/$USER/CUDA/CUDAFILES/
 Please no not run this on any critical systems or any system containing important data. Test at your own risk preferably on a fresh installed system!
 
 ```bash
-cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup.sh --arch_bin 6.1 --arch_ptx 6.1
+cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-OpenCV.git && cd CUDA-OpenCV/CUDA102-OpenCV420/ && ./setup.sh --arch_bin 6.1 --arch_ptx 6.1 --tensorflow_ver 1.15
 ```
 
 
