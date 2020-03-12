@@ -10,7 +10,7 @@ while [ $# -gt 0 ] ; do
   case $1 in
     -b | --arch_bin) SETUP_CUDA_ARCH_BIN="$2" ;;
     -p | --arch_ptx) SETUP_CUDA_ARCH_PTX="$2" ;;
-    -t | --tensorflow_ver) SETUP_TENSORFLOWVER="$" ;;  
+    -t | --tensorflow_ver) SETUP_TENSORFLOWVER="$2" ;;  
   esac
   shift
 done
