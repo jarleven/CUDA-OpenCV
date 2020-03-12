@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install some packages
-sudo apt-get install -y git ssh build-essential linuxbrew-wrapper
+sudo apt install -y git ssh build-essential linuxbrew-wrapper
 
 # Install PIP for Python 3
 sudo apt install -y python3-pip
