@@ -14,9 +14,9 @@ git clone https://github.com/tzutalin/labelImg.git
 
 
 sudo apt-get install -y pyqt5-dev-tools
+cd labelImg/
 sudo pip3 install -r requirements/requirements-linux-python3.txt
 
-cd labelImg/
 
 make qt5py3
 
