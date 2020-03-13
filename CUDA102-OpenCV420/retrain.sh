@@ -1,5 +1,24 @@
 #!/bin/bash
 
+
+#
+# ERROR: tensorboard 1.15.0 has requirement setuptools>=41.0.0, but you'll have setuptools 39.0.1 which is incompatible.
+#
+# ERROR: astroid 2.3.3 has requirement wrapt==1.11.*, but you'll have wrapt 1.12.1 which is incompatible.
+#
+
+# http://docs.brew.sh
+# Warning: /home/linuxbrew/.linuxbrew/bin is not in your PATH.
+# /usr/bin/brew: 78: exec: /home/jarleven/.linuxbrew/bin/brew: not found
+
+
+
+
+
+
+
+
+
 # Install some packages
 sudo apt install -y git ssh build-essential linuxbrew-wrapper
 
@@ -13,8 +32,8 @@ brew install protobuf
 
 echo 'export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/TensorFlow/models/research/object_detection:$HOME/TensorFlow/models/research:$HOME/TensorFlow/models/research/slim"' >> ~/.bash_profile
 
-# Yes this is done above
-# "export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"
+# 
+# "export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim"     is done above
 # Print-working-directory pwd should be done from within the TensorFlow/models/research/ folder according the guides.
 
 echo 'export PATH="${PATH:+${PATH}:}$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin"' >> ~/.bash_profile
@@ -34,7 +53,7 @@ python3 -m pip install --upgrade --force-reinstall pandas --user
 
 
 ####  At the time of writing 1.15 is the lastest / final 1.x version of Tensorflow
-python3 -m pip install --upgrade --force-reinstall tensorflow==1.15 --user
+# python3 -m pip install --upgrade --force-reinstall tensorflow==1.15 --user
 
 
 #Make the folder structure 
@@ -70,18 +89,19 @@ python3 setup.py build
 sudo python3 setup.py install
 
 
-# TODO ADD some text
+# Install COCO API
 
-#cd ~
-#git clone https://github.com/cocodataset/cocoapi.git
-#cd cocoapi/PythonAPI
+cd ~
+git clone https://github.com/cocodataset/cocoapi.git
+cd ~/cocoapi/PythonAPI
 
-#==TODO edit python to python3 two places in the Makefile==
+# Edit python to python3 two places in the Makefile
+# Patch was created originally with :
+# git diff --ignore-space-at-eol -b -w --ignore-blank-lines > ~/CUDA-OpenCV/CUDA102-OpenCV420/cocoapi-python3.diff
 
-#git diff --ignore-space-at-eol -b -w --ignore-blank-lines > ~/TensorFlow/patches/cocoapi-python3.diff
- 
-#make
-#cp -r pycocotools ~/TensorFlow/models/research/
+patch < ~/CUDA-OpenCV/CUDA102-OpenCV420/cocoapi-python3.diff
+make
+cp -r pycocotools ~/TensorFlow/models/research/
 
 
 
@@ -116,14 +136,17 @@ python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/w
 # http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
 #
 
-cd ~
-wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
-tar xvzf ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
-cd ~/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
+#rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
 
-cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
 
-cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+#cd ~
+#wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
+#tar xvzf ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
+#cd ~/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
+#cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+
+#cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
 
 
 
@@ -133,21 +156,51 @@ cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 # http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz"
 #
 
-# cd ~
-# wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
-# tar xvzf ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
-# cd ~/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
+rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
 
-# cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+cd ~
+wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+tar xvzf ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
+cd ~/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
+cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
-# cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
 
 
 
 
 cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/workspace/training_demo/
 
+cd ~/TensorFlow/workspace/training_demo/
+
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
+
+
+
+# 
+# https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10/issues/61
+# 
+# 
+# https://stackoverflow.com/questions/48795950/tensorflowobject-detection-valueerror-when-try-to-train-with-num-clones-2/51724431#51724431
+# 
+# I solved this issue by changing one parameter in my original configuration slightly:
+#
+# ...
+# train_config: {
+#  fine_tune_checkpoint: "C:/some_path/model.ckpt"
+#  batch_size: 1
+#  sync_replicas: true
+#  startup_delay_steps: 0
+#  replicas_to_aggregate: 8
+#  num_steps: 25000
+#  ...
+# }
+# ...
+
+
+
 
 
 
