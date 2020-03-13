@@ -286,6 +286,19 @@ python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=trai
 >>>> python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/ssd_mobilenet_v2_quantized_pipeline.config
 ```
 
+
+
+source ~/.bash_profile 
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config 
+
+cd ~/TensorFlow/models/research/
+protoc object_detection/protos/*.proto --python_out=.
+
+
+cd ~/TensorFlow/workspace/training_demo/
+python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
+
+
 >>>> screen -d -r
 
 
