@@ -1,0 +1,16 @@
+diff --git a/PythonAPI/Makefile b/PythonAPI/Makefile
+index ab5e3d2..1ec5261 100644
+--- a/PythonAPI/Makefile
++++ b/PythonAPI/Makefile
+@@ -1,9 +1,9 @@
+ all:
+     # install pycocotools locally
+-	python setup.py build_ext --inplace
++	python3 setup.py build_ext --inplace
+ 	rm -rf build
+ 
+ install:
+ 	# install pycocotools to the Python site-packages
+-	python setup.py build_ext install
++	python3 setup.py build_ext install
+ 	rm -rf build
