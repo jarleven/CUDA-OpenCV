@@ -57,6 +57,12 @@ https://www.tensorflow.org/lite/convert/
 
 
 
+https://blog.tensorflow.org/2019/03/build-ai-that-works-offline-with-coral.html
+"The following code snippet shows how simple it is to convert and quantize a model using TensorFlow Lite nightly and TensorFlow 2.0 alpha:"
+
+
+
+
 
 #!/bin/bash
 
