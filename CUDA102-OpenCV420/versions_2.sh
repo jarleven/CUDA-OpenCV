@@ -18,7 +18,7 @@ echo -e "\n#####\n#\n#  Ubuntu release \n#" >> dump_versions.txt
 cat /etc/issue >> dump_versions.txt
 
 echo -e "\n#####\n#\n#  Python versions \n#" >> dump_versions.txt
-python --version >> dump_versions.txt
+python --version 2>> dump_versions.txt
 python3 --version >> dump_versions.txt
 pip --version >> dump_versions.txt
 pip3 --version >> dump_versions.txt

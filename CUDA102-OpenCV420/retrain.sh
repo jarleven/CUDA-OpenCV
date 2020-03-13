@@ -34,7 +34,7 @@ python3 -m pip install --upgrade --force-reinstall pandas --user
 
 
 ####  At the time of writing 1.15 is the lastest / final 1.x version of Tensorflow
-python3 -m pip install --upgrade --force-reinstall tensorflow==1.15 --user
+#python3 -m pip install --upgrade --force-reinstall tensorflow==1.15 --user
 
 
 #Make the folder structure 
@@ -146,7 +146,7 @@ cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
 
 cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/workspace/training_demo/
-
+cd ~/TensorFlow/workspace/training_demo/
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
 
 
