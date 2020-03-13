@@ -4,6 +4,11 @@
 set -x
 
 
+#######
+#
+# https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
+#
+
 #MODEL=ssd_miobilenet_v2_quantized_300x300_coco_2019_01_03
 #MODEL=ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync_2018_07_03
 #MODEL=ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03
