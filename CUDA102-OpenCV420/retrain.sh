@@ -132,6 +132,60 @@ python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/w
 
 
 
+
+
+FIX FIX FIX
+
+
+#!/bin/bash
+
+source ~/.bash_profile
+
+cd ~/TensorFlow/models/research/
+protoc object_detection/protos/*.proto --python_out=.
+
+
+
+cd ~
+
+rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
+rm ~/TensorFlow/workspace/training_demo/pre-trained-model/pipeline.config
+rm -rf ~/TensorFlow/workspace/training_demo/training/*
+
+#MODEL=ssd_miobilenet_v2_quantized_300x300_coco_2019_01_03
+#MODEL=ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync_2018_07_03
+
+
+MODEL=ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03
+
+wget http://download.tensorflow.org/models/object_detection/$MODEL.tar.gz
+tar xvzf $MODEL.tar.gz
+cd ~/$MODEL
+
+
+
+cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
+
+cd ~/TensorFlow/workspace/training_demo/training
+
+~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config_massage.sh
+
+cd ~/TensorFlow/workspace/training_demo/
+python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
+
+
+
+https://blog.tensorflow.org/2019/03/build-ai-that-works-offline-with-coral.html
+
+FIX FIX FIX
+
+
+
+
+
+
 ###
 # http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
 #
@@ -145,8 +199,12 @@ python3 generate_tfrecord.py --label=salmon --csv_input=/home/$USER/TensorFlow/w
 #cd ~/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
 #cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
-#cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
 
+cd ~/TensorFlow/workspace/training_demo/pre-trained-model
+~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config_massage.sh
+
+#cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
 
 
 
@@ -164,9 +222,14 @@ tar xvzf ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03.tar.gz
 cd ~/ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
 cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
+cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+cd ~/TensorFlow/workspace/training_demo/pre-trained-model
+~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config_massage.sh
 
-cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
 
+# cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
+#diff ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v2_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
 
 
 
@@ -177,6 +240,9 @@ cd ~/TensorFlow/workspace/training_demo/
 
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
 
+cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
+
+python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config --num_clones=2 --clone_on_cpu=True
 
 
 # 
