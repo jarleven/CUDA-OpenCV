@@ -237,7 +237,6 @@ cd ~/TensorFlow/workspace/training_demo/pre-trained-model
 cp ~/TensorFlow/models/research/object_detection/legacy/train.py ~/TensorFlow/workspace/training_demo/
 
 cd ~/TensorFlow/workspace/training_demo/
-
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
 
 cp ~/CUDA-OpenCV/CUDA102-OpenCV420/ssd_mobilenet_v1_quantized_pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
