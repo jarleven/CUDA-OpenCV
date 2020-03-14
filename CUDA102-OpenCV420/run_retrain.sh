@@ -1,5 +1,15 @@
 #!/bin/bash
 
+
+#
+#   RESTART = DEFAUT
+#   RESTART WILL CHECK IF PIPELINE CONFIG IS PRESENT
+#   CHECK IF tar and folders are present
+#
+#   NEW DELETES EVERYTHING
+
+
+
 # Echo each command.
 set -x
 
@@ -32,17 +42,17 @@ python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=trai
 
 cd ~
 
-rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
-rm ~/TensorFlow/workspace/training_demo/pre-trained-model/pipeline.config
-rm -rf ~/TensorFlow/workspace/training_demo/training/*
+########################rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
+#########################rm ~/TensorFlow/workspace/training_demo/pre-trained-model/pipeline.config
+#############################rm -rf ~/TensorFlow/workspace/training_demo/training/*
 
-wget http://download.tensorflow.org/models/object_detection/$MODEL.tar.gz
-tar xvzf $MODEL.tar.gz
+################ wget http://download.tensorflow.org/models/object_detection/$MODEL.tar.gz
+###############tar xvzf $MODEL.tar.gz
 cd ~/$MODEL
 
 
 
-cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
+################### cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
 
 
