@@ -4,8 +4,11 @@
 
 # SIZE : THE INPUT SHAPES
 
+AT_STEP=200000
+
 INPUT_TENSORS='normalized_input_image_tensor'
 OUTPUT_TENSORS='TFLite_Detection_PostProcess,TFLite_Detection_PostProcess:1,TFLite_Detection_PostProcess:2,TFLite_Detection_PostProcess:3'
+
 
 
 mkdir /home/jarleven/frozen
@@ -14,8 +17,8 @@ cd ~/TensorFlow/models/research/object_detection
 
 
 python3 export_tflite_ssd_graph.py \
-  --pipeline_config_path="/home/jarleven/TensorFlow/workspace/training_demo/training/ssd_mobilenet_v2_quantized_pipeline.config" \
-  --trained_checkpoint_prefix="/home/jarleven/TensorFlow/workspace/training_demo/training/model.ckpt-" \
+  --pipeline_config_path="/home/jarleven/TensorFlow/workspace/training_demo/training/pipeline.config" \
+  --trained_checkpoint_prefix="/home/jarleven/TensorFlow/workspace/training_demo/training/model.ckpt-$AT_STEP" \
   --output_directory="/home/jarleven/frozen" \
   --add_postprocessing_op=true
   
