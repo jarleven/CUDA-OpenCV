@@ -14,19 +14,43 @@
 set -x
 
 
+
+
 #######
-#
+# All the ZOO models
 # https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
 #
-
-#MODEL=ssd_miobilenet_v2_quantized_300x300_coco_2019_01_03
-#MODEL=ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync_2018_07_03
-#MODEL=ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03
-
-#MODEL=faster_rcnn_inception_v2_coco_2018_01_28
-
-# Working 100ms / step
+# Removed ( ) and / then did a grep to get only the model name
+# grep -o '[^ ]*tar\.gz[^ ]*' thefile.txt
+#
+#
 MODEL=ssd_mobilenet_v1_coco_2018_01_28
+# ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync_2018_07_03
+# ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
+# ssd_mobilenet_v1_0.75_depth_quantized_300x300_coco14_sync_2018_07_18
+# ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03
+# ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
+# ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
+# ssd_mobilenet_v2_coco_2018_03_29
+# ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
+# ssdlite_mobilenet_v2_coco_2018_05_09
+# ssd_inception_v2_coco_2018_01_28
+# faster_rcnn_inception_v2_coco_2018_01_28
+# faster_rcnn_resnet50_coco_2018_01_28
+# faster_rcnn_resnet50_lowproposals_coco_2018_01_28
+# rfcn_resnet101_coco_2018_01_28
+# faster_rcnn_resnet101_coco_2018_01_28
+# faster_rcnn_resnet101_lowproposals_coco_2018_01_28
+# faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
+# faster_rcnn_inception_resnet_v2_atrous_lowproposals_coco_2018_01_28
+# faster_rcnn_nas_coco_2018_01_28
+# faster_rcnn_nas_lowproposals_coco_2018_01_28
+# mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
+# mask_rcnn_inception_v2_coco_2018_01_28
+# mask_rcnn_resnet101_atrous_coco_2018_01_28
+# mask_rcnn_resnet50_atrous_coco_2018_01_28
+
+
 
 
 
