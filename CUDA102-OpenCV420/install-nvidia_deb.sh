@@ -4,6 +4,7 @@ echo Script name: $0
 echo Passed $# arguments 
 if [ $# -ne 1 ]; then 
     echo "Illegal number of arguments"
+    exit
 fi
 
 # Exit script on error.
@@ -11,6 +12,7 @@ set -e
 # Echo each command.
 set -x
 
+cd ~
 
 case "$1" in
 
@@ -61,4 +63,9 @@ case "$1" in
 
 
 	;;
-	
+
+esac
+
+echo -e "\n\n"
+echo $0 $1      ---       completed
+
