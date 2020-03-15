@@ -28,6 +28,6 @@ cd newconfig
 cd ..
 
 
-export DISPLAY:=0
+export DISPLAY=:0
 kdiff3 pipeline.config newconfig/pipeline.config
 
