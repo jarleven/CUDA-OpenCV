@@ -83,10 +83,10 @@ case $OPENCV_SETUPSTATE in
  
     ./preparation.sh
 	
-	echo "Bootstrapping this script, so it will run on next boot"
-	echo "Run the following command to remove the bootstrap/stop the script"
-	echo "rm ~/.config/autostart/opencv.desktop"
-	echo ""
+    echo "Bootstrapping this script, so it will run on next boot"
+    echo "Run the following command to remove the bootstrap/stop the script"
+    echo "rm ~/.config/autostart/opencv.desktop"
+    echo ""
 	
     mkdir ~/.config/autostart
     cp opencv.desktop ~/.config/autostart/
@@ -104,7 +104,7 @@ case $OPENCV_SETUPSTATE in
     sleep 10
  
     # Install NVIDIA driver from ppa:graphics-drivers/ppa
-    ./install-nvidia.sh
+    #./install-nvidia.sh
 
     echo "Reboot in 10 seconds"
     sleep 10
@@ -117,13 +117,13 @@ case $OPENCV_SETUPSTATE in
     echo -e "Install CUDA\n\n"
     sleep 10
 	
-	./cuda-$SCRIPT_CUDAVER.sh
+   #	./cuda-$SCRIPT_CUDAVER.sh
   
  
     echo -e "Install cuDNN\n\n"
     sleep 10
 	
-	./cudnn-$SCRIPT_CUDAVER.sh
+#	./cudnn-$SCRIPT_CUDAVER.sh
     
  
     echo "Reboot in 10 seconds"

@@ -1,11 +1,22 @@
 #!/bin/bash
 
+#####################################################
+#
+# Testing .deb files as suggested by Tensorflow
+#
+####
+#
+# # Copy all the md5 files so we can check them with ease later
+# cp -v md5/*.md5 ~/
+# 
+# echo "Copy files form USB"
+# cp -v /media/jarleven/CUDA/CUDAFILES/* ~/
+#
+#
 
-# Copy all the md5 files so we can check them with ease later
-cp -v md5/*.md5 ~/
 
-echo "Copy files form USB"
-cp -v /media/jarleven/CUDA/CUDAFILES/* ~/
+
+
 
 
 sudo apt install -y vim vlc screen ssh
