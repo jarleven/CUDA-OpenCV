@@ -103,8 +103,7 @@ case $OPENCV_SETUPSTATE in
     echo -e "Install NVIDIA driver \n\n"
     sleep 10
  
-    # Install NVIDIA driver from ppa:graphics-drivers/ppa
-    #./install-nvidia.sh
+    ./install-nvidia-deb.sh driver
 
     echo "Reboot in 10 seconds"
     sleep 10
@@ -114,17 +113,11 @@ case $OPENCV_SETUPSTATE in
 
 
   3)
-    echo -e "Install CUDA\n\n"
+    echo -e "Install CUDA cuDNN \n\n"
     sleep 10
 	
-   #	./cuda-$SCRIPT_CUDAVER.sh
-  
+   ./install-nvidia-deb.sh cuda
  
-    echo -e "Install cuDNN\n\n"
-    sleep 10
-	
-#	./cudnn-$SCRIPT_CUDAVER.sh
-    
  
     echo "Reboot in 10 seconds"
     sleep 10
