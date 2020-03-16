@@ -3,20 +3,17 @@
 # Export the environment variables needed for CUDA OpenCV Tensorflow and so on
 # It will only run once 
 
-
-#if !OPENCV_ENV_EXPORTED == TRUE
-
-#export OPENCV_ENV_EXPORTED
-
 #CUDAVERSION
 
 
 
 if test ${OPENCV_ENV_EXPORTED+defined};
 then
-	echo "Variable somevar exists!"
+	echo "Variable OPENCV_ENV_EXPORTED exists!"
+	echo "To clear the variable:"
+	echo "unset OPENCV_ENV_EXPORTED"
 else
-	echo "Variable somevar does not exist!"
+	echo "Environment not created, setting up now!"
 	export OPENCV_ENV_EXPORTED="TRUE"
 
 	#
