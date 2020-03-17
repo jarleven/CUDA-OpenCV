@@ -6,6 +6,11 @@
 
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
+
+# time ffmpeg -i input -f null -
+
+
+
 # Exit script on error
 set -e
 # Echo each command
