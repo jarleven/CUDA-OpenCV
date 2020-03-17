@@ -93,7 +93,7 @@ tar xjf ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2
 
 cd ffmpeg-$SCRIPT_FFMPEGVER/
 
-make clean
+#make clean
 
 #./configure --enable-shared --disable-static --enable-cuda-sdk --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.0/include --extra-ldflags=-L/usr/local/cuda-10.0/lib64
 ./configure --enable-shared --disable-static --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
