@@ -139,15 +139,17 @@ If you would like to test if Tensorflow is working
  ```bash
 cd ~/TensorFlow/models/tutorials/image/imagenet
 python3 classify_image.py
- ```
+```
 
+To check out a tag do
+```bash
+git clone https://github.com/tensorflow/models.git --tag 2.0.0
+```
 
 
 From within TensorFlow/models/research/
  ```bash
-
-cd ~/TensorFlow/models/research/
-protoc object_detection/protos/*.proto --python_out=.
+cd ~/TensorFlow/models/research/ && protoc object_detection/protos/*.proto --python_out=.
  ```
 
 From within TensorFlow/models/research/
@@ -411,13 +413,14 @@ export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 
 #### Exporting the model
 
+mkdir ~/EXPORT
 cd ~/TensorFlow/models/research/object_detection
 
 python3 export_inference_graph.py \
     --input_type image_tensor \
-    --pipeline_config_path /home/jarleven/TensorFlow/workspace/training_demo/training/ssd_inception_v2_coco.config \
+    --pipeline_config_path /home/jarleven/TensorFlow/workspace/training_demo/training/pipeline.config \
     --trained_checkpoint_prefix /home/jarleven/TensorFlow/workspace/training_demo/training/model.ckpt-200000 \
-    --output_directory /home/jarleven/TensorFlow/ssd_inception_v2_coco_b002_salmon_salmo_salar
+    --output_directory /home/jarleven/EXPORT
 
 
 
