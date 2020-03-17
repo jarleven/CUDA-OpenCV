@@ -15,7 +15,7 @@ cd "$(dirname "$0")"
 
 
 source .setupvars
-source environment.sh
+source environmet.sh
 
 cd ~
 
@@ -43,7 +43,7 @@ cd ~
 
 cd ~
 
-videocodecsdk.md5
+#videocodecsdk.md5
 if md5sum -c videocodecsdk.md5; then
     echo "OK, NVIDIA video Codec SDK found"
 else
@@ -54,13 +54,8 @@ rm -rf Video_Codec_SDK_9.1.23
 unzip Video_Codec_SDK_9.1.23.zip 
 sudo cp Video_Codec_SDK_9.1.23/Samples/common.mk /usr/local/include/
 
-### ????  Testing OpenCV 3.x.x and CUDA 10.1 and NVCUVID !!!
-#cd ~
-#cp /media/jarleven/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip .
-#nzip Video_Codec_SDK_9.1.23.zip
+#### Not sure if this is needed !
 cd Video_Codec_SDK_9.1.23/include
-
-
 sudo cp nvcuvid.h /usr/local/cuda-10.1/include/
 sudo cp cuviddec.h /usr/local/cuda-10.1/include/
 #### ????
@@ -76,7 +71,6 @@ sudo ldconfig
 cd ~
 git clone https://code.videolan.org/videolan/x264.git
 cd x264/
-#./configure --disable-cli --enable-shared --enable-static--enable-strip
 ./configure --disable-cli --enable-shared --disable-static--enable-strip
 make
 sudo make install
