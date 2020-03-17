@@ -6,7 +6,16 @@
 
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
+# Exit script on error
+set -e
+# Echo each command
+set -x
+
+cd "$(dirname "$0")"
+
+
 source .setupvars
+source environment.sh
 
 cd ~
 
@@ -44,6 +53,17 @@ fi
 rm -rf Video_Codec_SDK_9.1.23
 unzip Video_Codec_SDK_9.1.23.zip 
 sudo cp Video_Codec_SDK_9.1.23/Samples/common.mk /usr/local/include/
+
+### ????  Testing OpenCV 3.x.x and CUDA 10.1 and NVCUVID !!!
+#cd ~
+#cp /media/jarleven/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip .
+#nzip Video_Codec_SDK_9.1.23.zip
+cd Video_Codec_SDK_9.1.23/include
+
+
+sudo cp nvcuvid.h /usr/local/cuda-10.1/include/
+sudo cp cuviddec.h /usr/local/cuda-10.1/include/
+#### ????
 
 
 cd ~
