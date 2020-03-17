@@ -3,7 +3,7 @@
 # Export the environment variables needed for CUDA OpenCV Tensorflow and so on
 # It will only run once 
 
-#CUDAVERSION
+CUDAVERSION="cuda-10.1"
 
 if test ${OPENCV_ENV_EXPORTED+defined};
 then
@@ -18,18 +18,18 @@ else
 	# export TEST="${TEST:+${TEST}:}/A/B/C"
 	#
 
-	export PATH="${PATH:+${PATH}:}/usr/local/cuda-10.2/bin"
+	export PATH="${PATH:+${PATH}:}/usr/local/$CUDAVERSION/bin"
         export PATH="${PATH:+${PATH}:}$HOME/.local/bin"
 	export PATH="${PATH:+${PATH}:}/home/linuxbrew/.linuxbrew/bin"
 
-	export CUDA_ROOT="${CUDA_ROOT:+${CUDA_ROOT}:}/usr/local/cuda-10.2"
-	export CUDA_HOME="${CUDA_HOME:+${CUDA_HOME}:}/usr/local/cuda-10.2"
+	export CUDA_ROOT="${CUDA_ROOT:+${CUDA_ROOT}:}/usr/local/$CUDAVERSION"
+	export CUDA_HOME="${CUDA_HOME:+${CUDA_HOME}:}/usr/local/$CUDAVERSION"
 
-	export PATH="${PATH:+${PATH}:}/usr/local/cuda-10.2/bin"
+	export PATH="${PATH:+${PATH}:}/usr/local/$CUDAVERSION/bin"
 
 
-        export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda-10.2/lib64"
-	export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda-10.2/lib"
+        export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/$CUDAVERSION/lib64"
+	export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/$CUDAVERSION/lib"
 	export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64"
 
 
