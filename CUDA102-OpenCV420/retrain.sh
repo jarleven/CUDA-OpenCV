@@ -46,9 +46,9 @@ source ~/.bash_profile
 
 
 #sudo apt install -y python3-dev python3-numpy
-python3 -m pip install --upgrade --force-reinstall Cython --user
-python3 -m pip install --upgrade --force-reinstall pycocotools --user
-python3 -m pip install --upgrade --force-reinstall pandas --user
+python3 -m pip install --upgrade --force-reinstall --user Cython
+python3 -m pip install --upgrade --force-reinstall --user pycocotools
+python3 -m pip install --upgrade --force-reinstall --user pandas
 
 
 
@@ -166,7 +166,7 @@ cd ~/$MODEL
 
 cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
-
+      /home/jarleven/TensorFlow/workspace/training_demo/training/pipeline.config 
 
 cd ~/TensorFlow/workspace/training_demo/training
 
