@@ -3,6 +3,11 @@
 # Export the environment variables needed for CUDA OpenCV Tensorflow and so on
 # It will only run once 
 
+
+# https://answers.opencv.org/question/227581/why-videocaptureset-method-is-much-slower-when-ran-simultaneously-with-tensorflow-on-single-gpu/
+export OPENCV_FFMPEG_CAPTURE_OPTIONS=video_codec;h264_cuvid
+
+
 CUDAVERSION="cuda-10.1"
 
 if test ${OPENCV_ENV_EXPORTED+defined};

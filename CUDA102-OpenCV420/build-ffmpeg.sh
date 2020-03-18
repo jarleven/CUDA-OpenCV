@@ -3,6 +3,7 @@
 # Inspiration
 # https://arstech.net/compile-ffmpeg-with-nvenc-h264/
 # https://www.learnopencv.com/install-opencv-4-on-ubuntu-18-04/
+# https://devblogs.nvidia.com/nvidia-ffmpeg-transcoding-guide/
 
 # Script as instructed in https://developer.nvidia.com/ffmpeg
 
@@ -98,10 +99,13 @@ tar xjf ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2
 
 cd ffmpeg-$SCRIPT_FFMPEGVER/
 
-#make clean
+make clean
 
 #./configure --enable-shared --disable-static --enable-cuda-sdk --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.0/include --extra-ldflags=-L/usr/local/cuda-10.0/lib64
-./configure --enable-shared --disable-static --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
+#./configure --enable-shared --disable-static --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
+
+./configure --enable-shared --disable-static --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.1/include  --extra-ldflags=-L/usr/local/cuda-10.1/lib64
+
 
 make -j$(nproc)
 

@@ -11,7 +11,7 @@
 
 
 # We use theese variables thoughout the install process
-SCRIPT_CUDAVER="10.0"
+SCRIPT_CUDAVER="10.1"
 SCRIPT_NVIDIAVER="418"
 SCRIPT_TENSORFLOWVER="2.0.0"
 SCRIPT_FFMPEG="ON"
