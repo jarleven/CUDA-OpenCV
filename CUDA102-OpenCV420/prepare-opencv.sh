@@ -73,23 +73,9 @@ sudo apt install -y libopenblas-dev liblapack-dev gfortran
 
 sudo apt install -y libhdf5-serial-dev
 
-# PYTHON 3 (Assuming without Python2 and pip2)
-alias python=python3
-
 #TODO 
 sudo apt install -y python3-testresources
 
-
-#### In case you run the script multiple times remove the stuff potentially added in bashrc ....
-#sed -i '/# Add Python alias/d' ~/.bashrc
-#sed -i '/alias python=python3/d' ~/.bashrc
-
-#echo '# Add Python alias' >> ~/.bashrc 
-#echo 'alias python=python3' >> ~/.bashrc
-
-#TODO verify
-#sed -i '/"$HOME/.local/bin/:$PATH"/d' ~/.bashrc
-#echo 'PATH="$HOME/.local/bin/:$PATH"' >> ~/.bashrc
 
 # The path is not set until next reboot when using pip ??
 export PATH=/home/jarleven/.local/bin${PATH:+:${PATH}}
