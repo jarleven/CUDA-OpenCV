@@ -19,6 +19,7 @@ set -x
 
 cd "$(dirname "$0")"
 
+CUDAVERSION="cuda-10.1"
 
 source .setupvars
 source environmet.sh
@@ -62,8 +63,8 @@ sudo cp Video_Codec_SDK_9.1.23/Samples/common.mk /usr/local/include/
 
 #### Not sure if this is needed !
 cd Video_Codec_SDK_9.1.23/include
-sudo cp nvcuvid.h /usr/local/cuda-10.1/include/
-sudo cp cuviddec.h /usr/local/cuda-10.1/include/
+sudo cp nvcuvid.h /usr/local/$CUDAVERSION/include/
+sudo cp cuviddec.h /usr/local/$CUDAVERSION/include/
 #### ????
 
 
@@ -104,7 +105,7 @@ make clean
 #./configure --enable-shared --disable-static --enable-cuda-sdk --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.0/include --extra-ldflags=-L/usr/local/cuda-10.0/lib64
 #./configure --enable-shared --disable-static --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
 
-./configure --enable-shared --disable-static --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.1/include  --extra-ldflags=-L/usr/local/cuda-10.1/lib64
+./configure --enable-shared --disable-static --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
 
 
 make -j$(nproc)
