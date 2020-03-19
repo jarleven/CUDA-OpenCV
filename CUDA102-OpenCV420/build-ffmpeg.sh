@@ -12,10 +12,23 @@
 
 
 
-# Exit script on error
-set -e
-# Echo each command
-set -x
+# Tips from https://github.com/opencv/opencv/issues/11220
+# cuda video decoder (nvcuvid), will be deprecated.
+# no longer exists in cuda (latest 10.1)
+# 
+# but if you want to use it with opencv, install NVIDIA Video Decoder SDK
+# https://developer.nvidia.com/nvidia-video-codec-sdk
+# 
+# after install it, you will have nvcuvid.lib in SDK/lib/(platform) directory.
+# just pointing the opencv setting cuda_nvcuvid_library to that file.
+# and make sure you check WITH NVCUVID
+
+
+
+set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
+
 
 cd "$(dirname "$0")"
 
@@ -51,20 +64,27 @@ cd ~
 cd ~
 
 #videocodecsdk.md5
+cp /media/$HOME/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip ~/
+
 if md5sum -c videocodecsdk.md5; then
     echo "OK, NVIDIA video Codec SDK found"
 else
     echo "Videocodec needed!"
+
 fi
 
-rm -rf Video_Codec_SDK_9.1.23
-unzip Video_Codec_SDK_9.1.23.zip 
+#rm -rf Video_Codec_SDK_9.1.23
+# unzip -o  overwrite files WITHOUT prompting 
+# unzip -n  never overwrite existing files
+unzip -n Video_Codec_SDK_9.1.23.zip 
 sudo cp Video_Codec_SDK_9.1.23/Samples/common.mk /usr/local/include/
 
 #### Not sure if this is needed !
+
+# cp  -u, --update  copy only when the SOURCE file is newer than the destination file or when the destination file is missing
 cd Video_Codec_SDK_9.1.23/include
-sudo cp nvcuvid.h /usr/local/$CUDAVERSION/include/
-sudo cp cuviddec.h /usr/local/$CUDAVERSION/include/
+sudo cp -u nvcuvid.h /usr/local/$CUDAVERSION/include/
+sudo cp -u cuviddec.h /usr/local/$CUDAVERSION/include/
 #### ????
 
 
@@ -100,11 +120,9 @@ tar xjf ffmpeg-$SCRIPT_FFMPEGVER.tar.bz2
 
 cd ffmpeg-$SCRIPT_FFMPEGVER/
 
-make clean
+#make clean
 
-#./configure --enable-shared --disable-static --enable-cuda-sdk --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/cuda-10.0/include --extra-ldflags=-L/usr/local/cuda-10.0/lib64
-#./configure --enable-shared --disable-static --enable-nonfree --enable-nvenc --enable-libx264 --enable-gpl --enable-cuda --enable-cuvid --enable-cuda-nvcc
-
+# --enable-cuda-sdk --enable-libx264 --enable-gpl  --enable-cuda-nvcc
 ./configure --enable-shared --disable-static --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
 
 
