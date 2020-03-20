@@ -10,6 +10,12 @@
 #
 
 
+set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
+
+
+
 # We use theese variables thoughout the install process
 SCRIPT_CUDAVER="10.1"
 SCRIPT_NVIDIAVER="418"

@@ -2,8 +2,13 @@
 
 # Download OpenCV
 
-#OPENCV_VER="4.2.0"
-OPENCV_VER="3.4.9"
+set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
+
+
+OPENCV_VER="4.2.0"
+#OPENCV_VER="3.4.9"
 
 cd ~
 

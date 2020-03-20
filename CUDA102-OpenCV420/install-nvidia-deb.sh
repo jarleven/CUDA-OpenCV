@@ -7,10 +7,10 @@ if [ $# -ne 1 ]; then
     exit
 fi
 
-# Exit script on error.
-set -e
-# Echo each command.
-set -x
+
+set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
 
 cd ~
 

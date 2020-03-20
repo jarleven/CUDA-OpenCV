@@ -3,11 +3,19 @@
 # Compileing an GPU example like this
 # ~/opencv/samples/gpu$ nvcc `pkg-config --libs opencv4` -L. -L/usr/local/cuda/lib -lcuda -lcudart `pkg-config --cflags opencv4` -I . -I /usr/local/cuda-10.1 bgfg_segm.cpp -o bgfg_seg
 
+set -e  # Exit immediately if a command exits with a non-zero status. Exit on error
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
+
+
 # In case of rebuild, delete everything before building
 sudo rm -rf ~/opencv/build
 mkdir ~/opencv/build
 
 source .setupvars
+source environmet.sh
+
+
 
 # We build here
 cd ~/opencv/build
@@ -54,7 +62,7 @@ cmake \
     -D WITH_TBB=ON \
     -D WITH_V4L=ON \
     -D WITH_1394=OFF \
-    -D WITH_NVCUVID=OFF \
+    -D WITH_NVCUVID=ON \
     -D OPENCV_GENERATE_PKGCONFIG=ON \
     -D CUDA_TOOLKIT_ROOT_DIR=$SCRIPT_CUDAPATH \
     -D CUDA_ARCH_BIN=$SCRIPT_CUDA_ARCH_BIN \
