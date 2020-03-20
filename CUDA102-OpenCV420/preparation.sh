@@ -15,11 +15,11 @@
 #
 
 
+set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
 
 
-
-
-sudo apt install -y vim vlc screen ssh
 
 # Just in case I need to modify this repository (Sorry)
 if [ $USER == "jarleven" ]
@@ -38,6 +38,8 @@ echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo EDITOR='tee -a' visudo
 gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
 gsettings set org.gnome.desktop.session idle-delay 0
 
+
+sudo apt install -y vim vlc screen ssh
 
 # Upgrade the system
 sudo apt update

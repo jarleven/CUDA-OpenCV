@@ -3,6 +3,12 @@
 # Keep this file clean with the following check, it will list duplicates.
 # sed s/' '/\\n/g prepare-opencv.sh | sort | uniq -c | sort -n
 
+set -e  # Exit immediately if a command exits with a non-zero status. Exit on error
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
+
+
+
 source .setupvars
 cd ~
 
@@ -13,7 +19,7 @@ sudo apt-get install -y libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 sudo apt-get install -y libjpeg-dev libpng-dev libtiff-dev
 sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
 sudo apt-get install -y libxvidcore-dev libx264-dev
-sudo apt-get install -y libopenblas-dev libatlas-base-dev liblapack-dev gfortran
+sudo apt-get install -y libatlas-base-dev liblapack-dev gfortran
 sudo apt-get install -y libhdf5-serial-dev
 
 
@@ -27,8 +33,10 @@ sudo apt-get install -y libgtk-3-dev
 #sudo apt update
 #sudo apt upgrade -y
 
+# REMOVED line due to testing for errors
+#  libatk-bridge2.0-dev libatspi2.0-dev libdbus-1-dev libepoxy-dev 
 
-libatk-bridge2.0-dev libatspi2.0-dev libdbus-1-dev libepoxy-dev 
+
 #  libxkbcommon-dev libxtst-dev wayland-protocols x11proto-record-dev
 
 	
@@ -40,8 +48,13 @@ libatk-bridge2.0-dev libatspi2.0-dev libdbus-1-dev libepoxy-dev
 sudo apt install -y cmake-qt-gui
 sudo apt install -y build-essential cmake git pkg-config unzip qtbase5-dev
 sudo apt install -y libhdf5-dev
-sudo apt install -y libgtk-3-dev libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff5-dev libjasper-dev
-sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+sudo apt install -y libgtk-3-dev libdc1394-22 libdc1394-22-dev libjpeg-dev libpng-dev libtiff5-dev 
+# REMOVED package when testing for errors libjasper-dev
+
+sudo apt install -y libavcodec-dev libavformat-dev libswscale-dev libxine2-dev
+# REMOVED pakage when testing for errors libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+sudo apt install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+
 sudo apt install -y libv4l-dev libtbb-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev
 sudo apt install -y libvorbis-dev libxvidcore-dev v4l-utils
 sudo apt install -y libglm-dev
@@ -51,7 +64,7 @@ sudo apt install -y tesseract-ocr libtesseract-dev libleptonica-dev
 
 # Added 2019
 sudo apt -y install ccache 
-sudo apt -y install libopenblas-dev, libopenblas-base
+sudo apt -y install libopenblas-dev libopenblas-base
 #sudo ln -s /usr/include/lapacke.h /usr/include/x86_64-linux-gnu # corrected path for the library 
 sudo apt -y install flake8
 sudo apt install -y libatlas-base-dev libatlas3-base
@@ -69,7 +82,7 @@ sudo apt install -y libpng-dev libtiff-dev
 sudo apt install -y libx264-dev 
 #### End FFMPEG
 
-sudo apt install -y libopenblas-dev liblapack-dev gfortran
+sudo apt install -y liblapack-dev gfortran
 
 sudo apt install -y libhdf5-serial-dev
 
