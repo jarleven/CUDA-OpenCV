@@ -21,7 +21,15 @@ do
     case $OPENCVSTATE in
 
 
+
         1)
+            echo "Copy files"
+            ./file-copy.sh
+            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="NO"
+
+        ;;
+
+        2)
             echo "Bootstrap"
             ./bootstrap.sh   
 	    OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="NO"
@@ -29,7 +37,7 @@ do
         ;;
 
 
-        2)
+        3)
             echo "Error"
 	    ./preparation.sh
             OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
@@ -37,18 +45,54 @@ do
 	;;
 
 
+        4)
+            echo "NVIDIA Driver"
+            ./install-nvidia-deb.sh driver
+            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
 
-        10)
-            echo "Ten"
+        ;;
+
+
+        5)
+            echo "NVIDIA CUDA"
+            ./install-nvidia-deb.sh cuda
+            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
+
+        ;;
+
+        6)
+            echo "NVIDIA Driver"
+            ./video-codec.sh
+            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="NO"
+
+        ;;
+
+        7)
+            echo "Download OpenCV"
+            ./download-opencv.sh
             OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="NO"
 
         ;;
 
 
+        8)
+            echo "Prepare OpenCV"
+            ./prepare-opencv.sh
+            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
+
+        ;;
+
+        9)
+            echo "Prepare OpenCV"
+            ./build-opencv.sh
+            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
+
+        ;;
+
 
         *)
             echo -e "unknown install state \n\n"
-            OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="NO"
+            OPENCV_SCRIPT_OK=1 && OPENCV_SCRIPT_REBOOT="NO"
 
      	;;
 
@@ -71,7 +115,7 @@ do
     then
         echo "Will reboot now"
 	sleep 20
-	#sudo reboot
+	sudo reboot
     else
         echo "Do next state"
 	sleep 2

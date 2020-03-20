@@ -21,6 +21,10 @@ set -u  # Treat unset variables as an error when substituting.
 
 
 
+cp /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip
+
+
+
 # Just in case I need to modify this repository (Sorry)
 if [ $USER == "jarleven" ]
 then
