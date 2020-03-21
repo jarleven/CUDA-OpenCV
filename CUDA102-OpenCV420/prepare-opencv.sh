@@ -91,7 +91,7 @@ sudo apt install -y python3-testresources
 
 
 # The path is not set until next reboot when using pip ??
-export PATH=/home/jarleven/.local/bin${PATH:+:${PATH}}
+export PATH=/home/$USER/.local/bin${PATH:+:${PATH}}
 
 wget https://bootstrap.pypa.io/get-pip.py
 sudo -H python3 get-pip.py
