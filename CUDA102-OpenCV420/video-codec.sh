@@ -6,11 +6,15 @@ set -u  # Treat unset variables as an error when substituting.
 
 echo "Copy Video SDK files"
 
-#cp /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip
+CUDAVERSION="cuda-10.1"
 
+cd ~/
 unzip -n Video_Codec_SDK_9.1.23.zip
-cd ~/Video_Codec_SDK_9.1.23/include
+
+cd Video_Codec_SDK_9.1.23/include
 
 sudo cp -u nvcuvid.h /usr/local/$CUDAVERSION/include/
 sudo cp -u cuviddec.h /usr/local/$CUDAVERSION/include/
+
+sleep 10
 

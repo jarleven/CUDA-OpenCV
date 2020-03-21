@@ -19,8 +19,8 @@ do
     OPENCV_SCRIPT_REBOOT="FALSE"
     OPENCV_SCRIPT_OK=911
 
-    echo "We are at state $OPENCVSTATE "
-    sleep 3
+    echo "We are at state $OPENCVSTATE"
+    sleep 10
 
     case $OPENCVSTATE in
 
@@ -42,7 +42,7 @@ do
 
 
         3)
-            echo "Error"
+            echo "Preparations"
 	    ./preparation.sh
             OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
 
@@ -65,10 +65,10 @@ do
         ;;
 
         6)
-            echo "NVIDIA Driver"
+            echo "Copy over NVCUVID files"
             ./video-codec.sh
             OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="NO"
-
+            sleep 5
         ;;
 
         7)
@@ -87,7 +87,7 @@ do
         ;;
 
         9)
-            echo "Prepare OpenCV"
+            echo "Build OpenCV"
             ./build-opencv.sh
             OPENCV_SCRIPT_OK=$? && OPENCV_SCRIPT_REBOOT="YES"
 
