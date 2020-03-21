@@ -42,12 +42,12 @@ cd ~ && sudo apt install -y git && git clone https://github.com/jarleven/CUDA-Op
 
 ```
 
-Testing the install
+Testing the install from remote ssh sesion
 ```bash
-source ~/CUDA-OpenCV/CUDA102-OpenCV420/environmet.sh && cd /home/$USER/opencv/samples/gpu
-
-g++ -ggdb bgfg_segm.cpp -o bgfg_segm `pkg-config --cflags --libs opencv4` -I /usr/local/cuda-10.1/include/
-./video_reader /media/$USER/CUDA/syd__2019-06-28__05-00-00.mp4
+source ~/CUDA-OpenCV/CUDA102-OpenCV420/environmet.sh && cd /home/$USER/opencv/samples/gpu \
+&& export DISPLAY=:0 \
+&& g++ -ggdb video_reader.cpp -o video_reader `pkg-config --cflags --libs opencv4` -I /usr/local/cuda-10.1/include/ \
+&& ./video_reader /media/$USER/CUDA/syd__2019-06-28__05-00-00.mp4
 
 ```
 
