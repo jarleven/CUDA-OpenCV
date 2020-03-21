@@ -4,12 +4,12 @@
 # It will only run once 
 
 
-set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
-set -x  # Print commands and their arguments as they are executed.
-set -u  # Treat unset variables as an error when substituting.
+#set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+#set -x  # Print commands and their arguments as they are executed.
+#set -u  # Treat unset variables as an error when substituting.
 
 # https://answers.opencv.org/question/227581/why-videocaptureset-method-is-much-slower-when-ran-simultaneously-with-tensorflow-on-single-gpu/
-export OPENCV_FFMPEG_CAPTURE_OPTIONS="video_codec;h264_cuvid"
+#export OPENCV_FFMPEG_CAPTURE_OPTIONS="video_codec;h264_cuvid"
 
 
 CUDAVERSION="cuda-10.1"
