@@ -44,8 +44,11 @@ using namespace cv::cuda;
 */
 
 #define CROPSIZE 299
-#define FULLIMGSAVEPATH "/home/jarleven/foreground/full/"
-#define CROPIMGSAVEPATH "/home/jarleven/foreground/cropped/"
+#define FULLIMGSAVEPATH "/tmp/ramdisk/full/"
+#define CROPIMGSAVEPATH "/tmp/ramdisk/cropped/"
+
+
+
 
 /**
  * Get the filename from the path.
@@ -156,6 +159,8 @@ int main(int argc, const char* argv[])
     bool showimg = true;
     bool saveimg = true;
 
+    int minContout = 400;
+
     const std::string fname(argv[1]);
 
 
@@ -256,7 +261,7 @@ int main(int argc, const char* argv[])
 /*
   This is a major prerformance hit !
   Finding contours in the GPU memory would really speed things up in noisy and shaky videos.
-  
+
   Digging into the issue :
     https://answers.opencv.org/question/59413/cuda-based-connected-component-labeling/
     https://github.com/opencv/opencv_contrib/blob/master/modules/cudalegacy/src/graphcuts.cpp
@@ -282,7 +287,7 @@ int main(int argc, const char* argv[])
             }
 
             saveimg = true;
-            if(saveimg && maxcontour > 200) {
+            if(saveimg && maxcontour > minContout) {
 
             /// Approximate contours to polygons + get bounding rects and circles
             vector<vector<Point> > contours_poly( contours.size() );
@@ -295,7 +300,7 @@ int main(int argc, const char* argv[])
                 minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
             }
 
-
+/*
             /// Draw polygonal contour + bonding rects + circles
             for( int i = 0; i< contours.size(); i++ ) {
                 Scalar color = Scalar( 128, 255, 255 );
@@ -327,7 +332,7 @@ int main(int argc, const char* argv[])
 
                 }
             }
-
+*/
             char savename[100] = {0};
             sprintf(savename,"%s%s_%04d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
             imwrite(savename, frame );
@@ -337,7 +342,7 @@ int main(int argc, const char* argv[])
 
 
         showimg = true;
-        if(showimg && maxcontour > 200) {
+        if(showimg && maxcontour > minContout) {
             cv::imshow("CPU", frame);
             cv::imshow("Mask", fgmask);
 
