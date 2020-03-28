@@ -37,15 +37,7 @@ using namespace std;
 using namespace cv;
 using namespace cv::cuda;
 
-/*
-  Files will be made for the Inception V4 (ImageNet) classifier Input size: 299x299
-  Currently classification is done on Google Coral Edge TPU
-  https://coral.withgoogle.com/models/
-*/
-
-#define CROPSIZE 299
 #define FULLIMGSAVEPATH "/tmp/ramdisk/full/"
-#define CROPIMGSAVEPATH "/tmp/ramdisk/cropped/"
 
 
 
@@ -71,58 +63,6 @@ string getFileName(const string& s) {
 
    return(s);
 }
-
-
-                    cv::Rect findCrop(int x,int y,int radius,int height, int width) {
-
-                    int xpos = 0;
-                    int ypos = 0;
-
-                    int diameter = 2*radius;
-
-                    if(diameter > x) {
-                        xpos = 0 ;
-                    }
-
-                    else if (diameter+x > width) {
-                        xpos = width - (2*diameter);
-                    }
-                    else {
-                        xpos = x-diameter;
-                    }
-
-                    if (diameter > y) {
-                        ypos = 0;
-                    }
-
-                    else if (diameter+y > height) {
-                        ypos = height - (2*diameter);
-                    }
-                    else {
-                        ypos = y-diameter;
-                    }
-
-
-                    int lengde=2*diameter;
-
-                    if(xpos < 0) {xpos = 0;}
-                    if(ypos < 0) {ypos = 0;}
-
-
-                    if(lengde > height) {
-                         lengde = height;
-                    }
-
-                    if(lengde > width) {
-                         lengde = height;
-                    }
-
-
-                        int rectheight = lengde;
-                        int rectwidth = lengde;
-                        return cv::Rect(xpos, ypos, rectheight, rectwidth);
-                    }
-
 
 
 /**
@@ -239,11 +179,18 @@ int main(int argc, const char* argv[])
             cout << "Height: " << height << endl;
         }
 
+
         mog2->apply(d_frame, d_fgmask);
 //        mog2->getBackgroundImage(d_bgimg);
 
 //        dilateFilter->apply(d_fgmask, d_fgmask);
 //        dilateFilter2->apply(d_fgmask, d_fgmask);
+        if ( (framenum % 5 )) {
+
+          continue;
+	}
+			 //cv::String skipping = cv::format("Frame %05d",framenum);
+			 //std::cout << skipping << std::endl;
 
 
         int pixels =  cv::cuda::countNonZero(d_fgmask);
@@ -286,7 +233,6 @@ int main(int argc, const char* argv[])
 		}
             }
 
-            saveimg = true;
             if(saveimg && maxcontour > minContout) {
 
             /// Approximate contours to polygons + get bounding rects and circles
@@ -334,13 +280,13 @@ int main(int argc, const char* argv[])
             }
 */
             char savename[100] = {0};
-            sprintf(savename,"%s%s_%04d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
+            sprintf(savename,"%s%s_%05d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
             imwrite(savename, frame );
         }
 
         //std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
 
-
+/*
         showimg = true;
         if(showimg && maxcontour > minContout) {
             cv::imshow("CPU", frame);
@@ -348,8 +294,11 @@ int main(int argc, const char* argv[])
 
             if (cv::waitKey(1) > 0)
                 break;
-            }
         }
+*/
+
+      }
+
     }
 
 
