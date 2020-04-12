@@ -103,6 +103,7 @@ do
             echo "Set background and stop statemachine"
             echo OPENCVSTATE=0 > ./statemachine.state
             wget https://miro.medium.com/max/588/1*9rDrXPsNMHGVVGV1X-_J0w.png -O background.png
+            cp -u background.png ~/
             gsettings set org.gnome.desktop.background primary-color "#FFFFFF"
             gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/background.png
             gsettings set org.gnome.desktop.background picture-options 'scaled'
