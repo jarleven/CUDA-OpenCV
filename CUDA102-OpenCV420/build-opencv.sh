@@ -34,6 +34,10 @@ cd ~/opencv/build
 
 # python yolo_object_detection.py --input ../example_videos/janie.mp4 --output ../output_videos/yolo_janie.avi --yolo yolo-coco --display 0 --use-gpu 1
 
+# TODO. Had this for Ubuntu 19.10 but think the problem was GCC 9 so removed for now.
+#    -D BUILD_opencv_dnn_modern=OFF \
+
+
 cmake \
     -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
@@ -52,6 +56,7 @@ cmake \
     -D ENABLE_FAST_MATH=1 \
     -D CUDA_FAST_MATH=1 \
     -D CUDA_NVCC_FLAGS="-D_FORCE_INLINES" \
+    -D CUDA_HOST_COMPILER:FILEPATH=/usr/bin/gcc-8 \
     -D WITH_CUBLAS=1 \
     -D WITH_CUDNN=ON \
     -D OPENCV_DNN_CUDA=ON \

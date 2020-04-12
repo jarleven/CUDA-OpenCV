@@ -14,7 +14,6 @@ cd ~
 
 sudo apt-get install -y screen vim
 sudo apt-get install -y build-essential cmake unzip pkg-config
-sudo apt-get install -y gcc-6 g++-6
 sudo apt-get install -y libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 sudo apt-get install -y libjpeg-dev libpng-dev libtiff-dev
 sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
@@ -73,7 +72,9 @@ sudo apt install -y libopencv-dev
 sudo apt install -y dkms
 sudo apt install -y freeglut3 freeglut3-dev libxi-dev libxmu-dev
 
-sudo apt install -y gcc-6 g++-6
+#sudo apt install -y gcc-6 g++-6  # TODO not supported anymore in Ubuntu 19.10, investigate
+sudo apt install -y gcc-8 g++-8
+
 sudo apt install -y libglu1-mesa libglu1-mesa-dev
 
 sudo apt install -y libpng-dev libtiff-dev
