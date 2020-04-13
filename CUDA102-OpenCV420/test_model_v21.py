@@ -3,10 +3,10 @@ import tensorflow as tf
 import cv2 as cv
 from timeit import default_timer as timer
 
+# labelImg test_io.py thanks to https://github.com/tzutalin/labelImg
 from libs.pascal_voc_io import PascalVocWriter
 
-
-
+# File and path modifications
 import glob
 from pathlib import Path, PurePosixPath, PurePath
 
@@ -14,24 +14,11 @@ from pathlib import Path, PurePosixPath, PurePath
 import shutil
 
 
-#Path('/root/dir/sub/file.ext').stem
-
-
-
-
-print("Hello World")
-
-
+# The files to process
+# TODO there is a job to do regarding paths
 filenames = glob.glob("./*.jpg")
 filenames.sort()
 
-#images = [cv.imread(img) for img in filenames]
-
-for name in filenames:
-    print(name)
-
-
-print("----------")
 
 #
 # For tensorflow 2.1. File was upgraded with 
@@ -41,23 +28,8 @@ print("----------")
 
 
 #
-#  Use the labelImg xml lib for writing Pascal VOC xml files
-#  wget https://raw.githubusercontent.com/tzutalin/labelImg/master/libs/pascal_voc_io.py
-#
-
-#
 #  Unserstand the xml format
 #  https://towardsdatascience.com/coco-data-format-for-object-detection-a4c5eaf518c5
-
-imagefile="img01.jpg"
-
-#cap = cv.VideoCapture("fisk.mp4")
-
-#cap = cv.VideoCapture("/home/jarleven/IMAGESEQUENCE/%5d.jpg")
-#cap = cv.VideoCapture("/tmp/ramdisk/full/%05d.jpg")
-cap = cv.VideoCapture("./img01.jpg")
-
-
 
 
 from datetime import datetime
@@ -107,7 +79,7 @@ with tf.compat.v1.Session() as sess:
                     sess.graph.get_tensor_by_name('detection_scores:0'),
                     sess.graph.get_tensor_by_name('detection_boxes:0'),
                     sess.graph.get_tensor_by_name('detection_classes:0')],
-                   feed_dict={'image_tensor:0': inp.reshape(1, inp.shape[0], inp.shape[1], 3)})
+                    feed_dict={'image_tensor:0': inp.reshape(1, inp.shape[0], inp.shape[1], 3)})
 
 
         # Visualize detected bounding boxes.
@@ -170,11 +142,9 @@ with tf.compat.v1.Session() as sess:
         print("Image analyzed in %.3f seconds " % (end - start))
 
         if(hit > 0):
-            #writer.addBndBox(113, 40, 450, 403, 'face', difficult)
             writer.save(xmlfilepath)
             shutil.copyfile(filename, jpgfilepath)
 
-            # labelImg test_io.py
             totalhits=totalhits+1
             cv.putText(img, "%02d hits with max score %.3f" % (hit, maxscore_img), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (125, 255, 51), 2)
             savefile = "%d.png" % (imgnum)
