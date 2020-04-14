@@ -17,6 +17,9 @@ sudo apt-get install -y pyqt5-dev-tools
 cd labelImg/
 sudo pip3 install -r requirements/requirements-linux-python3.txt
 
+# On Ubuntu 19.10 
+# sudo apt-get install pyqt5-dev-tool
+# pip install lxml
 
 make qt5py3
 
