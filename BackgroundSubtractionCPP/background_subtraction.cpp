@@ -40,6 +40,30 @@ using namespace cv::cuda;
 #define FULLIMGSAVEPATH "/tmp/ramdisk/full/"
 
 
+/**
+ * https://www.linuxbabe.com/command-line/create-ramdisk-linux
+ * sudo mkdir /tmp/ramdisk && sudo chmod 777 /tmp/ramdisk && sudo mount -t tmpfs -o size=1024m myramdisk /tmp/ramdisk && mkdir /tmp/ramdisk/full
+ */
+
+/**
+ *
+
+
+
+sudo mkdir -p /tmp/ramdisk \
+sudo chmod 777 /tmp/ramdisk \
+sudo mount -t tmpfs -o size=4G myramdisk /tmp/ramdisk \
+mkdir /tmp/ramdisk/full \
+mkdir /tmp/ramdisk/annotated \
+mkdir /tmp/ramdisk/annotateddebug
+
+
+sudo umount /tmp/ramdisk/
+
+
+
+
+*/
 
 
 /**
