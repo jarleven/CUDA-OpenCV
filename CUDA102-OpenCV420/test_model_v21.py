@@ -15,9 +15,12 @@ import os
 import shutil
 
 
+rootpath="/tmp/ramdisk/annotated"
+rootpathdebug="/tmp/ramdisk/annotateddebug"
+
 # The files to process
 # TODO there is a job to do regarding paths
-filenames = glob.glob("/home/jarleven/input/*.jpg")
+filenames = glob.glob("/tmp/ramdisk/full/*.jpg")
 filenames.sort()
 
 
@@ -94,10 +97,11 @@ with tf.compat.v1.Session() as sess:
         filexml=Path(name).stem + '.xml'
         filepng=Path(name).stem + '.png'
 
-        xmlfilepath=PurePath("/home/jarleven/annotated", filexml)
-        jpgfilepath=PurePath("/home/jarleven/annotated", filename)
 
-        debugfilepath=PurePath("/home/jarleven/annotateddebug", Path(name).stem + '.png')
+        xmlfilepath=PurePath(rootpath, filexml)
+        jpgfilepath=PurePath(rootpath, filename)
+
+        debugfilepath=PurePath(rootpathdebug, Path(name).stem + '.png')
 
         print("Files:")
         print("   input %s" %  name)
@@ -121,7 +125,7 @@ with tf.compat.v1.Session() as sess:
             classId = int(out[3][0][i])
             score = float(out[1][0][i])
             bbox = [float(v) for v in out[2][0][i]]
-            if score > 0.3:
+            if score > 0.9:
                 if score > maxscore_img:
                     maxscore_img = score
                 x = bbox[1] * cols
@@ -150,7 +154,7 @@ with tf.compat.v1.Session() as sess:
 
             totalhits=totalhits+1
             cv.putText(img, "%02d hits with max score %.3f" % (hit, maxscore_img), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (125, 255, 51), 2)
-            cv.imwrite(os.path.join("/home/jarleven/annotateddebug/" , filepng),img)
+            cv.imwrite(os.path.join(rootpathdebug , filepng),img)
 
             cv.imshow('object detection', cv.resize(img, (800,600)))
             if cv.waitKey(25) & 0xFF == ord('q'):
