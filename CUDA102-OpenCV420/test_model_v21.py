@@ -9,6 +9,7 @@ from libs.pascal_voc_io import PascalVocWriter
 # File and path modifications
 import glob
 from pathlib import Path, PurePosixPath, PurePath
+import os
 
 # For copying files
 import shutil
@@ -16,7 +17,7 @@ import shutil
 
 # The files to process
 # TODO there is a job to do regarding paths
-filenames = glob.glob("./*.jpg")
+filenames = glob.glob("/home/jarleven/input/*.jpg")
 filenames.sort()
 
 
@@ -91,16 +92,18 @@ with tf.compat.v1.Session() as sess:
 
         filename=PurePosixPath(name).name
         filexml=Path(name).stem + '.xml'
+        filepng=Path(name).stem + '.png'
 
         xmlfilepath=PurePath("/home/jarleven/annotated", filexml)
         jpgfilepath=PurePath("/home/jarleven/annotated", filename)
 
-        debugfilepath=PurePath("/home/jarleven/annotateddebug", filename)
+        debugfilepath=PurePath("/home/jarleven/annotateddebug", Path(name).stem + '.png')
 
         print("Files:")
-        print(xmlfilepath)
-        print(jpgfilepath)
-        print(debugfilepath)
+        print("   input %s" %  name)
+        print("   xml %s" %  xmlfilepath)
+        print("   jpg %s" % jpgfilepath)
+        print("   debug %s" % debugfilepath)
         print("Files end")
 
         depth=3  # Depth is 3 for color images
@@ -143,12 +146,12 @@ with tf.compat.v1.Session() as sess:
 
         if(hit > 0):
             writer.save(xmlfilepath)
-            shutil.copyfile(filename, jpgfilepath)
+            shutil.copyfile(name, jpgfilepath)
 
             totalhits=totalhits+1
             cv.putText(img, "%02d hits with max score %.3f" % (hit, maxscore_img), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (125, 255, 51), 2)
-            savefile = "%d.png" % (imgnum)
-            cv.imwrite(savefile, img)
+            cv.imwrite(os.path.join("/home/jarleven/annotateddebug/" , filepng),img)
+
             cv.imshow('object detection', cv.resize(img, (800,600)))
             if cv.waitKey(25) & 0xFF == ord('q'):
                 cv.destroyAllWindows()
