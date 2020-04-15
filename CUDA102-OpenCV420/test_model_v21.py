@@ -16,8 +16,13 @@ import os
 import shutil
 
 # TODO: Pass on cli!
+modelpath="/home/jarleven/EXPORTED/frozen_inference_graph.pb"
+inputpath="/tmp/ramdisk/full/"
 rootpath="/tmp/ramdisk/annotated"
 rootpathdebug="/tmp/ramdisk/annotateddebug"
+
+xmlpathheader="/home/jarleven/tmp"
+
 # TODO add params
 #   Score optional / logfile optional / write xml optional
 #   Output directory optional
@@ -25,7 +30,7 @@ rootpathdebug="/tmp/ramdisk/annotateddebug"
 
 # The files to process
 # TODO there is a job to do regarding paths
-filenames = glob.glob("/tmp/ramdisk/full/*.jpg")
+filenames = glob.glob(inputpath+"*.jpg")
 filenames.sort()
 
 
@@ -43,7 +48,7 @@ from datetime import datetime
 
 
 # Read the graph.
-with tf.io.gfile.GFile('/home/jarleven/EXPORTED/frozen_inference_graph.pb', 'rb') as f:
+with tf.io.gfile.GFile(modelpath, 'rb') as f:
     graph_def = tf.compat.v1.GraphDef()
     graph_def.ParseFromString(f.read())
 
@@ -96,7 +101,7 @@ with tf.compat.v1.Session() as sess:
 
         depth=3  # Depth is 3 for color images
         objectname="salmon"
-        writer = PascalVocWriter("/home/jarleven/tmp", filename, (cols, rows, depth))
+        writer = PascalVocWriter(xmlpathheader, filename, (cols, rows, depth))
         difficult = 1
 
         print("File [%s] Object [%s] width [%d]   height [%d]  depth [%d]" % (filename, objectname, cols, rows, depth))
