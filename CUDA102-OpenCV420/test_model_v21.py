@@ -20,8 +20,44 @@ modelpath="/home/jarleven/EXPORTED/frozen_inference_graph.pb"
 inputpath="/tmp/ramdisk/full/"
 rootpath="/tmp/ramdisk/annotated"
 rootpathdebug="/tmp/ramdisk/annotateddebug"
-
 xmlpathheader="/home/jarleven/tmp"
+
+import sys, getopt
+
+
+def printHelp():
+          print('test.py -i <inputfolder> -o <outputfolder> -d <debugfolder> -m <modelfile>')
+
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:],"hi:o:d:m:",["inputpath=","outputpath=","debugpath=","modelfile"])
+except getopt.GetoptError:
+      printHelp()
+      sys.exit(2)
+for opt, arg in opts:
+    if opt == '-h':
+       printHelp()
+       sys.exit()
+    elif opt in ("-i", "--inputpath"):
+       inputpath = arg
+    elif opt in ("-o", "--outputpath"):
+       rootpath = arg
+    elif opt in ("-d", "--debugpath"):
+       rootpathdebug = arg
+    elif opt in ("-m", "--modelfile"):
+       modelpath = arg
+
+
+
+
+print('Input folder is "', inputpath)
+print('Output folder is "', rootpath)
+print("Debug folder is ", rootpathdebug)
+print("Model file is ", modelpath)
+
+sys.exit(2)
+
+
 
 # TODO add params
 #   Score optional / logfile optional / write xml optional
