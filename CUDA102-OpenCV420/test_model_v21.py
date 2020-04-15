@@ -21,16 +21,29 @@ inputpath="/tmp/ramdisk/full/"
 rootpath="/tmp/ramdisk/annotated"
 rootpathdebug="/tmp/ramdisk/annotateddebug"
 xmlpathheader="/home/jarleven/tmp"
+scorelimit=0.9
 
 import sys, getopt
 
 
 def printHelp():
-          print('test.py -i <inputfolder> -o <outputfolder> -d <debugfolder> -m <modelfile>')
+    print("")
+    print('test.py -i <inputfolder> -o <xmlfolder> -d <annotatedfolder> -m <modelfile> -l <scorelimit>')
+    print("")
+
+def debugParams():
+    print("")
+    print("Input folder is  : ", inputpath)
+    print("Output folder is : ", rootpath)
+    print("Debug folder is  : ", rootpathdebug)
+    print("Model file is    : ", modelpath)
+    print("Scorellimit is   : ", scorelimit)
+
+    print("")
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:],"hi:o:d:m:",["inputpath=","outputpath=","debugpath=","modelfile"])
+    opts, args = getopt.getopt(sys.argv[1:],"hi:o:d:m:l:t",["inputpath=","outputpath=","debugpath=","modelfile","scorelimit","test"])
 except getopt.GetoptError:
       printHelp()
       sys.exit(2)
@@ -46,23 +59,19 @@ for opt, arg in opts:
        rootpathdebug = arg
     elif opt in ("-m", "--modelfile"):
        modelpath = arg
-
-
-
-
-print('Input folder is "', inputpath)
-print('Output folder is "', rootpath)
-print("Debug folder is ", rootpathdebug)
-print("Model file is ", modelpath)
-
-sys.exit(2)
+    elif opt in ("-l", "--scorelimit"):
+       scorelimit = arg
+    elif opt in ("-t", "--test"):
+       debugParams()
+       sys.exit()
 
 
 
 # TODO add params
-#   Score optional / logfile optional / write xml optional
-#   Output directory optional
+#   Swrite xml optional
+#   verbose
 #   Create folders if they don't exist
+
 
 # The files to process
 # TODO there is a job to do regarding paths
@@ -161,7 +170,7 @@ with tf.compat.v1.Session() as sess:
             classId = int(out[3][0][i])
             score = float(out[1][0][i])
             bbox = [float(v) for v in out[2][0][i]]
-            if score > 0.9:
+            if score > scorelimit:
                 if score > maxscore_img:
                     maxscore_img = score
                 x = bbox[1] * cols
