@@ -4,6 +4,7 @@ import cv2 as cv
 from timeit import default_timer as timer
 
 # labelImg test_io.py thanks to https://github.com/tzutalin/labelImg
+# Unserstand the xml format https://towardsdatascience.com/coco-data-format-for-object-detection-a4c5eaf518c5
 from libs.pascal_voc_io import PascalVocWriter
 
 # File and path modifications
@@ -14,9 +15,13 @@ import os
 # For copying files
 import shutil
 
-
+# TODO: Pass on cli!
 rootpath="/tmp/ramdisk/annotated"
 rootpathdebug="/tmp/ramdisk/annotateddebug"
+# TODO add params
+#   Score optional / logfile optional / write xml optional
+#   Output directory optional
+#   Create folders if they don't exist
 
 # The files to process
 # TODO there is a job to do regarding paths
@@ -31,9 +36,6 @@ filenames.sort()
 #
 
 
-#
-#  Unserstand the xml format
-#  https://towardsdatascience.com/coco-data-format-for-object-detection-a4c5eaf518c5
 
 
 from datetime import datetime
@@ -58,40 +60,22 @@ with tf.compat.v1.Session() as sess:
 
     #while True:
     for name in filenames:
-
-        cap = cv.VideoCapture(name)
-
-
         start = timer()
+        
+        cap = cv.VideoCapture(name)
         ret, img = cap.read()
 
         if ret == False:
             break
 
         imgnum=imgnum+1
-        # Read and preprocess an image.
-        #img = cv.imread('/home/jarleven/TESTIMAGE/example.jpg')
+           
         rows = img.shape[0]
         cols = img.shape[1]
         inp = cv.resize(img, (800, 800))
         inp = inp[:, :, [2, 1, 0]]  # BGR2RGB
 
-
-
-        # Run the model
-        out = sess.run([sess.graph.get_tensor_by_name('num_detections:0'),
-                    sess.graph.get_tensor_by_name('detection_scores:0'),
-                    sess.graph.get_tensor_by_name('detection_boxes:0'),
-                    sess.graph.get_tensor_by_name('detection_classes:0')],
-                    feed_dict={'image_tensor:0': inp.reshape(1, inp.shape[0], inp.shape[1], 3)})
-
-
-        # Visualize detected bounding boxes.
-        hit=False
-
         #TODO get the depth from the image
-        # labelImg test_io.py thanks to https://github.com/tzutalin/labelImg
-
 
         filename=PurePosixPath(name).name
         filexml=Path(name).stem + '.xml'
@@ -117,7 +101,18 @@ with tf.compat.v1.Session() as sess:
 
         print("File [%s] Object [%s] width [%d]   height [%d]  depth [%d]" % (filename, objectname, cols, rows, depth))
 
+    
+        
+        # Run the model
+        out = sess.run([sess.graph.get_tensor_by_name('num_detections:0'),
+                    sess.graph.get_tensor_by_name('detection_scores:0'),
+                    sess.graph.get_tensor_by_name('detection_boxes:0'),
+                    sess.graph.get_tensor_by_name('detection_classes:0')],
+                    feed_dict={'image_tensor:0': inp.reshape(1, inp.shape[0], inp.shape[1], 3)})
 
+
+        # Visualize detected bounding boxes.
+        hit=False
 
         maxscore_img=0
         num_detections = int(out[0][0])
@@ -132,18 +127,19 @@ with tf.compat.v1.Session() as sess:
                 y = bbox[0] * rows
                 right = bbox[3] * cols
                 bottom = bbox[2] * rows
-                cv.rectangle(img, (int(x), int(y)), (int(right), int(bottom)), (125, 255, 51), thickness=2)
 
                 xmin=int(x)
                 ymin=int(y)
                 xmax=int(right)
                 ymax=int(bottom)
 
-                hit=hit+1
-                print("         xmin[%d] ymin[%d] xmax[%d] ymax[%d] " % (xmin, ymin, xmax, ymax))
-
+                cv.rectangle(img, (xmin, ymin), (xmax, ymax), (125, 255, 51), thickness=2)
                 writer.addBndBox(xmin, ymin, xmax, ymax, objectname, difficult)
 
+                print("         xmin[%d] ymin[%d] xmax[%d] ymax[%d] " % (xmin, ymin, xmax, ymax))
+                hit=hit+1
+
+                
 
         end = timer()
         print("Image analyzed in %.3f seconds " % (end - start))
