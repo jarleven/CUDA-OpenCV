@@ -58,6 +58,15 @@ else
 fi
 
 
+# Copy the pipeline.config to the git repo
+
+# 326f9550154d33916a8539f3791061c2  ./training/pipeline.config
+# 326f9550154d33916a8539f3791061c2  ./training/ssd_mobilenet_v2_quantized_pipeline.config
+# 62ccaa21aed491055847ad5b7ee5d81f  ./pre-trained-model/pipeline.config
+
+# cp pipeline.config /home/$USER/CUDA???/$MODELNAME__pipeline.config 
+
+
 
 #OUTDIR="/home/$USER/EXPORT4"
 #MODELNAME="ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03"
