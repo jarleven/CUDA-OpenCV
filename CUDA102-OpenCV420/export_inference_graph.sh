@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -x  # Print commands and their arguments as they are executed.
+set -u  # Treat unset variables as an error when substituting.
+
 
 cd ~
 
@@ -35,6 +39,24 @@ fi
 
 echo "Dir "$OUTDIR
 echo "MODEL "$MODELNAME
+
+
+# Verify that the pretrained modelname is the one we have used
+# A crude assumption and requires that the model is extracted and intact in your home dir
+cd /home/$USER/$MODELNAME
+md5sum * > /home/$USER/TensorFlow/workspace/training_demo/pre-trained-model/verify.md5
+
+cd /home/$USER/TensorFlow/workspace/training_demo/pre-trained-model/
+# pipeline.config have been modified by us
+sed -i '/pipeline.config/d' verify.md5
+
+if md5sum -c verify.md5; then
+    echo "Modelname probably OK"
+else
+    echo "Model name does not match"
+    exit
+fi
+
 
 
 #OUTDIR="/home/$USER/EXPORT4"
