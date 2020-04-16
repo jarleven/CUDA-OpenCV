@@ -28,7 +28,7 @@ import sys, getopt
 
 def printHelp():
     print("")
-    print('test.py -i <inputfolder> -o <xmlfolder> -d <annotatedfolder> -m <modelfile> -l <scorelimit>')
+    print('python3 test.py -i <inputfolder> -o <xmlfolder> -d <annotatedfolder> -m <modelfile> -l <scorelimit>')
     print("")
 
 def debugParams():

@@ -112,7 +112,6 @@ int main(int argc, const char* argv[])
     cout
         << "------------------------------------------------------------------------------" << endl
         << "This program will analyse a video for moving objects."                          << endl
-        << "Objects large enough will be logged and a 299x299pixel image will be saved."    << endl
         << "Usage:"                                                                         << endl
         << "./background_subtraction <input_video_name>"                                    << endl
         << "------------------------------------------------------------------------------" << endl
