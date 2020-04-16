@@ -90,6 +90,28 @@ string getFileName(const string& s) {
 
 
 /**
+ * TODO   Pass 
+ *         Input file
+ *         Output dir 
+ *         Logfilename
+ * 
+ *    Process all files or every n'th
+ *
+ */
+
+/**
+ *  OpenCV is a great library for creating Computer Vision software
+ *  Processed 00726 frames in 3.489637 seconds
+ '
+ *  File we processed  should be logged   -  Number of files processed  - Number of frames with motion
+ *
+ *
+ */
+
+
+
+
+/**
  * Main code
  */
 int main(int argc, const char* argv[])
