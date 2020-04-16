@@ -3,8 +3,42 @@
 
 cd ~
 
-OUTDIR="/home/$USER/EXPORT4"
-MODELNAME="ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03"
+
+helptext()  {
+
+   echo "Please provide parameters"
+   echo ""
+   echo "./export_inference_graph.sh -o /home/$USER/EXPORT4 -n ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03"
+   echo ""
+
+   exit
+}
+
+
+# Pass parameters on the CLI.
+while [ $# -gt 0 ] ; do
+  case $1 in
+    -o | --outputdir) OUTDIR="$2" ;;
+    -n | --modelname) MODELNAME="$2" ;;
+  esac
+  shift
+done
+
+
+if [ -z $OUTDIR ]; then
+ helptext
+fi
+
+if [ -z $MODELNAME ]; then
+ helptext
+fi
+
+echo "Dir "$OUTDIR
+echo "MODEL "$MODELNAME
+
+
+#OUTDIR="/home/$USER/EXPORT4"
+#MODELNAME="ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03"
 
 ###  ----
 
