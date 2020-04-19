@@ -118,7 +118,7 @@ int main(int argc, const char* argv[])
         return -1;
     }
 
-
+    /*
     cout
         << "------------------------------------------------------------------------------" << endl
         << "This program will analyse a video for moving objects."                          << endl
@@ -126,7 +126,7 @@ int main(int argc, const char* argv[])
         << "./background_subtraction <input_video_name>"                                    << endl
         << "------------------------------------------------------------------------------" << endl
         << endl;
-
+    */
 
     // TODO add as parameter to CLI
     bool showimg = true;
@@ -193,7 +193,7 @@ int main(int argc, const char* argv[])
 
   cout << "Opening file : " << fname << endl;
   string filename = getFileName(fname);
-  cout << filename << endl;
+  //cout << filename << endl;
 
 
  for (;;)
@@ -208,8 +208,8 @@ int main(int argc, const char* argv[])
             width = frame.size().width;
             height = frame.size().height;
 
-            cout << "Width : " << width << endl;
-            cout << "Height: " << height << endl;
+            //cout << "Width : " << width << endl;
+            //cout << "Height: " << height << endl;
         }
 
 
