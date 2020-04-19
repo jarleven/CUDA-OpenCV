@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Create a video from still images with accelerated encoding (approx 150 frames/sec)
+# ffmpeg -f image2 -framerate 2 -i %*.png -c:v h264_nvenc -preset slow -qp 18 -pix_fmt yuv420p nord__2019-09-06.mp4
+
+
 # Inspiration
 # https://arstech.net/compile-ffmpeg-with-nvenc-h264/
 # https://www.learnopencv.com/install-opencv-4-on-ubuntu-18-04/
@@ -49,6 +53,9 @@ sudo apt install -y yasm
 sudo dpkg --add-architecture i386
 sudo apt-get update
 sudo apt-get install -y build-essential git yasm unzip wget sysstat nasm libc6:i386 libavcodec-dev libavformat-dev libavutil-dev pkgconf g++ freeglut3-dev libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
+
+# Addition for Ubuntu 19.10
+sudo apt install -y libavdevice-dev libavfilter-dev libavresample-dev libpostproc-dev
 
 
 
