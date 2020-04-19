@@ -25,6 +25,10 @@ scorelimit=0.9
 
 import sys, getopt
 
+# MAGIC STRINGS AND NUMBERS
+objectname="salmon"
+
+
 
 def printHelp():
     print("")
@@ -32,7 +36,7 @@ def printHelp():
     print("")
 
 def debugParams():
-    print("")
+    print(" Test model ")
     print("Input folder is  : ", inputpath)
     print("Output folder is : ", rootpath)
     print("Debug folder is  : ", rootpathdebug)
@@ -43,8 +47,10 @@ def debugParams():
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:],"hi:o:d:m:l:t",["inputpath=","outputpath=","debugpath=","modelfile","scorelimit","test"])
+    opts, args = getopt.getopt(sys.argv[1:],"hi:o:d:m:l:t",["inputpath=","outputpath=","debugpath=","modelfile=","scorelimit=","test="])
 except getopt.GetoptError:
+      print("Arguments error")
+      debugParams()
       printHelp()
       sys.exit(2)
 for opt, arg in opts:
@@ -106,11 +112,10 @@ with tf.compat.v1.Session() as sess:
     imgnum=0
     totalhits=0
     print("\nStarting object detection\n")
-    print(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3])
 
+    start = timer()
     #while True:
     for name in filenames:
-        start = timer()
         
         cap = cv.VideoCapture(name)
         ret, img = cap.read()
@@ -137,19 +142,12 @@ with tf.compat.v1.Session() as sess:
 
         debugfilepath=PurePath(rootpathdebug, Path(name).stem + '.png')
 
-        print("Files:")
-        print("   input %s" %  name)
-        print("   xml %s" %  xmlfilepath)
-        print("   jpg %s" % jpgfilepath)
-        print("   debug %s" % debugfilepath)
-        print("Files end")
 
-        depth=3  # Depth is 3 for color images
-        objectname="salmon"
+        depth=3  # TODO Depth is 3 for color images, how to read this out
         writer = PascalVocWriter(xmlpathheader, filename, (cols, rows, depth))
         difficult = 1
 
-        print("File [%s] Object [%s] width [%d]   height [%d]  depth [%d]" % (filename, objectname, cols, rows, depth))
+        # print("File [%s] Object [%s] width [%d]   height [%d]  depth [%d]" % (filename, objectname, cols, rows, depth))
 
     
         
@@ -186,20 +184,15 @@ with tf.compat.v1.Session() as sess:
                 cv.rectangle(img, (xmin, ymin), (xmax, ymax), (125, 255, 51), thickness=2)
                 writer.addBndBox(xmin, ymin, xmax, ymax, objectname, difficult)
 
-                print("         xmin[%d] ymin[%d] xmax[%d] ymax[%d] " % (xmin, ymin, xmax, ymax))
                 hit=hit+1
 
-                
-
-        end = timer()
-        print("Image analyzed in %.3f seconds " % (end - start))
 
         if(hit > 0):
             writer.save(xmlfilepath)
             shutil.copyfile(name, jpgfilepath)
 
             totalhits=totalhits+1
-            cv.putText(img, "%02d hits with max score %.3f" % (hit, maxscore_img), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (125, 255, 51), 2)
+            cv.putText(img, "%02d hits with max score %.3f  detections %03d" % (hit, maxscore_img, num_detections), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (125, 255, 51), 2)
             cv.imwrite(os.path.join(rootpathdebug , filepng),img)
 
             cv.imshow('object detection', cv.resize(img, (800,600)))
@@ -207,6 +200,11 @@ with tf.compat.v1.Session() as sess:
                 cv.destroyAllWindows()
                 break
 
-print(datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3])
-print("Total hits   = %05d" % totalhits)
-print("Total images = %05d" % imgnum)
+end = timer()
+
+logfile = open('samplefile.txt', 'a')
+print('Images %4d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)), file = logfile)
+print('Images %4d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)))
+
+logfile.close()
+

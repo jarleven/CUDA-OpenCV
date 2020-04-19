@@ -38,6 +38,12 @@ using namespace cv;
 using namespace cv::cuda;
 
 #define FULLIMGSAVEPATH "/tmp/ramdisk/full/"
+#define LOGFILE "bgsub.log"
+
+/**
+ * g++ -ggdb background_subtraction.cpp -o background_subtraction `pkg-config --cflags --libs opencv4` -I /usr/local/cuda-10.1/include/
+ *
+ */
 
 
 /**
@@ -99,15 +105,6 @@ string getFileName(const string& s) {
  *
  */
 
-/**
- *  OpenCV is a great library for creating Computer Vision software
- *  Processed 00726 frames in 3.489637 seconds
- '
- *  File we processed  should be logged   -  Number of files processed  - Number of frames with motion
- *
- *
- */
-
 
 
 
@@ -120,15 +117,6 @@ int main(int argc, const char* argv[])
         std::cout << "Please specify video source file!" << endl;
         return -1;
     }
-
-
-    // Create the logfile, append text to the end.
-    std::ofstream logfile;
-    logfile.open ("blobsLog.txt", std::ofstream::out | std::ofstream::app);
-
-    // For now just test that the logging is working.
-    cv::String testString = "OpenCV is a great library for creating Computer Vision software";
-    logfile << testString << std::endl;
 
 
     cout
@@ -234,8 +222,9 @@ int main(int argc, const char* argv[])
 
           continue;
 	}
-			 //cv::String skipping = cv::format("Frame %05d",framenum);
-			 //std::cout << skipping << std::endl;
+
+        //cv::String skipping = cv::format("Frame %05d",framenum);
+        //std::cout << skipping << std::endl;
 
 
         int pixels =  cv::cuda::countNonZero(d_fgmask);
@@ -266,7 +255,6 @@ int main(int argc, const char* argv[])
 
             double maxcontour = 0;
             findContours( fgmask, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0) );
-//             findContours( img, contours0, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE); from samples/cpp/contours2.cpp
 
 
 
@@ -291,45 +279,11 @@ int main(int argc, const char* argv[])
                 minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
             }
 
-/*
-            /// Draw polygonal contour + bonding rects + circles
-            for( int i = 0; i< contours.size(); i++ ) {
-                Scalar color = Scalar( 128, 255, 255 );
-
-                drawContours( frame, contours_poly, i, color, 1, 8, vector<Vec4i>(), 0, Point() );
-
-                if((int)radius[i] > 40) {
-                    circle( frame, center[i], 2*(int)radius[i], color, 2, 8, 0 );
-
-                    int x = (int)center[i].x;
-                    int y = (int)center[i].y;
-
-
-                    cv::Rect rect = findCrop(x,y, (int)radius[i], height, width);
-                    cv::rectangle(frame, rect, cv::Scalar(0, 255, 0));
-
-                    cv::Mat croppedImage = orig_frame(rect);
-
-                    cv::Size size(CROPSIZE,CROPSIZE);
-                    cv::Mat resized;//dst image
-                    resize(croppedImage,resized,size);//resize image
-
-
-                    char filenamec[100] = "";
-                    sprintf(filenamec,"%s%s_%04d_crop_%05d.jpg", CROPIMGSAVEPATH, filename.c_str(), framenum, i);
-                    imwrite(filenamec, resized );
-
-                    logfile << fname << " " << filename  << " " << filenamec << " " << framenum << endl;
-
-                }
-            }
-*/
             char savename[100] = {0};
             sprintf(savename,"%s%s_%05d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
             imwrite(savename, frame );
         }
 
-        //std::cout << "White pixels " << pixels << "  @ frame " << framenum <<  "  Largest blob "   << maxcontour  << "  Saved with ext " << counter << "\n" ;
 
 /*
         showimg = true;
@@ -350,12 +304,13 @@ int main(int argc, const char* argv[])
     end = clock();
     elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
 
-    cv::String logText = cv::format("Processed %05d frames in %f seconds",framenum, elapsed);
-    logfile << logText << std::endl;
-    std::cout << logText << std::endl;
 
-    // Close the logfile
-    logfile.close();
+    fstream f(LOGFILE, f.out | f.app);
+    cv::String logText = cv::format("BGSUB processed %5d frames of size %4dx%-4d in %6.02f seconds %s\n" , framenum, width, height, elapsed, filename.c_str());
+    f << logText;
+
+    std::cout << logText;
+
 
     return 0;
 }
