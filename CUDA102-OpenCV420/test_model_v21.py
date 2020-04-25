@@ -21,7 +21,6 @@ inputpath="/tmp/ramdisk/full/"
 rootpath="/tmp/ramdisk/annotated"
 rootpathdebug="/tmp/ramdisk/annotateddebug"
 xmlpathheader="/home/jarleven/tmp"
-scorelimit=0.9
 
 import sys, getopt
 
@@ -136,6 +135,8 @@ with tf.compat.v1.Session() as sess:
         filexml=Path(name).stem + '.xml'
         filepng=Path(name).stem + '.png'
 
+        printname=Path(name).stem
+
 
         xmlfilepath=PurePath(rootpath, filexml)
         jpgfilepath=PurePath(rootpath, filename)
@@ -168,7 +169,7 @@ with tf.compat.v1.Session() as sess:
             classId = int(out[3][0][i])
             score = float(out[1][0][i])
             bbox = [float(v) for v in out[2][0][i]]
-            if score > scorelimit:
+            if score > float(scorelimit):
                 if score > maxscore_img:
                     maxscore_img = score
                 x = bbox[1] * cols
@@ -192,7 +193,14 @@ with tf.compat.v1.Session() as sess:
             shutil.copyfile(name, jpgfilepath)
 
             totalhits=totalhits+1
-            cv.putText(img, "%02d hits with max score %.3f  detections %03d" % (hit, maxscore_img, num_detections), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.5, (125, 255, 51), 2)
+
+
+            A=printname.split(".mp4_")
+            camdatetime=A[0].split("__")
+            time=camdatetime[2].replace("-", ":")
+
+
+            cv.putText(img, "%s %s frame %s  -- %02d hits with max score %.3f" % ( camdatetime[1], time, A[1], hit, maxscore_img), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.8, (125, 255, 51), 2)
             cv.imwrite(os.path.join(rootpathdebug , filepng),img)
 
             cv.imshow('object detection', cv.resize(img, (800,600)))
@@ -203,8 +211,8 @@ with tf.compat.v1.Session() as sess:
 end = timer()
 
 logfile = open('samplefile.txt', 'a')
-print('Images %4d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)), file = logfile)
-print('Images %4d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)))
+print('Images %6d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)), file = logfile)
+print('Images %6d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)))
 
 logfile.close()
 

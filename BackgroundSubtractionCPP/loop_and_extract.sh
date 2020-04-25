@@ -10,10 +10,13 @@ set -u  # Treat unset variables as an error when substituting.
 
 
 
-#INPUTDIR=/home/jarleven/NFSARCHIVE/2019-09-01/
-
 
 SCORE=0.9
+
+
+function analyseImages {
+	python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE
+}
 
 
 function printhelp {
@@ -33,7 +36,6 @@ while [ $# -gt 0 ] ; do
   case $1 in
     -i | --inputdir) INPUTDIR="$2" ;;
     -o | --outputdir) OUTPUTBASEDIR="$2" ;;
-
     -m | --model) MODELPATH="$2" ;;
     -d | --debugdir) DEBUGDIR="$2" ;;
     -s | --score) SCORE="$2" ;;
@@ -48,34 +50,32 @@ if [ -z $INPUTDIR ]; then
  printhelp
 fi
 
-#if [ -z $MOTIONDIR ]; then
-#    echo "No motion fullframe dir (preferance is RAMdrive) scpecified"
-#    echo " This is temp storage for the logfile"
-##    printhelp
-#fi
-
-
 if [ -z $OUTPUTBASEDIR ]; then
     echo "No inputdir scpecified"
     printhelp
 fi
 
-#if [ -z $DEBUGDIR ]; then
-#    echo "No debugdir scpecified"
-#    printhelp
-#fi
-
-
 if [ -z $MODELPATH ]; then
     echo "No model scpecified"
-#    printhelp
+    printhelp
 fi
 
 
 
+RAMDISK=/tmp/ramdisk/full
+
+
+INPUTDIR=$(realpath ${INPUTDIR})
+OUTPUTBASEDIR=$(realpath ${OUTPUTBASEDIR})
+RAMDISK=$(realpath ${RAMDISK})
+
+
+#INPUTDIR=$A
+#OUTPUTBASEDIR=$B
 
 
 
+RAMDISK=/tmp/ramdisk/full
 
 
 
@@ -99,10 +99,11 @@ if [ ! -d "$OUTPUTBASEDIR" ]; then
     exitFailiure
 fi
 
-#if [ ! -d "$DEBUGDIR" ]; then
-#    echo "$DEBUGDIR does not exist"
-#    exitFailiure
-#fi
+
+if [ ! -d "$RAMDISK" ]; then
+    echo "$RAMDISK does not exist"
+    exitFailiure
+fi
 
 
 
@@ -138,10 +139,6 @@ echo ""
 mkdir $OUTPUTDIR
 mkdir $DEBUGDIR
 
-#echo "Logfilename " $LOGFILENAME
-
-#LOGFILE=$(realpath ${OUTPUTDIR})/$LOGFILENAME".txt"
-#echo "Logfile path "$LOGFILE
 
 TOUCHFILE=$(realpath ${INPUTDIR})/$LOGFILENAME".txt"
 TOUCHFILE=logfile-$WORKNAME.txt
@@ -151,25 +148,24 @@ TOUCHFILE=logfile-$WORKNAME.txt
 # realpath returns path WITHOUT trailing slash
 FILELIST=$(realpath ${OUTPUTDIR})/"filelist.txt"
 MOVIE=$(realpath ${OUTPUTDIR})"/"$WORKNAME".mp4"
-
+SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
 
 
 INPUTPATHx=$(realpath ${INPUTDIR})
-
 INPUTFILESx=$(ls -l $INPUTPATHx/*.mp4 | wc -l)
 
 
-echo "Inputdir  : "$INPUTDIR
-echo "Num files : "$INPUTFILESx
-echo "Outputdir : "$OUTPUTDIR
-echo "Debugfold : "$DEBUGDIR
-echo "Logfile   : "$TOUCHFILE
-echo "Movie out : "$MOVIE
 
-echo "Model     : "$MODELPATH
-
-echo "Score     : "$SCORE
-
+echo "Inputdir         : "$INPUTDIR
+echo "Outputdir        : "$OUTPUTDIR
+echo ""
+echo "Num files        : "$INPUTFILESx
+echo "Output jpg/xml   : "$OUTPUTDIR
+echo "Output debug png : "$DEBUGDIR
+echo "Logfile          : "$TOUCHFILE
+echo "Movie out        : "$MOVIE
+echo "Model            : "$MODELPATH
+echo "Score (min)      : "$SCORE
 
 
 echo "TODO : frame divisor for bgsub"
@@ -180,14 +176,14 @@ echo "TODO : Clean up all the printing in AI"
 echo "TODO : Cleanup all the printing in BGSUB"
 echo "TODO : Investigate the issue with the RAMDRIVE"
 
-sleep 5
+echo "DEBUG, will sleep 10 seconds"
+sleep 10
 
 
 
 
 
-#make a logfile in the output dir if it does exis exit.
-
+# Exit if we already processed this folder.
 if test -f "$TOUCHFILE"; then
     echo "File already created $TOUCHFILE"
     touch "FAILED-"$LOGFILENAME".txt"
@@ -197,36 +193,48 @@ fi
 # Some kind of gurad against parallel processing race confition (The obscure way)
 touch $TOUCHFILE
 
-#touch $LOGFILE
+LOOPNUM=0
 
-
-FILENUMx=0
-
+FILENUM=0
+DETECTIONFILES=0
 find $INPUTDIR -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
     echo $line >> $FILELIST
-    let "FILENUMx=FILENUMx+1"
+    let "FILENUM=FILENUM+1"
 
 
     ENDTIME=$(date +'%s')
     ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 
-    echo "Processing file $FILENUMx of $INPUTFILESx. Input archive size is XXXX. Processtime $ELAPSEDTIME"
+    echo ""
+    echo "Processing file $FILENUM of $INPUTFILESx. Input archive size is XXXX. Processtime $ELAPSEDTIME  file is $line"
 
     ./background_subtraction "$line"
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
     if [ "$freespace" -lt "70" ];then
-       echo "Plenty of storage left, using $freespace%'";
+       echo "Plenty of storage left, using $freespace%' Processed images $LOOPNUM times analysed images $DETECTIONFILES ";
       continue      
     fi
 
-    python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR
 
+    motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+    let "DETECTIONFILES=DETECTIONFILES+motion"
+
+
+    analyseImages
     rm -f /tmp/ramdisk/full/*.jpg
+    let "LOOPNUM=LOOPNUM+1"
+
+
 done
 
-# TODO : In case we exit the loop without without analysing the extracted images
-python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR
+# In case we exit the loop without without analysing the extracted images
+
+motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+let "DETECTIONFILES=DETECTIONFILES+motion"
+
+
+analyseImages
 rm -f /tmp/ramdisk/full/*.jpg
 
 
@@ -260,13 +268,14 @@ echo "Hits        : "$HITS
 echo "Processtime : "$ELAPSEDTIME
 echo " "
 
-# Log some stats
+# Log some stats we have collected
 echo "############### " >> $TOUCHFILE
-echo "# Processed     : $LOGFILENAME" >> $TOUCHFILE
-echo "# Header ver.   : v0.11" >> $TOUCHFILE
-echo "# Found # files : $NUMFILES" >> $TOUCHFILE
-echo "# Filesize      : $FILESIZE" >> $TOUCHFILE
+echo "# Input dir     : $LOGFILENAME" >> $TOUCHFILE
 echo "# Hits          : $HITS" >> $TOUCHFILE
+echo "# MP4 files     : $NUMFILES" >> $TOUCHFILE
+echo "# Motion # files: $DETECTIONFILES" >> $TOUCHFILE
+echo "# Header ver.   : v0.12" >> $TOUCHFILE
+echo "# Filesize      : $FILESIZE" >> $TOUCHFILE
 echo "# Started       : $STARTDATE" >> $TOUCHFILE
 echo "# Completed     : $ENDDATE" >> $TOUCHFILE
 echo "# Processtime   : $ELAPSEDTIME" >> $TOUCHFILE
@@ -285,4 +294,6 @@ echo " " >> $TOUCHFILE
 cat bgsub.log >> $TOUCHFILE
 cat samplefile.txt >> $TOUCHFILE
 
-cat $TOUCHFILE
+cp $TOUCHFILE $SUMMARY
+
+cat $SUMMARY
