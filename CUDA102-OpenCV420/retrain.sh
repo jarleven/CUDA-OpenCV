@@ -27,7 +27,7 @@ sudo apt install -y python3-pip
 python3 -m pip install --upgrade --user pip
 sudo apt install -y python3-testresources
 
-brew install protobuf
+# brew install protobuf
 
 
 echo 'export PYTHONPATH="${PYTHONPATH:+${PYTHONPATH}:}$HOME/TensorFlow/models/research/object_detection:$HOME/TensorFlow/models/research:$HOME/TensorFlow/models/research/slim"' >> ~/.bash_profile
