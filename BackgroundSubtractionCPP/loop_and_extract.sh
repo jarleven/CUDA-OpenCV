@@ -155,7 +155,7 @@ fi
 
 if [ ! -z "$EMAILLIST" ]; then
 
-    if [ ! -f "$EMAILLST" ]; then
+    if [ ! -f "$EMAILLIST" ]; then
         echo "$EMAILLIST does not exist"
         exitFailiure
     fi
@@ -354,7 +354,7 @@ if [ ! -z "$EMAILLIST" ]; then
     # Compose an e- mail
     cat $EMAILLIST > mail2.txt
     echo  "subject: Eidselva $WORKNAME summary" >> mail2.txt
-    echo  "Hei det er nye fimar på :" >> mail2.txt
+    echo  "Hei det er nye fimar paa :" >> mail2.txt
     echo  "https://www.dropbox.com/sh/jdpb8it96sezysu/AAAmXSxE8bW7RULq0ofAJ8N-a?dl=0" >> mail2.txt
     echo  "" >> mail2.txt
     cat /media/jarleven/Extended/tmp/2019-08-29-Annotated/2019-08-29.txt >> mail2.txt
