@@ -12,7 +12,8 @@ set -u  # Treat unset variables as an error when substituting.
 
 
 SCORE=0.9
-
+VIDEOSUMMARY=""
+EMAILLIST=""
 
 function analyseImages {
 	python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE
@@ -40,7 +41,9 @@ while [ $# -gt 0 ] ; do
     -m | --model) MODELPATH="$2" ;;
     -d | --debugdir) DEBUGDIR="$2" ;;
     -s | --score) SCORE="$2" ;;
-
+    -v | --videosummary) VIDEOSUMMARY="$2" ;;
+    -e | --email) EMAILLIST="$2" ;;
+	    
   esac
   shift
 done
@@ -107,6 +110,59 @@ if [ ! -d "$RAMDISK" ]; then
 fi
 
 
+
+LOGFILENAME=$(basename $INPUTDIR)
+
+WORKNAME=$LOGFILENAME
+
+OUTPUTDIR=$OUTPUTBASEDIR/$WORKNAME"-Annotated"
+DEBUGDIR=$OUTPUTBASEDIR/$WORKNAME"-Debug"
+
+
+TOUCHFILE=$(realpath ${INPUTDIR})/$LOGFILENAME".txt"
+TOUCHFILE=logfile-$WORKNAME.txt
+
+
+
+# realpath returns path WITHOUT trailing slash
+FILELIST=$(realpath ${OUTPUTDIR})/"filelist.txt"
+SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
+
+
+INPUTPATH=$(realpath ${INPUTDIR})
+INPUTFILES=$(find $INPUTPATH/ -maxdepth 1 -type f -name "*.mp4" | wc -l)
+
+
+
+
+
+
+
+
+
+# TODO
+# What a messy logic
+if [ ! -z "$VIDEOSUMMARY" ]; then
+    if [ ! -d "$VIDEOSUMMARY" ]; then
+        echo "$VIDEOSUMMARY does not exist"
+        exitFailiure
+    else
+        MOVIE=$(realpath ${VIDEOSUMMARY})"/"$WORKNAME".mp4"
+    fi
+fi
+
+
+
+if [ ! -z "$EMAILLIST" ]; then
+
+    if [ ! -f "$EMAILLST" ]; then
+        echo "$EMAILLIST does not exist"
+        exitFailiure
+    fi
+fi
+
+
+
 # Check if the INPUT DIR IS being modified the last two minutes
 while true
 do
@@ -130,17 +186,6 @@ rm -f samplefile.txt
 
 
 
-LOGFILENAME=$(basename $INPUTDIR)
-
-WORKNAME=$LOGFILENAME
-
-OUTPUTDIR=$OUTPUTBASEDIR/$WORKNAME"-Annotated"
-DEBUGDIR=$OUTPUTBASEDIR/$WORKNAME"-Debug"
-
-TOUCHFILE=$(realpath ${INPUTDIR})/$LOGFILENAME".txt"
-TOUCHFILE=logfile-$WORKNAME.txt
-
-
 
 echo ""
 echo "cleanup"
@@ -152,27 +197,12 @@ mkdir $OUTPUTDIR
 mkdir $DEBUGDIR
 
 
-TOUCHFILE=$(realpath ${INPUTDIR})/$LOGFILENAME".txt"
-TOUCHFILE=logfile-$WORKNAME.txt
-
-
-
-# realpath returns path WITHOUT trailing slash
-FILELIST=$(realpath ${OUTPUTDIR})/"filelist.txt"
-MOVIE=$(realpath ${OUTPUTDIR})"/"$WORKNAME".mp4"
-SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
-
-
-INPUTPATHx=$(realpath ${INPUTDIR})
-#INPUTFILESx=$(ls -l $INPUTPATHx/*.mp4 | wc -l)
-INPUTFILESx=$(find $INPUTPATHx/ -maxdepth 1 -type f -name "*.mp4" | wc -l)
-
 
 
 echo "Inputdir         : "$INPUTDIR
 echo "Outputdir        : "$OUTPUTDIR
 echo ""
-echo "Num files        : "$INPUTFILESx
+echo "Num files        : "$INPUTFILES
 echo "Output jpg/xml   : "$OUTPUTDIR
 echo "Output debug png : "$DEBUGDIR
 echo "Logfile          : "$TOUCHFILE
@@ -220,7 +250,7 @@ while IFS= read -r -d '' line; do
     ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 
     echo ""
-    echo "Processing file $FILENUM of $INPUTFILESx. Input archive size is XXXX. Processtime $ELAPSEDTIME  file is $line"
+    echo "Processing file $FILENUM of $INPUTFILES. Input archive size is XXXX. Processtime $ELAPSEDTIME  file is $line"
 
     ./background_subtraction "$line"
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
@@ -275,10 +305,11 @@ HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 
 
-if [ "$HITS" -gt "0" ];then
-    ffmpeg -f image2 -framerate 2 -i $DEBUGDIR/%*.png -c:v h264_nvenc -preset slow -qp 18 -pix_fmt yuv420p $MOVIE
+if [ ! -z $MOVIE ]; then
+    if [ "$HITS" -gt "0" ];then
+        ffmpeg -f image2 -framerate 2 -i $DEBUGDIR/%*.png -c:v h264_nvenc -preset slow -qp 18 -pix_fmt yuv420p $MOVIE
+    fi
 fi
-
 
 
 # Echo to the user
@@ -316,5 +347,19 @@ cat bgsub.log >> $TOUCHFILE
 cat samplefile.txt >> $TOUCHFILE
 
 cp $TOUCHFILE $SUMMARY
+
+
+if [ ! -z "$EMAILLIST" ]; then
+
+    # Compose an e- mail
+    cat $EMAILLIST > mail2.txt
+    echo  "subject: Eidselva $WORKNAME summary" >> mail2.txt
+    echo  "Hei det er nye fimar på :" >> mail2.txt
+    echo  "https://www.dropbox.com/sh/jdpb8it96sezysu/AAAmXSxE8bW7RULq0ofAJ8N-a?dl=0" >> mail2.txt
+    echo  "" >> mail2.txt
+    cat /media/jarleven/Extended/tmp/2019-08-29-Annotated/2019-08-29.txt >> mail2.txt
+    sendmail -f laksar@eidselva.no -t < mail2.txt
+
+fi
 
 cat $SUMMARY
