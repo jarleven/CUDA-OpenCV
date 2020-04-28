@@ -26,6 +26,7 @@ function printhelp {
 
 function exitFailiure {
     exit "Missing files folders or write permissions"
+    sleep 3
     exit
 }
 
@@ -106,6 +107,17 @@ if [ ! -d "$RAMDISK" ]; then
 fi
 
 
+# Check if the INPUT DIR IS being modified the last two minutes
+while true
+do
+  INPUTAGE=$(find $INPUTDIR/ -cmin -2 | wc -l)
+  if [ "$INPUTAGE" -eq "0" ]; then
+    echo "No fresh files, we can assume noone is writing to this folder"
+    break
+  fi
+  echo "Wait a bit and check the directory again $INPUTAGE files have been written lateley"
+  sleep 20
+done
 
 
 
@@ -152,7 +164,8 @@ SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
 
 
 INPUTPATHx=$(realpath ${INPUTDIR})
-INPUTFILESx=$(ls -l $INPUTPATHx/*.mp4 | wc -l)
+#INPUTFILESx=$(ls -l $INPUTPATHx/*.mp4 | wc -l)
+INPUTFILESx=$(find $INPUTPATHx/ -maxdepth 1 -type f -name "*.mp4" | wc -l)
 
 
 
@@ -217,20 +230,26 @@ while IFS= read -r -d '' line; do
     fi
 
 
-    motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+    motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
+    #motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
     let "DETECTIONFILES=DETECTIONFILES+motion"
 
 
     analyseImages
     rm -f /tmp/ramdisk/full/*.jpg
+
+
     let "LOOPNUM=LOOPNUM+1"
-
-
 done
 
 # In case we exit the loop without without analysing the extracted images
 
-motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+# Better solution ! ls fails when directory is empty
+
+# find . -maxdepth 1 -type f -name "*.jpg" | wc -l
+
+motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
+#motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
 let "DETECTIONFILES=DETECTIONFILES+motion"
 
 
@@ -249,7 +268,9 @@ ENDTIME=$(date +'%s')
 # Calculate time and filesize
 NUMFILES=$(cat $FILELIST | wc -l)
 FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
-HITS=$( ls -l *.jpg $OUTPUTDIR/*.jpg | wc -l)
+#HITS=$( ls -l *.jpg $OUTPUTDIR/*.jpg | wc -l)
+HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
+
 
 ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 
