@@ -37,8 +37,8 @@ if [ -z $MODELNAME ]; then
  helptext
 fi
 
-echo "Dir "$OUTDIR
-echo "MODEL "$MODELNAME
+echo "Output folder : "$OUTDIR
+echo "Base model    : "$MODELNAME
 
 
 # Verify that the pretrained modelname is the one we have used
@@ -129,7 +129,9 @@ do
     #echo $IPADDR
     #declare -a array_test=["$iface"]
     if [ -n "${IPADDR}"  -a  "127.0.0.1" != "${IPADDR}" ]; then
+        echo "scp $USER@$IPADDR:$OUTDIR/ModelInfo.txt ."
         echo "scp $USER@$IPADDR:$OUTDIR/frozen_inference_graph.pb ."
+	echo ""
     fi
 
 done
