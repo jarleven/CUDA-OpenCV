@@ -12,7 +12,7 @@ NUM_STEPS=200000
 # The batch size is restricted by the memory on the GPU. If to large you will get a OOM (Out Of Memory)
 #
 #
-
+cd ~/TensorFlow/workspace/training_demo/training/
 
 sed -i "/num_classes:/c\    num_classes: $NUM_CLASSES" pipeline.config
 sed -i "/batch_size:/c\  batch_size: $BATCH_SIZE" pipeline.config
