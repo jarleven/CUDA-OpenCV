@@ -9,11 +9,19 @@ set -u  # Treat unset variables as an error when substituting.
 
 
 
-
-
+# Default values
 SCORE=0.9
 VIDEOSUMMARY=""
 EMAILLIST=""
+
+RAMDISK=/tmp/ramdisk/full
+
+rm -f /tmp/ramdisk/full/*
+rm -f bgsub.log
+rm -f samplefile.txt
+
+
+
 
 function analyseImages {
 	python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE
@@ -66,20 +74,9 @@ fi
 
 
 
-RAMDISK=/tmp/ramdisk/full
-
-
 INPUTDIR=$(realpath ${INPUTDIR})
 OUTPUTBASEDIR=$(realpath ${OUTPUTBASEDIR})
 RAMDISK=$(realpath ${RAMDISK})
-
-
-#INPUTDIR=$A
-#OUTPUTBASEDIR=$B
-
-
-
-RAMDISK=/tmp/ramdisk/full
 
 
 
@@ -112,16 +109,10 @@ fi
 
 
 LOGFILENAME=$(basename $INPUTDIR)
-
 WORKNAME=$LOGFILENAME
-
 OUTPUTDIR=$OUTPUTBASEDIR/$WORKNAME"-Annotated"
 DEBUGDIR=$OUTPUTBASEDIR/$WORKNAME"-Debug"
-
-
-TOUCHFILE=$(realpath ${INPUTDIR})/$LOGFILENAME".txt"
 TOUCHFILE=logfile-$WORKNAME.txt
-
 
 
 # realpath returns path WITHOUT trailing slash
@@ -131,11 +122,6 @@ SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
 
 INPUTPATH=$(realpath ${INPUTDIR})
 INPUTFILES=$(find $INPUTPATH/ -maxdepth 1 -type f -name "*.mp4" | wc -l)
-
-
-
-
-
 
 
 
@@ -152,7 +138,7 @@ if [ ! -z "$VIDEOSUMMARY" ]; then
 fi
 
 
-
+# Sanitycheck the email list
 if [ ! -z "$EMAILLIST" ]; then
 
     if [ ! -f "$EMAILLIST" ]; then
@@ -177,15 +163,6 @@ done
 
 
 
-rm -f /tmp/ramdisk/full/*
-rm -f bgsub.log
-rm -f samplefile.txt
-
-
-
-
-
-
 
 echo ""
 echo "cleanup"
@@ -195,7 +172,6 @@ echo ""
 
 mkdir $OUTPUTDIR
 mkdir $DEBUGDIR
-
 
 
 
