@@ -357,7 +357,8 @@ if [ ! -z "$EMAILLIST" ]; then
     echo  "Hei det er nye fimar paa :" >> mail2.txt
     echo  "https://www.dropbox.com/sh/jdpb8it96sezysu/AAAmXSxE8bW7RULq0ofAJ8N-a?dl=0" >> mail2.txt
     echo  "" >> mail2.txt
-    cat /media/jarleven/Extended/tmp/2019-08-29-Annotated/2019-08-29.txt >> mail2.txt
+    #cat /media/jarleven/Extended/tmp/2019-08-29-Annotated/2019-08-29.txt >> mail2.txt
+    cat $SUMMARY >> mail2.txt
     sendmail -f laksar@eidselva.no -t < mail2.txt
 
 fi
