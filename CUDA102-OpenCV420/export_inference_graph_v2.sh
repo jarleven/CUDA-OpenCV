@@ -118,11 +118,6 @@ NUM_CKPT=$(ls -lht ~/TensorFlow/workspace/training_demo/training/ | grep $CKPT |
 echo "Found $NUM_CKPT files at CKPT $CKPT"
 sleep 3
 
-echo "Exported date           : $BUILDDATE" >> $INFOFILE
-echo "Model is based on       : $MODELNAME" >> $INFOFILE
-echo "Training checkpoint CKPT: $CKPT" >> $INFOFILE
-
-
 
 cd /home/$USER/TensorFlow/models/research/object_detection
 
@@ -134,9 +129,22 @@ python3 export_inference_graph.py \
   --output_directory $OUTDIR
 
 
+TENSORFLOWVERSION=$(python3 -c 'import tensorflow as tf; print("Tensorflow version : %s" % tf.__version__)')
+GPUINFO=$(python3 -c "from tensorflow.python.client import device_lib; print(device_lib.list_local_devices())" | grep "physical_device_desc:" | grep "name: ")
+
+echo "Exported date           : $BUILDDATE" >> $INFOFILE
+echo "Model is based on       : $MODELNAME" >> $INFOFILE
+echo "Training checkpoint CKPT: $CKPT" >> $INFOFILE
+echo "Training checkpoint CKPT: $TENSORFLOWVERSION" >> $INFOFILE
+echo "Training checkpoint CKPT: $GPUINFO" >> $INFOFILE
+
+
 # For simplicity show where to get the frozen_inference_graph.pb file :-)
 echo ""
 echo ""
+
+cd ~
+tar -cvjSf $MODELNAME"_AT_"$CKPT".tar.bz2" $OUTDIR
 
 
 for iface in $( ip --brief link show | awk '{print $1}' )
@@ -148,11 +156,12 @@ do
     if [ -n "${IPADDR}"  -a  "127.0.0.1" != "${IPADDR}" ]; then
         echo "scp $USER@$IPADDR:$OUTDIR/ModelInfo.txt ."
         echo "scp $USER@$IPADDR:$OUTDIR/frozen_inference_graph.pb ."
+        echo "scp $USER@$IPADDR:~/$MODELNAME"_AT_"$CKPT".tar.bz2 .""
+
 	echo ""
     fi
 
 done
-
 
 echo ""
 du -hs $OUTDIR
@@ -160,3 +169,4 @@ ls -alh $OUTDIR
 echo ""
 echo "cp $HOME/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODELNAME.config $HOME/TensorFlow/workspace/training_demo/training/pipeline.config"
 echo ""
+echo "tar xvfj $MODELNAME"_AT_"$CKPT".tar.bz2""
