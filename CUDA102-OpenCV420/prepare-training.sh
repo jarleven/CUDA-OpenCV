@@ -25,6 +25,17 @@ set -u  # Treat unset variables as an error when substituting.
 # grep -o '[^ ]*tar\.gz[^ ]*' thefile.txt
 #
 
+
+#####
+# Links to tips regarding fixing the configuration files
+# 
+# ERROR:raise ValueError('First step cannot be zero.') ValueError: First step cannot be zero.
+# https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10/issues/51
+#
+
+
+
+
 #
 # Working
 #MODEL=ssd_mobilenet_v1_coco_2018_01_28
@@ -50,6 +61,8 @@ set -u  # Treat unset variables as an error when substituting.
 
 # faster_rcnn_resnet50_coco_2018_01_28
 # faster_rcnn_resnet50_lowproposals_coco_2018_01_28
+
+#Working
 MODEL=rfcn_resnet101_coco_2018_01_28
 
 #Working
@@ -83,7 +96,6 @@ MODEL=rfcn_resnet101_coco_2018_01_28
 cd ~
 
 rm -rf ~/TensorFlow/workspace/training_demo/pre-trained-model/*
-#rm ~/TensorFlow/workspace/training_demo/pre-trained-model/pipeline.config
 rm -rf ~/TensorFlow/workspace/training_demo/training/*
 
 rm -rf ~/$MODEL
@@ -95,9 +107,10 @@ fi
 
 tar xvzf $MODEL.tar.gz
 cd ~/$MODEL
+cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
 
-#Let us see if we already have a configuration in our repository
+# Let us see if we already have a configuration in our repository
 PIPELINE_CONFIG=~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODEL.config
 if [ -f $PIPELINE_CONFIG ]; then
    echo "File $PIPELINE_CONFIG exists."
@@ -112,27 +125,12 @@ else
 fi
 
 
-
-
-cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
-#cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
-
-
+# Store the model name so we can make a description when exporting the model later
 echo $MODEL > ~/TensorFlow/workspace/training_demo/training/modelName.txt
 
-#cd ~/TensorFlow/workspace/training_demo/training
 
-#cp ~pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
-#~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config_massage.sh
-
-
-#cp pipeline.config ~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODEL.config
-
-
-
+# Do actual training 
 cd ~/TensorFlow/workspace/training_demo/
-
-
 python3 train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/pipeline.config
 
 echo ""
