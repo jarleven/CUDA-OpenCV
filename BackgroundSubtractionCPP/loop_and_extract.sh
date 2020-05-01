@@ -108,7 +108,7 @@ if [ ! -d "$RAMDISK" ]; then
     exitFailiure
 fi
 
-
+MODELDIR=$(dirname "${MODELPATH}")
 
 LOGFILENAME=$(basename $INPUTDIR)
 WORKNAME=$LOGFILENAME
@@ -283,6 +283,12 @@ HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 
 ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 
+# Some info about Tensorflow and the GPU used.
+TENSORFLOWVERSION=$(python3 -c 'import tensorflow as tf; print("Tensorflow version : %s" % tf.__version__)')
+GPUINFO=$(python3 -c "from tensorflow.python.client import device_lib; print(device_lib.list_local_devices())" | grep "physical_device_desc:" | grep "name: ")
+
+
+
 
 if [ ! -z $MOVIE ]; then
     if [ "$HITS" -gt "0" ];then
@@ -298,6 +304,11 @@ echo "Filesize    : "$FILESIZE
 echo "Hits        : "$HITS
 echo "Processtime : "$ELAPSEDTIME
 echo " "
+
+
+
+
+
 
 # Log some stats we have collected
 echo "############### " >> $TOUCHFILE
@@ -316,8 +327,10 @@ echo "# Score         : $SCORE" >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
 echo " " >> $TOUCHFILE
-
-cat ~/EXPORTED5/ModelInfo.txt >> $TOUCHFILE
+echo "$TENSORFLOWVERSION" >> $TOUCHFILE
+echo "$GPUINFO" >> $TOUCHFILE
+echo " " >> $TOUCHFILE
+cat $MODELDIR/ModelInfo.txt >> $TOUCHFILE
 echo " " >> $TOUCHFILE
 echo " " >> $TOUCHFILE
 
