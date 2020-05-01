@@ -11,18 +11,45 @@ cd ~
 EXPORTDATE=$(date +'Exportdate__%Y-%m-%d__%H-%M-%S')
 MODELNAME=$(cat ~/TensorFlow/workspace/training_demo/training/modelName.txt | head -1)
 
+echo ""
 echo $MODELNAME"__"$EXPORTDATE
+echo ""
 
 
-#echo "cp $HOME/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODELNAME.config $HOME/TensorFlow/workspace/training_demo/training/pipeline.config"
+
+PIPELINE="/home/$USER/TensorFlow/workspace/training_demo/training/pipeline.config"
+
+# Check if the pipeline.config file is empty or missing. Training the model sometimes erase the file
+
+if [ ! -f "$PIPELINE" ]
+then
+	echo "File $PIPELINE does not exist"
+	echo ""
+	echo "cp $HOME/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODELNAME.config $HOME/TensorFlow/workspace/training_demo/training/pipeline.config"
+	echo ""
+	exit
+fi
+
+
+if [ ! -s $PIPELINE ]
+then
+	echo "pipeline.config is empty"
+	echo ""
+	echo "cp $HOME/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODELNAME.config $HOME/TensorFlow/workspace/training_demo/training/pipeline.config"
+	echo ""
+	exit
+fi
+
+# TODO : THIS MIGHT BE A BIT DODGY...
+PIPELINE_CKPT=$(cat /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/faster_rcnn_inception_v2_coco_2018_01_28.config | grep "num_steps:" | awk '{print $2}')
+
+echo "Configfile was configured to run to checkpint $PIPELINE_CKPT"
+
 
 
 
 OUTDIR=$HOME"/"$MODELNAME"__"$EXPORTDATE
 
-#mkdir "$OUTDIR"
-
-#exit
 
 
 helptext()  {
@@ -93,7 +120,7 @@ echo "Base model    : "$MODELNAME
 
 mkdir $OUTDIR
 
-PIPELINE="/home/$USER/TensorFlow/workspace/training_demo/training/pipeline.config"
+
 
 
 # 
@@ -134,17 +161,22 @@ GPUINFO=$(python3 -c "from tensorflow.python.client import device_lib; print(dev
 
 echo "Exported date           : $BUILDDATE" >> $INFOFILE
 echo "Model is based on       : $MODELNAME" >> $INFOFILE
+echo "Tensorflow ZOO models   : https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md" >> $INFOFILE
 echo "Training checkpoint CKPT: $CKPT" >> $INFOFILE
-echo "Training checkpoint CKPT: $TENSORFLOWVERSION" >> $INFOFILE
-echo "Training checkpoint CKPT: $GPUINFO" >> $INFOFILE
+echo "Config checkpoint CKPT  : $PIPELINE_CKPT" >> $INFOFILE
+echo "" >> $INFOFILE
+echo "$TENSORFLOWVERSION" >> $INFOFILE
+echo "$GPUINFO" >> $INFOFILE
 
 
 # For simplicity show where to get the frozen_inference_graph.pb file :-)
 echo ""
 echo ""
 
+echo "Will create tra.bz2 from $OUTDIR"
 cd ~
-tar -cvjSf $MODELNAME"_AT_"$CKPT".tar.bz2" $OUTDIR
+TARFILE=$MODELNAME"_AT_"$CKPT"_"$EXPORTDATE".tar.bz2"
+tar -cvjSf $TARFILE -C $OUTDIR .
 
 
 for iface in $( ip --brief link show | awk '{print $1}' )
@@ -156,7 +188,7 @@ do
     if [ -n "${IPADDR}"  -a  "127.0.0.1" != "${IPADDR}" ]; then
         echo "scp $USER@$IPADDR:$OUTDIR/ModelInfo.txt ."
         echo "scp $USER@$IPADDR:$OUTDIR/frozen_inference_graph.pb ."
-        echo "scp $USER@$IPADDR:~/$MODELNAME"_AT_"$CKPT".tar.bz2 .""
+        echo "scp $USER@$IPADDR:~/$TARFILE ."
 
 	echo ""
     fi

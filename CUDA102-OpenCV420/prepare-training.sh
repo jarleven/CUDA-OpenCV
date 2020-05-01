@@ -43,14 +43,14 @@ set -u  # Treat unset variables as an error when substituting.
 # ssdlite_mobilenet_v2_coco_2018_05_09
 
 #Working
-MODEL=ssd_inception_v2_coco_2018_01_28
+#MODEL=ssd_inception_v2_coco_2018_01_28
 
 #Working
 #MODEL=faster_rcnn_inception_v2_coco_2018_01_28
 
 # faster_rcnn_resnet50_coco_2018_01_28
 # faster_rcnn_resnet50_lowproposals_coco_2018_01_28
-# rfcn_resnet101_coco_2018_01_28
+MODEL=rfcn_resnet101_coco_2018_01_28
 
 #Working
 #MODEL=faster_rcnn_resnet101_coco_2018_01_28
@@ -101,12 +101,14 @@ cd ~/$MODEL
 PIPELINE_CONFIG=~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/$MODEL.config
 if [ -f $PIPELINE_CONFIG ]; then
    echo "File $PIPELINE_CONFIG exists."
+   sleep 3
    cp $PIPELINE_CONFIG ~/TensorFlow/workspace/training_demo/training/pipeline.config
 else
    echo "File $PIPELINE_CONFIG does not exist."
    cp pipeline.config ~/TensorFlow/workspace/training_demo/training/pipeline.config
    ~/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config_massage.sh
    cp ~/TensorFlow/workspace/training_demo/training/pipeline.config $PIPELINE_CONFIG
+   sleep 3
 fi
 
 
