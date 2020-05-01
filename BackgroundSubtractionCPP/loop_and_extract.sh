@@ -13,6 +13,8 @@ set -u  # Treat unset variables as an error when substituting.
 SCORE=0.9
 VIDEOSUMMARY=""
 EMAILLIST=""
+RAMDISKUSAGE="50"
+
 
 RAMDISK=/tmp/ramdisk/full
 
@@ -209,6 +211,7 @@ if test -f "$TOUCHFILE"; then
     exit
 fi
 
+
 # Some kind of gurad against parallel processing race confition (The obscure way)
 touch $TOUCHFILE
 
@@ -230,7 +233,7 @@ while IFS= read -r -d '' line; do
 
     ./background_subtraction "$line"
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
-    if [ "$freespace" -lt "70" ];then
+    if [ "$freespace" -lt $RAMDISKUSAGE ];then
        echo "Plenty of storage left, using $freespace%' Processed images $LOOPNUM times analysed images $DETECTIONFILES ";
       continue      
     fi
