@@ -21,6 +21,7 @@ inputpath="/tmp/ramdisk/full/"
 rootpath="/tmp/ramdisk/annotated"
 rootpathdebug="/tmp/ramdisk/annotateddebug"
 xmlpathheader="/home/jarleven/tmp"
+scorelimit="0.9"
 
 import sys, getopt
 
@@ -76,6 +77,12 @@ for opt, arg in opts:
 #   Swrite xml optional
 #   verbose
 #   Create folders if they don't exist
+
+path = PurePath(modelpath)
+modelpathname=path.parent.name
+
+print(modelpathname)
+
 
 
 # The files to process
@@ -201,6 +208,8 @@ with tf.compat.v1.Session() as sess:
 
 
             cv.putText(img, "%s %s frame %s  -- %02d hits with max score %.3f" % ( camdatetime[1], time, A[1], hit, maxscore_img), (50, 50), cv.FONT_HERSHEY_SIMPLEX, 0.8, (125, 255, 51), 2)
+            cv.putText(img, "Model %s" % (modelpathname), (50, 80), cv.FONT_HERSHEY_SIMPLEX, 0.6, (125, 255, 51), 2)
+
             cv.imwrite(os.path.join(rootpathdebug , filepng),img)
 
             cv.imshow('object detection', cv.resize(img, (800,600)))
@@ -211,8 +220,8 @@ with tf.compat.v1.Session() as sess:
 end = timer()
 
 logfile = open('samplefile.txt', 'a')
-print('Images %6d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)), file = logfile)
-print('Images %6d Hits %4d   processtime %7.2f seconds' % (imgnum, totalhits, (end-start)))
+print('Images %6d Hits %4d   processtime %7.2f seconds Model used %s' % (imgnum, totalhits, (end-start), modelpathname ), file = logfile)
+print('Images %6d Hits %4d   processtime %7.2f seconds Model used %s' % (imgnum, totalhits, (end-start), modelpathname))
 
 logfile.close()
 
