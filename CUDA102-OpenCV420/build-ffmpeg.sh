@@ -36,10 +36,16 @@ set -u  # Treat unset variables as an error when substituting.
 
 cd "$(dirname "$0")"
 
-CUDAVERSION="cuda-10.1"
+
+# TODO  In case you run this script only ?
+# https://stackoverflow.com/questions/34799969/how-to-detect-if-a-shell-script-is-called-from-another-shell-script
+
+
+#CUDAVERSION="cuda-10.0"
+#SCRIPT_FFMPEGVER="4.2.2"
 
 source .setupvars
-source environmet.sh
+source ./environmet.sh
 
 cd ~
 
@@ -71,7 +77,7 @@ cd ~
 cd ~
 
 #videocodecsdk.md5
-cp /media/$HOME/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip ~/
+cp /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip ~/
 
 if md5sum -c videocodecsdk.md5; then
     echo "OK, NVIDIA video Codec SDK found"
