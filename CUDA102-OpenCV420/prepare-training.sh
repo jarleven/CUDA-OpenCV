@@ -40,18 +40,32 @@ set -u  # Treat unset variables as an error when substituting.
 # Working
 #MODEL=ssd_mobilenet_v1_coco_2018_01_28
 
-# ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync_2018_07_03
-# ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
-# ssd_mobilenet_v1_0.75_depth_quantized_300x300_coco14_sync_2018_07_18
-# ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03
-# ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
-# ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
-# ssd_mobilenet_v2_coco_2018_03_29
+# ValueError: not enough values to unpack (expected 7, got 0)
+#MODEL=ssd_mobilenet_v1_0.75_depth_300x300_coco14_sync_2018_07_03
+
+# ValueError: not enough values to unpack (expected 7, got 0)
+#MODEL=ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18
+
+# ValueError: not enough values to unpack (expected 7, got 0)
+#MODEL=ssd_mobilenet_v1_0.75_depth_quantized_300x300_coco14_sync_2018_07_18
+
+# ValueError: not enough values to unpack (expected 7, got 0)
+#MODEL=ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03
+
+# ValueError: not enough values to unpack (expected 7, got 0)
+# MODEL=ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
+
+# ValueError: not enough values to unpack (expected 7, got 0)
+#MODEL=ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03
+
+# Working with https://stackoverflow.com/questions/49880939/tf-object-detection-api-detection-model-retraining-object-detection-protos-ssd/49883742#49883742
+#MODEL=ssd_mobilenet_v2_coco_2018_03_29
 
 #Working
 #MODEL=ssd_mobilenet_v2_quantized_300x300_coco_2019_01_03
 
-# ssdlite_mobilenet_v2_coco_2018_05_09
+#Working
+#MODEL=ssdlite_mobilenet_v2_coco_2018_05_09
 
 #Working
 #MODEL=ssd_inception_v2_coco_2018_01_28
@@ -59,11 +73,17 @@ set -u  # Treat unset variables as an error when substituting.
 #Working
 #MODEL=faster_rcnn_inception_v2_coco_2018_01_28
 
-# faster_rcnn_resnet50_coco_2018_01_28
-# faster_rcnn_resnet50_lowproposals_coco_2018_01_28
+# Working. "ValueError: First step cannot be zero."
+#MODEL=faster_rcnn_resnet50_coco_2018_01_28
+
+
+# Working
+# https://github.com/tensorflow/models/issues/2668
+# ValueError: First step cannot be zero.
+MODEL=faster_rcnn_resnet50_lowproposals_coco_2018_01_28
 
 #Working
-MODEL=rfcn_resnet101_coco_2018_01_28
+#MODEL=rfcn_resnet101_coco_2018_01_28
 
 #Working
 #MODEL=faster_rcnn_resnet101_coco_2018_01_28
@@ -106,6 +126,24 @@ if [ ! -f ~/$MODEL.tar.gz ]; then
 fi
 
 tar xvzf $MODEL.tar.gz
+
+#ORGMODEL=$MODEL
+#
+#MODEL="TESTMEG"
+#
+#cd /home/jarleven/TensorFlow/models/research/object_detection
+#
+#python3 export_inference_graph.py \
+#  --input_type image_tensor \
+#  --pipeline_config_path /home/jarleven/$ORGMODEL/pipeline.config \
+#  --trained_checkpoint_prefix /home/jarleven/$ORGMODEL/model.ckpt \
+#  --output_directory ~/$MODEL
+
+#  --trained_checkpoint_prefix /home/$USER/TensorFlow/workspace/training_demo/training/model.ckpt-$CKPT \
+#  diff -y --suppress-common-lines faster_rcnn_resnet50_lowproposals_coco_2018_01_28.config  TESTMEG.config
+
+
+
 cd ~/$MODEL
 cp -r * ~/TensorFlow/workspace/training_demo/pre-trained-model/
 
