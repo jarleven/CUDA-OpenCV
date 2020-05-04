@@ -7,7 +7,7 @@ set -u  # Treat unset variables as an error when substituting.
 
 cd ~
 
-
+MODELNAME=""
 EXPORTDATE=$(date +'Exportdate__%Y-%m-%d__%H-%M-%S')
 MODELNAME=$(cat ~/TensorFlow/workspace/training_demo/training/modelName.txt | head -1)
 
