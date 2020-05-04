@@ -91,10 +91,18 @@ set -u  # Treat unset variables as an error when substituting.
 # ValueError: second_stage_batch_size should be no greater than first_stage_max_proposals.
 # ValueError: First step cannot be zero.
 # Working
-MODEL=faster_rcnn_resnet101_lowproposals_coco_2018_01_28
+#MODEL=faster_rcnn_resnet101_lowproposals_coco_2018_01_28
 
-# faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
-# faster_rcnn_inception_resnet_v2_atrous_lowproposals_coco_2018_01_28
+# ValueError: First step cannot be zero.
+# OOM ERROR
+#MODEL=faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
+
+# ValueError: second_stage_batch_size should be no greater than first_stage_max_proposals.
+# ValueError: First step cannot be zero.
+# OOM ERROR
+# MODEL=faster_rcnn_inception_resnet_v2_atrous_lowproposals_coco_2018_01_28
+
+
 # faster_rcnn_nas_coco_2018_01_28
 # faster_rcnn_nas_lowproposals_coco_2018_01_28
 # mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
