@@ -41,7 +41,8 @@ then
 fi
 
 # TODO : THIS MIGHT BE A BIT DODGY...
-PIPELINE_CKPT=$(cat /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/faster_rcnn_inception_v2_coco_2018_01_28.config | grep "num_steps:" | awk '{print $2}')
+#PIPELINE_CKPT=$(cat /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/pipeline_config/faster_rcnn_inception_v2_coco_2018_01_28.config | grep "num_steps:" | awk '{print $2}')
+PIPELINE_CKPT=$(cat $HOME/TensorFlow/workspace/training_demo/training/pipeline.config | grep "num_steps:" | awk '{print $2}')
 
 echo "Configfile was configured to run to checkpint $PIPELINE_CKPT"
 
@@ -167,6 +168,9 @@ echo "Config checkpoint CKPT  : $PIPELINE_CKPT" >> $INFOFILE
 echo "" >> $INFOFILE
 echo "$TENSORFLOWVERSION" >> $INFOFILE
 echo "$GPUINFO" >> $INFOFILE
+echo "" >> $INFOFILE
+cat ~/TensorFlow/workspace/training_demo/images/datasetInfo.txt >> $INFOFILE
+
 
 
 # For simplicity show where to get the frozen_inference_graph.pb file :-)
