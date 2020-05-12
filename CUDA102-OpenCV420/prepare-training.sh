@@ -71,7 +71,7 @@ set -u  # Treat unset variables as an error when substituting.
 #MODEL=ssd_inception_v2_coco_2018_01_28
 
 #Working
-#MODEL=faster_rcnn_inception_v2_coco_2018_01_28
+MODEL=faster_rcnn_inception_v2_coco_2018_01_28
 
 # Working. "ValueError: First step cannot be zero."
 #MODEL=faster_rcnn_resnet50_coco_2018_01_28
@@ -105,7 +105,10 @@ set -u  # Treat unset variables as an error when substituting.
 
 # faster_rcnn_nas_coco_2018_01_28
 # faster_rcnn_nas_lowproposals_coco_2018_01_28
-# mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
+
+# Fail
+#MODEL=mask_rcnn_inception_resnet_v2_atrous_coco_2018_01_28
+
 # mask_rcnn_inception_v2_coco_2018_01_28
 # mask_rcnn_resnet101_atrous_coco_2018_01_28
 # mask_rcnn_resnet50_atrous_coco_2018_01_28

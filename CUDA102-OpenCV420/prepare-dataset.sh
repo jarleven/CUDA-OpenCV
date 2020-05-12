@@ -6,9 +6,10 @@ rm -rf ~/TensorFlow/workspace/training_demo/annotations/*
 
 cd ~/datasetTmp/
 
-cp train ~/TensorFlow/workspace/training_demo/images/
-cp test ~/TensorFlow/workspace/training_demo/images/
+cp -r train ~/TensorFlow/workspace/training_demo/images/
+cp -r test ~/TensorFlow/workspace/training_demo/images/
 cp ~/datasetTmp/datasetInfo.txt ~/TensorFlow/workspace/training_demo/images/
+
 
 # Copy the label map file
 cp ~/CUDA-OpenCV/CUDA102-OpenCV420/label_map.pbtxt ~/TensorFlow/workspace/training_demo/annotations/label_map.pbtxt
