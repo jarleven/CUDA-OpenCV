@@ -62,3 +62,19 @@ GPU : Avg : 0.158112 ms FPS : 6324.62 Frames 22257
 
 ## Custom object detector.
 This repository also contain some work on how I build (work in progress) my custom fish detector. At the moment this use TensorFlow 1.15 as I could not get the training working on Tensorflow 2.x.x.
+
+Annotated images of a salmon:
+
+Create the dataset in the Tensorflow working directory:
+
+Retraining with a model is as simple as:
+
+```bash
+cd ~/TensorFlow/workspace/training_demo
+~/CUDA-OpenCV/CUDA102-OpenCV420/prepare-training.sh
+ 
+```
+
+Exporting the model:
+
+
