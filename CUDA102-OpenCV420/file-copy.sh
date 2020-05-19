@@ -6,5 +6,10 @@ set -x  # Print commands and their arguments as they are executed.
 set -u  # Treat unset variables as an error when substituting.
 
 
-cp /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip ~/
+FILE=Video_Codec_SDK_9.1.23.zip
+
+if [ ! -f ~/$FILE ]; then
+    echo "File not found!"
+    cp /media/$USER/CUDA/CUDAFILES/$FILE ~/
+fi
 

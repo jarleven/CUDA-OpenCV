@@ -77,7 +77,14 @@ cd ~
 cd ~
 
 #videocodecsdk.md5
-cp /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip ~/
+FILE=Video_Codec_SDK_9.1.23.zip
+
+if [ ! -f ~/$FILE ]; then
+    echo "File not found!"
+    cp /media/$USER/CUDA/CUDAFILES/$FILE ~/
+fi
+
+
 
 if md5sum -c videocodecsdk.md5; then
     echo "OK, NVIDIA video Codec SDK found"
