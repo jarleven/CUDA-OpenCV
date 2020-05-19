@@ -34,10 +34,10 @@ case "$1" in
 		# Install NVIDIA driver
 
 		# For Ubuntu 19.10
-		sudo apt install -y --no-install-recommends nvidia-driver-440
+		#sudo apt install -y --no-install-recommends nvidia-driver-440
 
 		# This was, TODO investigate what to do.
-		# sudo apt install -y --no-install-recommends nvidia-driver-430
+		sudo apt install -y --no-install-recommends nvidia-driver-430
 
 
 		# Reboot. Check that GPUs are visible using the command: nvidia-smi
@@ -50,10 +50,10 @@ case "$1" in
 		# Install development and runtime libraries (~4GB)
 		
 		# This was the install. TODO investigate
-		# sudo apt install -y --no-install-recommends cuda-10-1 libcudnn7=7.6.4.38-1+cuda10.1 libcudnn7-dev=7.6.4.38-1+cuda10.1
+		sudo apt install -y --no-install-recommends cuda-10-1 libcudnn7=7.6.4.38-1+cuda10.1 libcudnn7-dev=7.6.4.38-1+cuda10.1
 
 		# For Ubuntu 19.10 
-		sudo apt install -y cuda-10-1 libcudnn libcudnn-dev
+		#sudo apt install -y cuda-10-1 libcudnn libcudnn-dev
 
 		# Install TensorRT. Requires that libcudnn7 is installed above.
 		sudo apt install -y --no-install-recommends libnvinfer6=6.0.1-1+cuda10.1 \
