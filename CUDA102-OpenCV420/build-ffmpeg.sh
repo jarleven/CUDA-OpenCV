@@ -64,6 +64,11 @@ sudo apt-get install -y build-essential git yasm unzip wget sysstat nasm libc6:i
 sudo apt install -y libavdevice-dev libavfilter-dev libavresample-dev libpostproc-dev
 
 
+# FOR ALSA sound
+# https://raspberrypi.stackexchange.com/questions/70479/ffmpeg-unknown-input-format-alsa
+# before attempting to configure and compile ffmpeg or anything where you need alsa support.
+sudo apt-get install libasound2-dev
+
 
 # cp ffmpeg.md5 ~/
 # cp videocodecsdk.md5 ~/
@@ -101,6 +106,9 @@ sudo cp -u cuviddec.h /usr/local/$CUDAVERSION/include/
 #### ????
 
 
+rm -rf ~/nv-codec-headers
+rm -rf ~/x264
+
 cd ~
 git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
 cd nv-codec-headers
@@ -111,7 +119,7 @@ sudo ldconfig
 cd ~
 git clone https://code.videolan.org/videolan/x264.git
 cd x264/
-./configure --disable-cli --enable-shared --disable-static--enable-strip
+./configure --disable-cli --enable-shared --disable-static--enable-strip --enable-libvidstab
 make
 sudo make install
 sudo ldconfig
