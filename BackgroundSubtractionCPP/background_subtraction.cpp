@@ -42,7 +42,6 @@ using namespace cv::cuda;
 
 /**
  * g++ -ggdb background_subtraction.cpp -o background_subtraction `pkg-config --cflags --libs opencv4` -I /usr/local/cuda-10.1/include/
- *
  */
 
 
@@ -326,6 +325,8 @@ int main(int argc, const char* argv[])
 int main()
 {
     std::cout << "OpenCV was built without CUDA Video decoding support\n" << std::endl;
+    std::cout << "g++ -ggdb background_subtraction.cpp -o background_subtraction `pkg-config --cflags --libs opencv4` -I /usr/local/cuda-10.1/include/\n" << std::endl;
+
     return 0;
 }
 
