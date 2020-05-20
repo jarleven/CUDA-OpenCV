@@ -13,7 +13,7 @@ set -u  # Treat unset variables as an error when substituting.
 SCORE=0.9
 VIDEOSUMMARY=""
 EMAILLIST=""
-RAMDISKUSAGE="50"
+RAMDISKUSAGE="70"
 
 
 RAMDISK=/tmp/ramdisk/full
@@ -172,8 +172,6 @@ echo "rm -rf $OUTPUTDIR && rm -rf $DEBUGDIR && rm $TOUCHFILE"
 echo ""
 
 
-mkdir $OUTPUTDIR
-mkdir $DEBUGDIR
 
 
 
@@ -197,19 +195,37 @@ echo "TODO : Clean up all the printing in AI"
 echo "TODO : Cleanup all the printing in BGSUB"
 echo "TODO : Investigate the issue with the RAMDRIVE"
 
-echo "DEBUG, will sleep 10 seconds"
-sleep 10
+echo "DEBUG, will sleep 3 seconds"
+#sleep 3
 
 
 
 
 
 # Exit if we already processed this folder.
-if test -f "$TOUCHFILE"; then
-    echo "File already created $TOUCHFILE"
-    touch "FAILED-"$LOGFILENAME".txt"
-    exit
+#if test -f "$TOUCHFILE"; then
+if test -f "$SUMMARY"; then
+
+    echo "File already created $SUMMARY"
+    #touch "FAILED-"$LOGFILENAME".txt"
+    exit 0
 fi
+
+if test -f "$TOUCHFILE"; then
+
+    echo "File already created $TOUCHFILE"
+    echo "Deleting this output"
+    sleep 2
+
+    rm -rf $OUTPUTDIR && rm -rf $DEBUGDIR && rm $TOUCHFILE
+
+fi
+
+
+mkdir $OUTPUTDIR
+mkdir $DEBUGDIR
+
+
 
 
 # Some kind of gurad against parallel processing race confition (The obscure way)
@@ -219,6 +235,16 @@ LOOPNUM=0
 
 FILENUM=0
 DETECTIONFILES=0
+
+OKFILESIZE=0
+ERRORFILESIZE=0
+SMALLFILESIZE=0
+
+OKFILES=0
+ERRORFILES=0
+SMALLFILES=0
+
+
 find $INPUTDIR -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
     echo $line >> $FILELIST
@@ -230,13 +256,70 @@ while IFS= read -r -d '' line; do
 
     echo ""
     echo "Processing file $FILENUM of $INPUTFILES. Input archive size is XXXX. Processtime $ELAPSEDTIME  file is $line"
+    echo "Files  OK $OKFILES  -  Error $ERRORFILES  -  small $SMALLFILES"
+
+
+    # Check the integrity of the MPG file
+    echo "Line is $line"
+    MPGFILENAME=$(basename $line)
+    echo "File is $MPGFILENAME"
+
+    minimumsize=1000
+    actualsize=$(du -k "$line" | cut -f 1)
+
+
+    if [ $actualsize -ge $minimumsize ]; then
+       echo size is over $minimumsize kilobytes
+    else
+       echo size is under $minimumsize kilobytes
+       let "SMALLFILES=SMALLFILES+1"
+       let "SMALLFILESIZE=SMALLFILESIZE+actualsize"
+
+       continue
+   fi
+
+
+    touch $MPGFILENAME.log
+    #ffmpeg -v error -i $line -f null - 2>$MPGFILENAME.log < /dev/null &
+    # All this  > and < is to make sure ffmpeg runs fine inside the script
+    ffmpeg -v error -i $line -f null - </dev/null >/dev/null 2>>$MPGFILENAME.log
+    wait
+    sleep 2
+   
+    echo "Done checking file"
+
+    if [ ! -f $MPGFILENAME.log ]
+    then
+        echo "No FFMPEG logfile found, file is probably OK continue processing this file"
+	continue
+    fi
+    if [ -s $MPGFILENAME.log ]
+    then
+        echo "Errors found in MPG file. Skip this file."
+
+        let "ERRORFILES=ERRORFILES+1"
+        let "ERRORFILESIZE=ERRORFILESIZE+actualsize"
+
+	#ffmpeg -i $line -c copy output.mp4 - </dev/null >/dev/null 2>>$MPGFILENAME-fixed.log
+        #line=output.mp4
+	continue
+    else
+	    # Remove the empty log files
+	    rm -f $MPGFILENAME.log
+    fi
+    # Integrity check done
+
+    let "OKFILES=OKFILES+1"
+    let "OKFILESIZE=OKFILESIZE+actualsize"
+
 
     ./background_subtraction "$line"
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
     if [ "$freespace" -lt $RAMDISKUSAGE ];then
-       echo "Plenty of storage left, using $freespace%' Processed images $LOOPNUM times analysed images $DETECTIONFILES ";
+      echo "Plenty of storage left, using $freespace% reserverd $RAMDISKUSAGE%. Processed images $LOOPNUM times analysed images $DETECTIONFILES "
       continue      
     fi
+
 
 
     motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
@@ -315,8 +398,11 @@ echo "############### " >> $TOUCHFILE
 echo "# Input dir     : $LOGFILENAME" >> $TOUCHFILE
 echo "# Hits          : $HITS" >> $TOUCHFILE
 echo "# MP4 files     : $NUMFILES" >> $TOUCHFILE
+echo "#   MP4 OK      : $OKFILES $OKFILESIZE kBytes" >> $TOUCHFILE
+echo "#   MP4 error   : $ERRORFILES $ERRORFILESIZE kBytes" >> $TOUCHFILE
+echo "#   MP4 small   : $SMALLFILES $SMALLFILESIZE kBytes" >> $TOUCHFILE
 echo "# Motion # files: $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.   : v0.12" >> $TOUCHFILE
+echo "# Header ver.   : v0.13" >> $TOUCHFILE
 echo "# Filesize      : $FILESIZE" >> $TOUCHFILE
 echo "# Started       : $STARTDATE" >> $TOUCHFILE
 echo "# Completed     : $ENDDATE" >> $TOUCHFILE
@@ -346,10 +432,9 @@ if [ ! -z "$EMAILLIST" ]; then
     # Compose an e- mail
     cat $EMAILLIST > mail2.txt
     echo  "subject: Eidselva $WORKNAME summary" >> mail2.txt
-    echo  "Hei det er nye fimar paa :" >> mail2.txt
+    echo  "Hei det er nye filmar paa :" >> mail2.txt
     echo  "https://www.dropbox.com/sh/jdpb8it96sezysu/AAAmXSxE8bW7RULq0ofAJ8N-a?dl=0" >> mail2.txt
     echo  "" >> mail2.txt
-    #cat /media/jarleven/Extended/tmp/2019-08-29-Annotated/2019-08-29.txt >> mail2.txt
     cat $SUMMARY >> mail2.txt
     sendmail -f laksar@eidselva.no -t < mail2.txt
 
