@@ -105,6 +105,7 @@ fi
 
 if [ ! -d "$RAMDISK" ]; then
     echo "$RAMDISK does not exist"
+    echo "sudo mkdir -p /tmp/ramdisk && sudo chmod 777 /tmp/ramdisk && sudo mount -t tmpfs -o size=4G myramdisk /tmp/ramdisk && mkdir /tmp/ramdisk/full"
     exitFailiure
 fi
 
