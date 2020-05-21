@@ -131,7 +131,7 @@ int main(int argc, const char* argv[])
     bool showimg = true;
     bool saveimg = true;
 
-    int minContout = 400;
+    int minContour = 400;
 
     const std::string fname(argv[1]);
 
@@ -139,6 +139,8 @@ int main(int argc, const char* argv[])
     cv::namedWindow("Mask", cv::WINDOW_NORMAL);
     cv::namedWindow("GPU", cv::WINDOW_OPENGL);
     cv::namedWindow("CPU", cv::WINDOW_FULLSCREEN);
+//    cv::namedWindow("Mask", cv::WINDOW_NORMAL);
+
     cv::cuda::setGlDevice();
 
     cv::Mat frame;
@@ -170,6 +172,7 @@ int main(int argc, const char* argv[])
     start = clock();
     int counter = 0;
     int framenum = 0;
+    int hitnum = 0;
 
 /* DIALATE */
     int erosionDilation_size = 5;// Was 5
@@ -188,9 +191,10 @@ int main(int argc, const char* argv[])
  bool started = false;
  int height = 0;
  int width = 0;
+ int maskratio=170;
+ int minmask=0;
 
-
-  cout << "Opening file : " << fname << endl;
+  cout << "Bacground subtraction opening file : " << fname << endl;
   string filename = getFileName(fname);
   //cout << filename << endl;
 
@@ -206,10 +210,14 @@ int main(int argc, const char* argv[])
             d_frame.download(frame);
             width = frame.size().width;
             height = frame.size().height;
+            minmask = (width*height)/maskratio;
 
-            //cout << "Width : " << width << endl;
-            //cout << "Height: " << height << endl;
-        }
+            cout << "Width : " << width << endl;
+            cout << "Height: " << height << endl;
+            cout << "Maskratio: " << maskratio << endl;
+            cout << "Minpixels: " << minmask << endl;
+
+	}
 
 
         mog2->apply(d_frame, d_fgmask);
@@ -228,15 +236,20 @@ int main(int argc, const char* argv[])
 
         int pixels =  cv::cuda::countNonZero(d_fgmask);
 
-	if ((pixels > 3000) && (framenum > 1) ){
+	if ((pixels > minmask) && (framenum > 1) ){
 
-            dilateFilter2->apply(d_fgmask, d_fgmask);
+            // TODO dirty hack
+	    double maxcontour = 0;
+	    maxcontour = minContour + 1;
+
+
+            //dilateFilter2->apply(d_fgmask, d_fgmask);
 
 
             counter++;
             d_frame.download(frame);
-            d_fgmask.download(fgmask);
-            d_frame.download(orig_frame);
+            //d_fgmask.download(fgmask);
+            //d_frame.download(orig_frame);
 
 /*
   This is a major prerformance hit !
@@ -248,6 +261,7 @@ int main(int argc, const char* argv[])
 
 */
 
+/*
 
             vector<vector<Point> > contours;
             vector<Vec4i> hierarchy;
@@ -264,9 +278,10 @@ int main(int argc, const char* argv[])
                     maxcontour = a;
 		}
             }
+*/
+            if(saveimg && maxcontour > minContour) {
 
-            if(saveimg && maxcontour > minContout) {
-
+/*		   
             /// Approximate contours to polygons + get bounding rects and circles
             vector<vector<Point> > contours_poly( contours.size() );
             vector<Rect> boundRect( contours.size() );
@@ -277,23 +292,30 @@ int main(int argc, const char* argv[])
                 approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
                 minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
             }
-
+*/
+	    hitnum++;
             char savename[100] = {0};
             sprintf(savename,"%s%s_%05d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
             imwrite(savename, frame );
-        }
+            std::cout << savename << "   Maxcountour in image " << maxcontour << " Maskpixels = " << pixels << std::endl;
+
+    	}
 
 
-/*
-        showimg = true;
-        if(showimg && maxcontour > minContout) {
-            cv::imshow("CPU", frame);
-            cv::imshow("Mask", fgmask);
+
+        showimg = false;
+        if(showimg && maxcontour > minContour) {
+
+                 resize(frame, frame, Size(frame.cols/3, frame.rows/3));
+                 // resize(fgmask, fgmask, Size(fgmask.cols/3, fgmask.rows/3));
+
+		cv::imshow("CPU", frame);
+                //cv::imshow("Mask", fgmask);
 
             if (cv::waitKey(1) > 0)
                 break;
         }
-*/
+
 
       }
 
@@ -303,9 +325,10 @@ int main(int argc, const char* argv[])
     end = clock();
     elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
 
+    double fps=framenum/elapsed;
 
     fstream f(LOGFILE, f.out | f.app);
-    cv::String logText = cv::format("BGSUB processed %5d frames of size %4dx%-4d in %6.02f seconds %s\n" , framenum, width, height, elapsed, filename.c_str());
+    cv::String logText = cv::format("BGSUB processed %5d / %5d frames of size %4dx%-4d maskratio %d in %6.02f seconds %6.01f FPS. File : %s\n" , framenum, hitnum, width, height, maskratio, elapsed, fps, filename.c_str());
     f << logText;
 
     std::cout << logText;
