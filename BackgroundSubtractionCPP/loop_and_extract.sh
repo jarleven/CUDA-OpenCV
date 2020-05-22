@@ -256,6 +256,7 @@ while IFS= read -r -d '' line; do
     ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 
     echo ""
+    date
     echo "Processing file $FILENUM of $INPUTFILES. Input archive size is XXXX. Processtime $ELAPSEDTIME  file is $line"
     echo "Files  OK $OKFILES  -  Error $ERRORFILES  -  small $SMALLFILES"
 
@@ -280,34 +281,34 @@ while IFS= read -r -d '' line; do
    fi
 
 
-    touch $MPGFILENAME.log
-    #ffmpeg -v error -i $line -f null - 2>$MPGFILENAME.log < /dev/null &
-    # All this  > and < is to make sure ffmpeg runs fine inside the script
-    ffmpeg -v error -i $line -f null - </dev/null >/dev/null 2>>$MPGFILENAME.log
-    wait
-    sleep 2
-   
-    echo "Done checking file"
+#    touch $MPGFILENAME.log
+#    #ffmpeg -v error -i $line -f null - 2>$MPGFILENAME.log < /dev/null &
+#    # All this  > and < is to make sure ffmpeg runs fine inside the script
+#    ffmpeg -v error -i $line -f null - </dev/null >/dev/null 2>>$MPGFILENAME.log
+#    wait
+#    sleep 2
+#   
+#    echo "Done checking file"
 
-    if [ ! -f $MPGFILENAME.log ]
-    then
-        echo "No FFMPEG logfile found, file is probably OK continue processing this file"
-	continue
-    fi
-    if [ -s $MPGFILENAME.log ]
-    then
-        echo "Errors found in MPG file. Skip this file."
-
-        let "ERRORFILES=ERRORFILES+1"
-        let "ERRORFILESIZE=ERRORFILESIZE+actualsize"
-
-	#ffmpeg -i $line -c copy output.mp4 - </dev/null >/dev/null 2>>$MPGFILENAME-fixed.log
-        #line=output.mp4
-	continue
-    else
-	    # Remove the empty log files
-	    rm -f $MPGFILENAME.log
-    fi
+#    if [ ! -f $MPGFILENAME.log ]
+#    then
+#        echo "No FFMPEG logfile found, file is probably OK continue processing this file"
+#	continue
+#    fi
+#    if [ -s $MPGFILENAME.log ]
+#    then
+#        echo "Errors found in MPG file. Skip this file."
+#
+#        let "ERRORFILES=ERRORFILES+1"
+#        let "ERRORFILESIZE=ERRORFILESIZE+actualsize"
+#
+#	#ffmpeg -i $line -c copy output.mp4 - </dev/null >/dev/null 2>>$MPGFILENAME-fixed.log
+#        #line=output.mp4
+#	continue
+#    else
+#	    # Remove the empty log files
+#	    rm -f $MPGFILENAME.log
+#    fi
     # Integrity check done
 
     let "OKFILES=OKFILES+1"
