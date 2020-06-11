@@ -13,7 +13,7 @@ set -u  # Treat unset variables as an error when substituting.
 SCORE=0.9
 VIDEOSUMMARY=""
 EMAILLIST=""
-RAMDISKUSAGE="70"
+RAMDISKUSAGE="10"
 
 
 RAMDISK=/tmp/ramdisk/full
@@ -274,8 +274,11 @@ while IFS= read -r -d '' line; do
        echo size is over $minimumsize kilobytes
     else
        echo size is under $minimumsize kilobytes
-       let "SMALLFILES=SMALLFILES+1"
+       #let "SMALLFILES=SMALLFILES+1"
        let "SMALLFILESIZE=SMALLFILESIZE+actualsize"
+
+       ((SMALLFILES+=1))
+
 
        continue
    fi
@@ -311,8 +314,10 @@ while IFS= read -r -d '' line; do
 #    fi
     # Integrity check done
 
-    let "OKFILES=OKFILES+1"
-    let "OKFILESIZE=OKFILESIZE+actualsize"
+    let OKFILES++;
+    #let "OKFILES=OKFILES+1"
+    ((OKFILESIZE+=actualsize))
+    #let "OKFILESIZE=OKFILESIZE+actualsize"
 
 
     ./background_subtraction "$line"
@@ -404,7 +409,7 @@ echo "#   MP4 OK      : $OKFILES $OKFILESIZE kBytes" >> $TOUCHFILE
 echo "#   MP4 error   : $ERRORFILES $ERRORFILESIZE kBytes" >> $TOUCHFILE
 echo "#   MP4 small   : $SMALLFILES $SMALLFILESIZE kBytes" >> $TOUCHFILE
 echo "# Motion # files: $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.   : v0.13" >> $TOUCHFILE
+echo "# Header ver.   : v0.14" >> $TOUCHFILE
 echo "# Filesize      : $FILESIZE" >> $TOUCHFILE
 echo "# Started       : $STARTDATE" >> $TOUCHFILE
 echo "# Completed     : $ENDDATE" >> $TOUCHFILE
@@ -428,9 +433,11 @@ cat samplefile.txt >> $TOUCHFILE
 
 cp $TOUCHFILE $SUMMARY
 
+cat $SUMMARY
 
 if [ ! -z "$EMAILLIST" ]; then
 
+    echo "Send e-mail"
     # Compose an e- mail
     cat $EMAILLIST > mail2.txt
     echo  "subject: Eidselva $WORKNAME summary" >> mail2.txt
@@ -439,7 +446,6 @@ if [ ! -z "$EMAILLIST" ]; then
     echo  "" >> mail2.txt
     cat $SUMMARY >> mail2.txt
     sendmail -f laksar@eidselva.no -t < mail2.txt
-
+    echo "e-mail sent"
 fi
 
-cat $SUMMARY

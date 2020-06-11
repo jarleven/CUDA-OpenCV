@@ -15,13 +15,26 @@ if [ ! -z "$status" ]; then
 fi
 
 
+sleepDelay=$(($(date -f - +%s- <<< $'tomorrow 02:00\nnow')0))
+secondsInHour=3600
+sleepHour=$((sleepDelay / secondsInHour))
+echo "Sleeping $sleepDelay seconds. Approx $sleepHour hours"
+#sleep $sleepDelay
+
+
 # slightly malformed input data
-input_start=2020-5-09
-input_end=2020-5-18
+input_start=2020-6-03
+input_end=2020-6-04
 
 #MODEL=/home/jarleven/faster_rcnn_inception_v2_coco_2018_01_28__Exportdate__2020-05-11__11-49-07/frozen_inference_graph.pb
 #MODEL=~/EXPORTED4/frozen_inference_graph.pb
-MODEL=/home/jarleven/EXPORTED9/home/jarleven/faster_rcnn_resnet101_coco_2018_01_28__Exportdate__2020-04-30__20-08-54/frozen_inference_graph.pb
+
+#MODEL=/home/jarleven/EXPORTED9/home/jarleven/faster_rcnn_resnet101_coco_2018_01_28__Exportdate__2020-04-30__20-08-54/frozen_inference_graph.pb
+MODEL=/home/jarleven/MODELS/faster_rcnn_resnet101_coco_2018_01_28__Exportdate__2020-04-30__20-08-54/frozen_inference_graph.pb
+
+OUTPUTROOT=/home/jarleven/DateOutput
+OUTPUTVIDEOROOT=/home/jarleven/DateVideo
+
 
 # After this, startdate and enddate will be valid ISO 8601 dates,
 # or the script will have aborted when it encountered unparseable data
@@ -46,7 +59,7 @@ cd $HOME/CUDA-OpenCV/BackgroundSubtractionCPP/
 function doDate() {
 
    echo $DATE
-   ./loop_and_extract.sh -o /media/jarleven/Extended/tmp -m $MODEL -s 0.9 -i ~/NFSARCHIVE/$DATE -v ~/Dropbox/2020
+   ./loop_and_extract.sh -o $OUTPUTROOT -m $MODEL -s 0.9 -i ~/NFSARCHIVE/$DATE -v $OUTPUTVIDEOROOT
 
 }
 
@@ -58,8 +71,8 @@ while [ "$d" != "$enddate" ]; do
   YESTERDAY=$(date +"%Y-%m-%d" --date="1 days ago")
 
   #echo "Yesyerday "$YESTERDAY
-  DATE=$YESTERDAY
-  doDate
+#  DATE=$YESTERDAY
+#  doDate
 
   DATE=$d
   doDate
