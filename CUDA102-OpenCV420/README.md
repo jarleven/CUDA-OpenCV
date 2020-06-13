@@ -47,7 +47,9 @@ Testing the install from remote ssh sesion
 source ~/CUDA-OpenCV/CUDA102-OpenCV420/environmet.sh && cd /home/$USER/opencv/samples/gpu \
 && export DISPLAY=:0 \
 && g++ -ggdb video_reader.cpp -o video_reader `pkg-config --cflags --libs opencv4` -I /usr/local/cuda-10.1/include/ \
-&& ./video_reader /media/$USER/CUDA/syd__2019-06-28__05-00-00.mp4
+&& sudo cp video_reader /usr/bin/ \
+&& cd ~ \
+&& video_reader /media/$USER/CUDA/syd__2019-06-28__05-00-00.mp4
 
 
 Environment not created, setting up now!
