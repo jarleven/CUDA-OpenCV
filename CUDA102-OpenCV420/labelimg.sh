@@ -26,5 +26,6 @@ make qt5py3
 #python3 labelImg.py
 #python3 labelImg.py [IMAGE_PATH] [PRE-DEFINED CLASS FILE]
 
+cp -r ~/labelImg/libs ~/CUDA-OpenCV/CUDA102-OpenCV420/
 
 
