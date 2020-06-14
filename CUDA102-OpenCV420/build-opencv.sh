@@ -10,7 +10,7 @@ set -u  # Treat unset variables as an error when substituting.
 
 # In case of rebuild, delete everything before building
 sudo rm -rf ~/opencv/build
-mkdir ~/opencv/build
+mkdir -p ~/opencv/build
 
 source .setupvars
 source environmet.sh

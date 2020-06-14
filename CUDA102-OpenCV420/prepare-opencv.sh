@@ -100,7 +100,7 @@ sudo -H python3 get-pip.py
 sudo apt install -y python3-dev python3-tk python-imaging-tk
 
 pip install numpy
-pip install tensorflow-gpu==$SCRIPT_TENSORFLOWVER
+#pip install tensorflow-gpu==$SCRIPT_TENSORFLOWVER
 
 
 pip install scikit-image

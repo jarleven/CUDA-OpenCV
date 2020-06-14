@@ -86,7 +86,9 @@ FILE=Video_Codec_SDK_9.1.23.zip
 
 if [ ! -f ~/$FILE ]; then
     echo "File not found!"
-    cp /media/$USER/CUDA/CUDAFILES/$FILE ~/
+    #cp -n /media/$USER/CUDA/CUDAFILES/$FILE ~/
+    cp -n ~/CUDAFILES/$FILE ~/
+
 fi
 
 

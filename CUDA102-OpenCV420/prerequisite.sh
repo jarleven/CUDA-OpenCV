@@ -17,6 +17,7 @@ then
     mkdir -p CUDAFILES
     cd CUDAFILES
     scp 192.168.1.236:/home/jarleven/laksenArcive/CUDAFILES/UBUNTU1804/CUDA101/* .
+    scp 192.168.1.236:/home/jarleven/laksenArcive/CUDAFILES/Video_Codec_SDK_9.1.23.zip .
 
     git config --global user.email "jarleven@gmail.com"
     git config --global user.name "Jarl Even Englund"
