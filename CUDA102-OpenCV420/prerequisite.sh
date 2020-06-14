@@ -18,6 +18,7 @@ then
     cd CUDAFILES
     scp 192.168.1.236:/home/jarleven/laksenArcive/CUDAFILES/UBUNTU1804/CUDA101/* .
     scp 192.168.1.236:/home/jarleven/laksenArcive/CUDAFILES/Video_Codec_SDK_9.1.23.zip .
+    scp 192.168.1.236:/home/jarleven/laksenArcive/CUDAFILES/MODELS-TAR/faster_rcnn_inception_v2_coco_2018_01_28_AT_1000000_Exportdate__2020-05-15__08-09-56.tar.bz2 .
 
     git config --global user.email "jarleven@gmail.com"
     git config --global user.name "Jarl Even Englund"
