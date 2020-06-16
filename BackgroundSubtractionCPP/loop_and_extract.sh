@@ -26,6 +26,7 @@ rm -f samplefile.txt
 
 
 function analyseImages {
+	echo " python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE" >> ~/tf-process.txt
 	python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE
 }
 
@@ -120,6 +121,12 @@ TOUCHFILE=logfile-$WORKNAME.txt
 
 # realpath returns path WITHOUT trailing slash
 FILELIST=$(realpath ${OUTPUTDIR})/"filelist.txt"
+OKFILELIST=$(realpath ${OUTPUTDIR})/"okfilelist.txt"
+ERRORFILELIST=$(realpath ${OUTPUTDIR})/"errorfilelist.txt"
+SMALLFILELIST=$(realpath ${OUTPUTDIR})/"smallfilelist.txt"
+
+
+
 SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
 
 
@@ -128,7 +135,7 @@ INPUTFILES=$(find $INPUTPATH/ -maxdepth 1 -type f -name "*.mp4" | wc -l)
 
 
 
-
+MOVIE="Not created"
 # TODO
 # What a messy logic
 if [ ! -z "$VIDEOSUMMARY" ]; then
@@ -160,7 +167,7 @@ do
     echo "No fresh files, we can assume noone is writing to this folder"
     break
   fi
-  echo "Wait a bit and check the directory again $INPUTAGE files have been written lateley"
+  echo "Wait a bit and check the directory again. $INPUTAGE files have been written lateley"
   sleep 20
 done
 
@@ -226,6 +233,10 @@ fi
 mkdir $OUTPUTDIR
 mkdir $DEBUGDIR
 
+touch $FILELIST
+touch $OKFILELIST
+touch $ERRORFILELIST
+touch $SMALLFILELIST
 
 
 
@@ -274,12 +285,7 @@ while IFS= read -r -d '' line; do
        echo size is over $minimumsize kilobytes
     else
        echo size is under $minimumsize kilobytes
-       #let "SMALLFILES=SMALLFILES+1"
-       let "SMALLFILESIZE=SMALLFILESIZE+actualsize"
-
-       ((SMALLFILES+=1))
-
-
+       echo $line >> $SMALLFILELIST
        continue
    fi
 
@@ -301,7 +307,7 @@ while IFS= read -r -d '' line; do
 #    if [ -s $MPGFILENAME.log ]
 #    then
 #        echo "Errors found in MPG file. Skip this file."
-#
+#        echo $line >> $ERRORFILELIST
 #        let "ERRORFILES=ERRORFILES+1"
 #        let "ERRORFILESIZE=ERRORFILESIZE+actualsize"
 #
@@ -313,14 +319,15 @@ while IFS= read -r -d '' line; do
 #	    rm -f $MPGFILENAME.log
 #    fi
     # Integrity check done
+#    echo $line >> $OKFILELIST
 
-    let OKFILES++;
+#    let OKFILES++;
     #let "OKFILES=OKFILES+1"
-    ((OKFILESIZE+=actualsize))
+#    ((OKFILESIZE+=actualsize))
     #let "OKFILESIZE=OKFILESIZE+actualsize"
 
-
-    ./background_subtraction "$line"
+    echo "background_subtraction "$line
+    background_subtraction "$line"
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
     if [ "$freespace" -lt $RAMDISKUSAGE ];then
       echo "Plenty of storage left, using $freespace% reserverd $RAMDISKUSAGE%. Processed images $LOOPNUM times analysed images $DETECTIONFILES "
@@ -367,6 +374,17 @@ ENDTIME=$(date +'%s')
 # Calculate time and filesize
 NUMFILES=$(cat $FILELIST | wc -l)
 FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
+
+OKFILES=$(cat $OKFILELIST | wc -l)
+OKFILESIZE==$(du -ch `cat $OKFILELIST` | tail -1 | cut -f 1)
+ERRORFILES=$(cat $ERRORFILELIST | wc -l)
+ERRORFILESIZE=$(du -ch `cat $ERRORFILELIST` | tail -1 | cut -f 1)
+SMALLFILES=$(cat $SMALLFILELIST | wc -l)
+SMALLFILESIZE=$(du -ch `cat $SMALLFILELIST` | tail -1 | cut -f 1)
+
+
+
+
 #HITS=$( ls -l *.jpg $OUTPUTDIR/*.jpg | wc -l)
 HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 
@@ -409,7 +427,7 @@ echo "#   MP4 OK      : $OKFILES $OKFILESIZE kBytes" >> $TOUCHFILE
 echo "#   MP4 error   : $ERRORFILES $ERRORFILESIZE kBytes" >> $TOUCHFILE
 echo "#   MP4 small   : $SMALLFILES $SMALLFILESIZE kBytes" >> $TOUCHFILE
 echo "# Motion # files: $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.   : v0.14" >> $TOUCHFILE
+echo "# Header ver.   : v0.15" >> $TOUCHFILE
 echo "# Filesize      : $FILESIZE" >> $TOUCHFILE
 echo "# Started       : $STARTDATE" >> $TOUCHFILE
 echo "# Completed     : $ENDDATE" >> $TOUCHFILE
