@@ -86,9 +86,7 @@ FILE=Video_Codec_SDK_9.1.23.zip
 
 if [ ! -f ~/$FILE ]; then
     echo "File not found!"
-    #cp -n /media/$USER/CUDA/CUDAFILES/$FILE ~/
-    cp -n ~/CUDAFILES/$FILE ~/
-
+    cp ~/CUDAFILES/$FILE ~/
 fi
 
 
@@ -153,7 +151,10 @@ cd ffmpeg-$SCRIPT_FFMPEGVER/
 #make clean
 
 # --enable-cuda-sdk --enable-libx264 --enable-gpl  --enable-cuda-nvcc
-./configure --enable-shared --disable-static --enable-cuda --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
+./configure --enable-shared --disable-static --disable-debug --enable-gpl --enable-zlib --enable-cuda --enable-opencl --enable-runtime-cpudetect --enable-cuvid --enable-nvenc --enable-nvdec --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
+
+
+#  configuration:  --disable-autodetect --enable-amf --enable-bzlib --enable-cuda --enable-cuvid --enable-d3d11va --enable-dxva2 --enable-iconv --enable-lzma --enable-nvenc --enable-zlib --enable-sdl2 --disable-debug --enable-ffnvcodec --enable-nvdec --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265 --enable-fontconfig --enable-libass --enable-libbluray --enable-libfreetype --enable-libmfx --enable-libmysofa --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvo-amrwbenc --enable-libwavpack --enable-libwebp --enable-libxml2 --enable-libzimg --enable-libshine --enable-gpl --enable-avisynth --enable-libxvid --enable-libaom --enable-version3 --enable-mbedtls --extra-cflags=-DLIBTWOLAME_STATIC --extra-libs=-lstdc++ --extra-cflags=-DLIBXML_STATIC --extra-libs=-liconv
 
 
 make -j$(nproc)
