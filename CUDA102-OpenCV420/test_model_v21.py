@@ -92,13 +92,13 @@ modelpathname=path.parent.name
 
 print(modelpathname)
 
-
+JPGSTR="*.jpg"
 
 # The files to process
 # TODO there is a job to do regarding paths
-filenames = glob.glob(inputpath+"*.jpg")
+#filenames = glob.glob(inputpath+"*.jpg")
+filenames = glob.glob(inputpath+JPGSTR)
 filenames.sort()
-
 
 #
 # For tensorflow 2.1. File was upgraded with 
@@ -126,7 +126,8 @@ with tf.compat.v1.Session() as sess:
     tf.import_graph_def(graph_def, name='')
     imgnum=0
     totalhits=0
-    print("\nStarting object detection\n")
+    print("\nStarting object detection\nThere are %d items of type %s\n" % (len(filenames), JPGSTR))
+
 
     start = timer()
     #while True:
@@ -197,6 +198,10 @@ with tf.compat.v1.Session() as sess:
                 ymin=int(y)
                 xmax=int(right)
                 ymax=int(bottom)
+
+                crop_img = img[ymin:ymin+ymax, xmin:xmin+xmax].copy()
+                cv.imwrite(os.path.join("/home/jarleven/crop/" , filepng),crop_img)
+
 
                 cv.rectangle(img, (xmin, ymin), (xmax, ymax), (125, 255, 51), thickness=2)
                 writer.addBndBox(xmin, ymin, xmax, ymax, objectname, difficult)

@@ -4,7 +4,7 @@ STARTDATE=$(date)
 STARTTIME=$(date +'%s')
 
 set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
-#set -x  # Print commands and their arguments as they are executed.
+set -x  # Print commands and their arguments as they are executed.
 set -u  # Treat unset variables as an error when substituting.
 
 
@@ -13,7 +13,7 @@ set -u  # Treat unset variables as an error when substituting.
 SCORE=0.9
 VIDEOSUMMARY=""
 EMAILLIST=""
-RAMDISKUSAGE="10"
+RAMDISKUSAGE="60"
 
 
 RAMDISK=/tmp/ramdisk/full
@@ -230,8 +230,8 @@ if test -f "$TOUCHFILE"; then
 fi
 
 
-mkdir $OUTPUTDIR
-mkdir $DEBUGDIR
+mkdir -p $OUTPUTDIR
+mkdir -p $DEBUGDIR
 
 touch $FILELIST
 touch $OKFILELIST
@@ -259,7 +259,16 @@ SMALLFILES=0
 
 find $INPUTDIR -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
-    echo $line >> $FILELIST
+  # if grep -Fxq "$line" $FILELIST
+#	       then
+#		                       echo "File already processed"
+#				                       continue
+#						               else
+#								                       echo "Not processed"
+#										                   fi
+
+
+    	echo $line >> $FILELIST
     let "FILENUM=FILENUM+1"
 
 

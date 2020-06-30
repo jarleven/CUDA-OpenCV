@@ -297,7 +297,7 @@ int main(int argc, const char* argv[])
             char savename[100] = {0};
             sprintf(savename,"%s%s_%05d.jpg", FULLIMGSAVEPATH, filename.c_str(), framenum);
             imwrite(savename, frame );
-            std::cout << savename << "   Maxcountour in image " << maxcontour << " Maskpixels = " << pixels << std::endl;
+            //std::cout << savename << "   Maxcountour in image " << maxcontour << " Maskpixels = " << pixels << std::endl;
 
     	}
 
