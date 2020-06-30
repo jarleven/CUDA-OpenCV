@@ -42,12 +42,25 @@ git checkout v2.1.0
 source ~/CUDA-OpenCV/CUDA102-OpenCV420/environmet.sh
 
 
-bazel build --config=opt --python_path=/usr/bin/python3 --config=cuda --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package --noincompatible_do_not_split_linking_cmdline
 
-#TODO install
-
+bazel build --config=opt \
+             --python_path=/usr/bin/python3 \
+             --config=cuda \
+             --config=tensorrt \
+             --config=nonccl \
+             --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package \
+             --noincompatible_do_not_split_linking_cmdline
 
 exit
+
+
+TODO install
+
+
+bazel build --config=opt --python_path=/usr/bin/python3 --config=cuda --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package --noincompatible_do_not_split_linking_cmdline
+
+
+
 
 # --noincompatible_do_not_split_linking_cmdline   FOR THE CuDNN issue
 
