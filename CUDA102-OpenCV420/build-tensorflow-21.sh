@@ -42,19 +42,31 @@ git checkout v2.1.0
 source ~/CUDA-OpenCV/CUDA102-OpenCV420/environmet.sh
 
 
+# Have a look here, does this specify all the build parameters ?
+# https://github.com/tensorflow/tensorflow/issues/35623
+
 
 bazel build --config=opt \
              --python_path=/usr/bin/python3 \
              --config=cuda \
              --config=tensorrt \
              --config=nonccl \
+             --host_copt=-march=native \
              --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package \
              --noincompatible_do_not_split_linking_cmdline
 
+mkdir -f ~/BUILDLOGS
+cp .tf_configure.bazelrc ~/BUILDLOGS/
+
+
+# Build python package
+./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+
+# Install python package
+pip install /tmp/tensorflow_pkg/tensorflow-2.1.0-cp36-cp36m-linux_x86_64.whl
+
+
 exit
-
-
-TODO install
 
 
 bazel build --config=opt --python_path=/usr/bin/python3 --config=cuda --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package --noincompatible_do_not_split_linking_cmdline
