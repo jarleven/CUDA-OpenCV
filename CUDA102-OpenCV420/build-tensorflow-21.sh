@@ -34,7 +34,20 @@ git checkout v2.1.0
 source ~/CUDA-OpenCV/CUDA102-OpenCV420/environmet.sh
 
 
+# --noincompatible_do_not_split_linking_cmdline   FOR THE CuDNN issue
+
+
+
 TBD...
+# BUILD DIRECTLY ON CLI, need to test again
+bazel build --config=opt --config=cuda --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package --noincompatible_do_not_split_linking_cmdline
+
+
+# Build python package
+./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_pkg
+
+# Install python package
+pip install /tmp/tensorflow_pkg/tensorflow-2.1.0-cp36-cp36m-linux_x86_64.whl
 
 # --noincompatible_do_not_split_linking_cmdline   FOR THE CuDNN issue
 
