@@ -199,8 +199,8 @@ with tf.compat.v1.Session() as sess:
                 xmax=int(right)
                 ymax=int(bottom)
 
-                crop_img = img[ymin:ymin+ymax, xmin:xmin+xmax].copy()
-                cv.imwrite(os.path.join("/home/jarleven/crop/" , filepng),crop_img)
+                #crop_img = img[ymin:ymin+ymax, xmin:xmin+xmax].copy()
+                #cv.imwrite(os.path.join("/home/jarleven/crop/" , filepng),crop_img)
 
 
                 cv.rectangle(img, (xmin, ymin), (xmax, ymax), (125, 255, 51), thickness=2)
