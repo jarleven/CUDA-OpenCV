@@ -66,7 +66,7 @@ cp .tf_configure.bazelrc ~/BUILDLOGS/
 
 # Install python package
 pip install /tmp/tensorflow_pkg/tensorflow-2.1.0-cp36-cp36m-linux_x86_64.whl
-
+#python3 -m pip install --upgrade --force-reinstall --user /tmp/tensorflow_pkg/tensorflow-2.1.0-cp36-cp36m-linux_x86_64.whl
 
 exit
 
