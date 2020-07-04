@@ -11,8 +11,12 @@ OPENCV_VER="4.2.0"
 #OPENCV_VER="3.4.9"
 
 cd ~
+#/home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/md5/opencv.md5
 
-if md5sum -c opencv.md5; then
+rm -rf opencv opencv_extra opencv_contrib
+rm -rf opencv-$OPENCV_VER opencv_extra-$OPENCV_VER opencv_contrib-$OPENCV_VER
+
+if md5sum -c /home/$USER/CUDA-OpenCV/CUDA102-OpenCV420/md5/opencv.md5; then
     echo "OpenCV already downloaded"
 else
     wget -O opencv.zip https://github.com/opencv/opencv/archive/$OPENCV_VER.zip
@@ -21,6 +25,7 @@ else
 fi
 
 # Unpack OpenCV
+
 
 unzip opencv.zip
 unzip opencv_contrib.zip
