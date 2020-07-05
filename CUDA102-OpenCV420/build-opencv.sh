@@ -12,6 +12,7 @@ set -u  # Treat unset variables as an error when substituting.
 sudo rm -rf ~/opencv/build
 mkdir -p ~/opencv/build
 
+cd /home/$USER/CUDA-OpenCV/CUDA102-OpenCV420
 source .setupvars
 source environmet.sh
 
