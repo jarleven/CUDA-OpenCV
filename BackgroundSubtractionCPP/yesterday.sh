@@ -59,7 +59,8 @@ function doDate() {
 
    echo $DATE
    sleep 10
-   ./loop_and_extract.sh -o $OUTPUTROOT -m $MODEL -s 0.9 -i /media/jarleven/STORE/$DATE -v $OUTPUTVIDEOROOT
+   ./loop_and_extract.sh -o $OUTPUTROOT -m $MODEL -s 0.9 -i /nfs/storage/$DATE -v $OUTPUTVIDEOROOT
+   #   ./loop_and_extract.sh -o $OUTPUTROOT -m $MODEL -s 0.9 -i /media/jarleven/STORE/$DATE -v $OUTPUTVIDEOROOT
 
 }
 
