@@ -255,7 +255,7 @@ ERRORFILES=0
 SMALLFILES=0
 
 
-find $INPUTDIR -name -maxdepth 1 '*.mp4'  -print0 |
+find $INPUTDIR -maxdepth 1 -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
   # if grep -Fxq "$line" $FILELIST
 #   then

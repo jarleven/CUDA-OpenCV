@@ -30,20 +30,25 @@ fi
 MODEL=/home/jarleven/MODELS/faster_rcnn_resnet101_coco_2018_01_28__Exportdate__2020-04-30__20-08-54/frozen_inference_graph.pb
 #MODEL=/home/jarleven/MODELS/faster_rcnn_inception_v2_coco_2018_01_28_AT_1000000_Exportdate__2020-05-15__08-09-56/frozen_inference_graph.pb
 
-OUTPUTROOT=/media/jarleven/STORE/DateOutput
-OUTPUTVIDEOROOT=/media/jarleven/STORE/DateVideo
+#OUTPUTROOT=/media/jarleven/STORE/DateOutput
+#OUTPUTVIDEOROOT=/media/jarleven/STORE/DateVideo
 #OUTPUTROOT=/home/jarleven/DateOutput
 #OUTPUTVIDEOROOT=/home/jarleven/DateVideo
 
-mkdir -p $OUTPUTROOT
-mkdir -p $OUTPUTVIDEOROOT
+#mkdir -p $OUTPUTROOT
+#mkdir -p $OUTPUTVIDEOROOT
 
 
 #if [ "$1" -gt "1" ]; then
 	DATE=$1
-#else
+        OUTPUTROOT=$2
+	OUTPUTVIDEOROOT=$3
+	#else
 #	DATE=$(date +"%Y-%m-%d" --date="1 days ago")
 #fi
+
+mkdir -p $OUTPUTROOT
+mkdir -p $OUTPUTVIDEOROOT
 
 
 
