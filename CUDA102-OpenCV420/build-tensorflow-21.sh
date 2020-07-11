@@ -55,6 +55,18 @@ bazel build --config=opt \
              --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package \
              --noincompatible_do_not_split_linking_cmdline
 
+bazel build -c opt \
+             --python_path=/usr/bin/python3 \
+             --config=cuda \
+             --config=tensorrt \
+             --config=nonccl \
+             --host_copt=-march=native \
+             --noincompatible_strict_action_env //tensorflow/tools/pip_package:build_pip_package \
+             --noincompatible_do_not_split_linking_cmdline
+
+
+
+
 mkdir -f ~/BUILDLOGS
 cp .tf_configure.bazelrc ~/BUILDLOGS/
 
