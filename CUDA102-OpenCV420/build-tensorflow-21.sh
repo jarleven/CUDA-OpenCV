@@ -10,10 +10,12 @@ set -u  # Treat unset variables as an error when substituting.
 
 cd ~
 sudo apt install -y python3-dev python3-pip
-pip3 install -U --user pip six numpy wheel setuptools mock 'future>=0.17.1'
+pip3 install -U --user pip six wheel setuptools mock 'future>=0.17.1'
 pip3 install -U --user keras_applications --no-deps
 pip3 install -U --user keras_preprocessing --no-deps
 
+# numpy 1.19.0 broke the build
+python3 -m pip install --upgrade --force-reinstall --user numpy==1.18.5
 
 
 # Download the Bazel version we need
@@ -76,7 +78,7 @@ cp .tf_configure.bazelrc ~/BUILDLOGS/
 
 # Install python package
 pip install /tmp/tensorflow_pkg/tensorflow-2.1.0-cp36-cp36m-linux_x86_64.whl
-
+#python3 -m pip install --upgrade --force-reinstall --user /tmp/tensorflow_pkg/tensorflow-2.1.0-cp36-cp36m-linux_x86_64.whl
 
 exit
 

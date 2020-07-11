@@ -28,6 +28,13 @@
 # and make sure you check WITH NVCUVID
 
 
+#TODO if debug or something
+#ldd `which ffmpeg`
+
+
+#ffmpeg: error while loading shared libraries: libavdevice.so.58: cannot open shared object file: No such file or directory
+#export LD_LIBRARY_PATH=/usr/local/lib/
+
 
 set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
 set -x  # Print commands and their arguments as they are executed.

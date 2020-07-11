@@ -83,6 +83,7 @@ RAMDISK=$(realpath ${RAMDISK})
 
 
 
+
 #  TODO check write permission
 
 # Check files
@@ -128,10 +129,6 @@ SMALLFILELIST=$(realpath ${OUTPUTDIR})/"smallfilelist.txt"
 
 
 SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
-
-
-INPUTPATH=$(realpath ${INPUTDIR})
-INPUTFILES=$(find $INPUTPATH/ -maxdepth 1 -type f -name "*.mp4" | wc -l)
 
 
 
@@ -181,6 +178,7 @@ echo ""
 
 
 
+INPUTFILES=$(find $INPUTDIR -maxdepth 1 -name "*.mp4" | wc -l)
 
 
 echo "Inputdir         : "$INPUTDIR
@@ -257,18 +255,18 @@ ERRORFILES=0
 SMALLFILES=0
 
 
-find $INPUTDIR -name '*.mp4'  -print0 |
+find $INPUTDIR -maxdepth 1 -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
   # if grep -Fxq "$line" $FILELIST
-#	       then
-#		                       echo "File already processed"
-#				                       continue
+#   then
+#   echo "File already processed"
+#   continue
 #						               else
 #								                       echo "Not processed"
 #										                   fi
 
 
-    	echo $line >> $FILELIST
+    echo $line >> $FILELIST
     let "FILENUM=FILENUM+1"
 
 
@@ -298,16 +296,22 @@ while IFS= read -r -d '' line; do
        continue
    fi
 
-
+#    rm -f $MPGFILENAME.log
 #    touch $MPGFILENAME.log
 #    #ffmpeg -v error -i $line -f null - 2>$MPGFILENAME.log < /dev/null &
 #    # All this  > and < is to make sure ffmpeg runs fine inside the script
-#    ffmpeg -v error -i $line -f null - </dev/null >/dev/null 2>>$MPGFILENAME.log
+#
+#    # disable exitting on error temporarily
+#    set +e
+#    ffmpeg -v error -i $line -max_muxing_queue_size 400 -f null - </dev/null >/dev/null 2>>$MPGFILENAME.log
 #    wait
 #    sleep 2
-#   
 #    echo "Done checking file"
-
+#    set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+#
+#    # Various annoying patterns we get for files that are OK !
+#    sed -i '/Too many packets buffered for output stream 0:0./d' $MPGFILENAME.log
+#
 #    if [ ! -f $MPGFILENAME.log ]
 #    then
 #        echo "No FFMPEG logfile found, file is probably OK continue processing this file"
@@ -317,26 +321,23 @@ while IFS= read -r -d '' line; do
 #    then
 #        echo "Errors found in MPG file. Skip this file."
 #        echo $line >> $ERRORFILELIST
-#        let "ERRORFILES=ERRORFILES+1"
-#        let "ERRORFILESIZE=ERRORFILESIZE+actualsize"
-#
-#	#ffmpeg -i $line -c copy output.mp4 - </dev/null >/dev/null 2>>$MPGFILENAME-fixed.log
-#        #line=output.mp4
 #	continue
-#    else
-#	    # Remove the empty log files
-#	    rm -f $MPGFILENAME.log
 #    fi
-    # Integrity check done
-#    echo $line >> $OKFILELIST
+#   # Integrity check done
 
-#    let OKFILES++;
+    echo $line >> $OKFILELIST
+
+    #let OKFILES++;
     #let "OKFILES=OKFILES+1"
-#    ((OKFILESIZE+=actualsize))
+    #((OKFILESIZE+=actualsize))
     #let "OKFILESIZE=OKFILESIZE+actualsize"
 
     echo "background_subtraction "$line
+    # disable exitting on error temporarily
+    set +e
     background_subtraction "$line"
+    set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
     if [ "$freespace" -lt $RAMDISKUSAGE ];then
       echo "Plenty of storage left, using $freespace% reserverd $RAMDISKUSAGE%. Processed images $LOOPNUM times analysed images $DETECTIONFILES "
@@ -428,22 +429,25 @@ echo " "
 
 
 # Log some stats we have collected
-echo "############### " >> $TOUCHFILE
-echo "# Input dir     : $LOGFILENAME" >> $TOUCHFILE
-echo "# Hits          : $HITS" >> $TOUCHFILE
-echo "# MP4 files     : $NUMFILES" >> $TOUCHFILE
-echo "#   MP4 OK      : $OKFILES $OKFILESIZE kBytes" >> $TOUCHFILE
-echo "#   MP4 error   : $ERRORFILES $ERRORFILESIZE kBytes" >> $TOUCHFILE
-echo "#   MP4 small   : $SMALLFILES $SMALLFILESIZE kBytes" >> $TOUCHFILE
-echo "# Motion # files: $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.   : v0.15" >> $TOUCHFILE
-echo "# Filesize      : $FILESIZE" >> $TOUCHFILE
-echo "# Started       : $STARTDATE" >> $TOUCHFILE
-echo "# Completed     : $ENDDATE" >> $TOUCHFILE
-echo "# Processtime   : $ELAPSEDTIME" >> $TOUCHFILE
+echo "################# " >> $TOUCHFILE
+echo "# Input dir      : $LOGFILENAME" >> $TOUCHFILE
+echo "# Hits           : $HITS" >> $TOUCHFILE
+echo "# MP4 files      : $NUMFILES" >> $TOUCHFILE
+echo "#   OK           : $OKFILES" >> $TOUCHFILE
+echo "#   OK kbytes    : $OKFILESIZE" >> $TOUCHFILE
+echo "#   Small        : $SMALLFILES" >> $TOUCHFILE
+echo "#   Small kbytes : $SMALLFILESIZE" >> $TOUCHFILE
+echo "#   Error        : $ERRORFILES" >> $TOUCHFILE
+echo "#   Error kbytes : $ERRORFILESIZE" >> $TOUCHFILE
+echo "# Motion # files : $DETECTIONFILES" >> $TOUCHFILE
+echo "# Header ver.    : v0.16" >> $TOUCHFILE
+echo "# Filesize       : $FILESIZE" >> $TOUCHFILE
+echo "# Started        : $STARTDATE" >> $TOUCHFILE
+echo "# Completed      : $ENDDATE" >> $TOUCHFILE
+echo "# Processtime    : $ELAPSEDTIME" >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
-echo "# Model         : $MODELPATH" >> $TOUCHFILE
-echo "# Score         : $SCORE" >> $TOUCHFILE
+echo "# Model          : $MODELPATH" >> $TOUCHFILE
+echo "# Score          : $SCORE" >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
 echo " " >> $TOUCHFILE
