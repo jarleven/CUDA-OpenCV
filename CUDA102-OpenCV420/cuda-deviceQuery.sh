@@ -17,3 +17,4 @@ sed -i '/SCRIPT_CUDA_ARCH_PTX/d' /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/.s
 echo SCRIPT_CUDA_ARCH_BIN='"'$COMPUTE_CAPABILITY'"' >> /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/.setupvars
 echo SCRIPT_CUDA_ARCH_PTX='"'$COMPUTE_CAPABILITY'"' >> /home/jarleven/CUDA-OpenCV/CUDA102-OpenCV420/.setupvars
 
+echo "Device capability : ["$COMPUTE_CAPABILITY"]"
