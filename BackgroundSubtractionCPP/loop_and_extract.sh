@@ -126,6 +126,9 @@ OKFILELIST=$(realpath ${OUTPUTDIR})/"okfilelist.txt"
 ERRORFILELIST=$(realpath ${OUTPUTDIR})/"errorfilelist.txt"
 SMALLFILELIST=$(realpath ${OUTPUTDIR})/"smallfilelist.txt"
 
+MOTIONFILE=$(realpath ${OUTPUTDIR})/"motionfile.txt"
+LOOPFILE=$(realpath ${OUTPUTDIR})/"loopfile.txt"
+
 
 
 SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
@@ -236,7 +239,9 @@ touch $OKFILELIST
 touch $ERRORFILELIST
 touch $SMALLFILELIST
 
-
+touch $MOTIONFILE
+touch $LOOPFILE
+echo "0" >> $LOOPFILE
 
 # Some kind of gurad against parallel processing race confition (The obscure way)
 touch $TOUCHFILE
@@ -255,6 +260,15 @@ ERRORFILES=0
 SMALLFILES=0
 
 
+echo "Tensorflow"
+echo "   Modelpath : $MODELPATH"
+echo "   Outputdir : $OUTPUTDIR"
+echo "   Debugdir  : $DEBUGDIR"
+echo "   Score     : $SCORE"
+echo "Backgroundsubtraction"
+echo "   Inputdir  : $INPUTDIR"
+
+
 find $INPUTDIR -maxdepth 1 -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
   # if grep -Fxq "$line" $FILELIST
@@ -267,7 +281,8 @@ while IFS= read -r -d '' line; do
 
 
     echo $line >> $FILELIST
-    let "FILENUM=FILENUM+1"
+    FILENUM=$(cat $FILELIST | wc -l)
+    #let "FILENUM=FILENUM+1"
 
 
     ENDTIME=$(date +'%s')
@@ -276,7 +291,7 @@ while IFS= read -r -d '' line; do
     echo ""
     date
     echo "Processing file $FILENUM of $INPUTFILES. Input archive size is XXXX. Processtime $ELAPSEDTIME  file is $line"
-    echo "Files  OK $OKFILES  -  Error $ERRORFILES  -  small $SMALLFILES"
+    echo "Files  OK $OKFILES  -  Error $ERRORFILES  -  small $SMALLFILES      Loop number $LOOPNUM"
 
 
     # Check the integrity of the MPG file
@@ -293,6 +308,8 @@ while IFS= read -r -d '' line; do
     else
        echo size is under $minimumsize kilobytes
        echo $line >> $SMALLFILELIST
+       let "SMALLFILES=SMALLFILES+1"
+
        continue
    fi
 
@@ -325,7 +342,6 @@ while IFS= read -r -d '' line; do
 #    fi
 #   # Integrity check done
 
-    echo $line >> $OKFILELIST
 
     #let OKFILES++;
     #let "OKFILES=OKFILES+1"
@@ -336,7 +352,17 @@ while IFS= read -r -d '' line; do
     # disable exitting on error temporarily
     set +e
     background_subtraction "$line"
+    RESULT=$?
+     if [ ! $RESULT -eq 0 ]; then
+        echo "BGSUB FAILED"
+        echo $line >> $ERRORFILELIST
+       let "ERRORFILES=ERRORFILES+1"
+
+     fi
     set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+
+    echo $line >> $OKFILELIST
+    let "OKFILES=OKFILES+1"
 
     freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
     if [ "$freespace" -lt $RAMDISKUSAGE ];then
@@ -345,17 +371,17 @@ while IFS= read -r -d '' line; do
     fi
 
 
-
     motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
     #motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+    echo $motion >> $MOTIONFILE
     let "DETECTIONFILES=DETECTIONFILES+motion"
-
 
     analyseImages
     rm -f /tmp/ramdisk/full/*.jpg
 
-
+    echo $motion >> $MOTIONFILE
     let "LOOPNUM=LOOPNUM+1"
+    echo $LOOPNUM >> $LOOPFILE
 done
 
 # In case we exit the loop without without analysing the extracted images
@@ -364,10 +390,20 @@ done
 
 # find . -maxdepth 1 -type f -name "*.jpg" | wc -l
 
+
+echo "Loop done"
+echo "DETECTIONFILES ["$DETECTIONFILES"]"
+echo "LOOPNUM ["$LOOPNUM"]"
+sleep 3
+
 motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 #motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
-let "DETECTIONFILES=DETECTIONFILES+motion"
+echo "Test in"
+#let "DETECTIONFILES=DETECTIONFILES+motion"
+echo $motion >> $MOTIONFILE
 
+
+echo "Test out"
 
 analyseImages
 rm -f /tmp/ramdisk/full/*.jpg
@@ -383,17 +419,44 @@ ENDTIME=$(date +'%s')
 
 # Calculate time and filesize
 NUMFILES=$(cat $FILELIST | wc -l)
-FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
+#FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
+if [ -s "$FILELIST" ]
+then
+    FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
+else
+    FILESIZE=0
+fi
 
 OKFILES=$(cat $OKFILELIST | wc -l)
-OKFILESIZE==$(du -ch `cat $OKFILELIST` | tail -1 | cut -f 1)
+#OKFILESIZE=$(du -ch `cat $OKFILELIST` | tail -1 | cut -f 1)
+if [ -s "$OKFILELIST" ]
+then
+    OKFILESIZE=$(du -ch `cat $OKFILELIST` | tail -1 | cut -f 1)
+else
+    OKFILESIZE=0
+fi
+
 ERRORFILES=$(cat $ERRORFILELIST | wc -l)
-ERRORFILESIZE=$(du -ch `cat $ERRORFILELIST` | tail -1 | cut -f 1)
+#ERRORFILESIZE=$(du -ch `cat $ERRORFILELIST` | tail -1 | cut -f 1)
+if [ -s "$ERRORFILELIST" ]
+then
+    ERRORFILESIZE=$(du -ch `cat $ERRORFILELIST` | tail -1 | cut -f 1)
+else
+    ERRORFILESIZE=0
+fi
+
+
+
 SMALLFILES=$(cat $SMALLFILELIST | wc -l)
-SMALLFILESIZE=$(du -ch `cat $SMALLFILELIST` | tail -1 | cut -f 1)
+if [ -s "$SMALLFILELIST" ] 
+then
+    SMALLFILESIZE=$(du -ch `cat $SMALLFILELIST` | tail -1 | cut -f 1)
+else
+    SMALLFILESIZE=0
+fi
 
-
-
+LOOPNUM=$(tail -1 $LOOPFILE)
+DETECTIONFILES=$(awk '{s+=$1} END {print s}' $MOTIONFILE)
 
 #HITS=$( ls -l *.jpg $OUTPUTDIR/*.jpg | wc -l)
 HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
@@ -429,7 +492,8 @@ echo " "
 
 
 # Log some stats we have collected
-echo "################# " >> $TOUCHFILE
+
+echo "################################################### " >> $TOUCHFILE
 echo "# Input dir      : $LOGFILENAME" >> $TOUCHFILE
 echo "# Hits           : $HITS" >> $TOUCHFILE
 echo "# MP4 files      : $NUMFILES" >> $TOUCHFILE
@@ -440,11 +504,12 @@ echo "#   Small kbytes : $SMALLFILESIZE" >> $TOUCHFILE
 echo "#   Error        : $ERRORFILES" >> $TOUCHFILE
 echo "#   Error kbytes : $ERRORFILESIZE" >> $TOUCHFILE
 echo "# Motion # files : $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.    : v0.16" >> $TOUCHFILE
+echo "# Header ver.    : v0.17" >> $TOUCHFILE
 echo "# Filesize       : $FILESIZE" >> $TOUCHFILE
 echo "# Started        : $STARTDATE" >> $TOUCHFILE
 echo "# Completed      : $ENDDATE" >> $TOUCHFILE
 echo "# Processtime    : $ELAPSEDTIME" >> $TOUCHFILE
+echo "# Loops          : $LOOPNUM" >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
 echo "# Model          : $MODELPATH" >> $TOUCHFILE
 echo "# Score          : $SCORE" >> $TOUCHFILE
