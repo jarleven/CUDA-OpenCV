@@ -391,10 +391,6 @@ done
 # find . -maxdepth 1 -type f -name "*.jpg" | wc -l
 
 
-echo "Loop done"
-echo "DETECTIONFILES ["$DETECTIONFILES"]"
-echo "LOOPNUM ["$LOOPNUM"]"
-sleep 3
 
 motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 #motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
@@ -423,8 +419,10 @@ NUMFILES=$(cat $FILELIST | wc -l)
 if [ -s "$FILELIST" ]
 then
     FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
+    FILESIZEBYTE=$(du -c `cat $FILELIST` | tail -1 | cut -f 1)
 else
     FILESIZE=0
+    FILESIZEBYTE=0
 fi
 
 OKFILES=$(cat $OKFILELIST | wc -l)
@@ -463,6 +461,7 @@ HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 
 
 ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
+let "ELAPSEDTIMESEC=ENDTIME-STARTTIME"
 
 # Some info about Tensorflow and the GPU used.
 TENSORFLOWVERSION=$(python3 -c 'import tensorflow as tf; print("Tensorflow version : %s" % tf.__version__)')
@@ -493,6 +492,13 @@ echo " "
 
 # Log some stats we have collected
 
+BGSUBTIME=$(awk '{sum+=$13 } END { printf("%.2f\n",sum)}' < bgsub.log)
+TFTIME=$(awk '{sum+=$6 } END { printf("%.2f\n",sum)}' < samplefile.txt)
+
+let "KBSEC=FILESIZEBYTE/ELAPSEDTIMESEC"
+
+
+
 echo "################################################### " >> $TOUCHFILE
 echo "# Input dir      : $LOGFILENAME" >> $TOUCHFILE
 echo "# Hits           : $HITS" >> $TOUCHFILE
@@ -504,11 +510,14 @@ echo "#   Small kbytes : $SMALLFILESIZE" >> $TOUCHFILE
 echo "#   Error        : $ERRORFILES" >> $TOUCHFILE
 echo "#   Error kbytes : $ERRORFILESIZE" >> $TOUCHFILE
 echo "# Motion # files : $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.    : v0.17" >> $TOUCHFILE
-echo "# Filesize       : $FILESIZE" >> $TOUCHFILE
+echo "# Header ver.    : v0.19" >> $TOUCHFILE
+echo "# Filesize       : $FILESIZE  ($FILESIZEBYTE)" >> $TOUCHFILE
 echo "# Started        : $STARTDATE" >> $TOUCHFILE
 echo "# Completed      : $ENDDATE" >> $TOUCHFILE
-echo "# Processtime    : $ELAPSEDTIME" >> $TOUCHFILE
+echo "# Processtime    : $ELAPSEDTIME   ($ELAPSEDTIMESEC)" >> $TOUCHFILE
+echo "#   BGSUB        : $BGSUBTIME" >> $TOUCHFILE
+echo "#   TF           : $TFTIME" >> $TOUCHFILE
+echo "#   Byte/sec     : $KBSEC" >> $TOUCHFILE
 echo "# Loops          : $LOOPNUM" >> $TOUCHFILE
 echo "# " >> $TOUCHFILE
 echo "# Model          : $MODELPATH" >> $TOUCHFILE
