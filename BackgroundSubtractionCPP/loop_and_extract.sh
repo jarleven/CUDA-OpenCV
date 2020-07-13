@@ -26,8 +26,11 @@ rm -f samplefile.txt
 
 
 function analyseImages {
-	echo " python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE" >> ~/tf-process.txt
+	echo "python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE"
 	python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE
+        rm -f /tmp/ramdisk/full/*.jpg
+
+	echo "Done analysing images" 
 }
 
 
@@ -377,7 +380,6 @@ while IFS= read -r -d '' line; do
     let "DETECTIONFILES=DETECTIONFILES+motion"
 
     analyseImages
-    rm -f /tmp/ramdisk/full/*.jpg
 
     echo $motion >> $MOTIONFILE
     let "LOOPNUM=LOOPNUM+1"
@@ -402,7 +404,6 @@ echo $motion >> $MOTIONFILE
 echo "Test out"
 
 analyseImages
-rm -f /tmp/ramdisk/full/*.jpg
 
 
 
@@ -411,7 +412,7 @@ rm -f /tmp/ramdisk/full/*.jpg
 ENDDATE=$(date)
 ENDTIME=$(date +'%s')
 
-
+echo "Test filesize"
 
 # Calculate time and filesize
 NUMFILES=$(cat $FILELIST | wc -l)
@@ -459,16 +460,19 @@ DETECTIONFILES=$(awk '{s+=$1} END {print s}' $MOTIONFILE)
 #HITS=$( ls -l *.jpg $OUTPUTDIR/*.jpg | wc -l)
 HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 
+echo "Test time"
 
 ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
 let "ELAPSEDTIMESEC=ENDTIME-STARTTIME"
+
+echo "Test version"
 
 # Some info about Tensorflow and the GPU used.
 TENSORFLOWVERSION=$(python3 -c 'import tensorflow as tf; print("Tensorflow version : %s" % tf.__version__)')
 GPUINFO=$(python3 -c "from tensorflow.python.client import device_lib; print(device_lib.list_local_devices())" | grep "physical_device_desc:" | grep "name: ")
 
 
-
+echo "Make movie"
 
 if [ ! -z $MOVIE ]; then
     if [ "$HITS" -gt "0" ];then
@@ -477,20 +481,9 @@ if [ ! -z $MOVIE ]; then
 fi
 
 
-# Echo to the user
-echo " "
-echo "Num files   : "$NUMFILES
-echo "Filesize    : "$FILESIZE
-echo "Hits        : "$HITS
-echo "Processtime : "$ELAPSEDTIME
-echo " "
-
-
-
-
-
-
 # Log some stats we have collected
+
+echo "Make timetracker log"
 
 BGSUBTIME=$(awk '{sum+=$13 } END { printf("%.2f\n",sum)}' < bgsub.log)
 TFTIME=$(awk '{sum+=$6 } END { printf("%.2f\n",sum)}' < samplefile.txt)
@@ -498,6 +491,7 @@ TFTIME=$(awk '{sum+=$6 } END { printf("%.2f\n",sum)}' < samplefile.txt)
 let "KBSEC=FILESIZEBYTE/ELAPSEDTIMESEC"
 
 
+echo "Build the summary file"
 
 echo "################################################### " >> $TOUCHFILE
 echo "# Input dir      : $LOGFILENAME" >> $TOUCHFILE
@@ -540,6 +534,8 @@ cp $TOUCHFILE $SUMMARY
 
 cat $SUMMARY
 
+echo "Send email"
+
 if [ ! -z "$EMAILLIST" ]; then
 
     echo "Send e-mail"
@@ -553,4 +549,6 @@ if [ ! -z "$EMAILLIST" ]; then
     sendmail -f laksar@eidselva.no -t < mail2.txt
     echo "e-mail sent"
 fi
+
+echo "Exit this folder"
 
