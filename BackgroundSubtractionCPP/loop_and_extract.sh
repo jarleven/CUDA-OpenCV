@@ -3,10 +3,9 @@
 STARTDATE=$(date)
 STARTTIME=$(date +'%s')
 
-set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+set -e  # Exit immediately if a command exits with a non-zero status. Exit on error
 set -x  # Print commands and their arguments as they are executed.
 set -u  # Treat unset variables as an error when substituting.
-
 
 
 # Default values
@@ -15,10 +14,17 @@ VIDEOSUMMARY=""
 EMAILLIST=""
 RAMDISKUSAGE="60"
 
-
+RAMDISKROOT=/tmp/ramdisk
 RAMDISK=/tmp/ramdisk/full
+RAMDISKLOG=/tmp/ramdisk/log
 
-rm -f /tmp/ramdisk/full/*
+RAMDISKROOT=$(realpath ${RAMDISKROOT})
+RAMDISK=$(realpath ${RAMDISK})
+RAMDISKLOG=$(realpath ${RAMDISKLOG})
+
+rm -f $RAMDISK/*
+rm -f $RAMDISKLOG/*
+
 rm -f bgsub.log
 rm -f samplefile.txt
 
@@ -28,8 +34,7 @@ rm -f samplefile.txt
 function analyseImages {
 	echo "python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE"
 	python3 ~/CUDA-OpenCV/CUDA102-OpenCV420/test_model_v21.py -m $MODELPATH -o $OUTPUTDIR -d $DEBUGDIR -l $SCORE
-        rm -f /tmp/ramdisk/full/*.jpg
-
+        rm -f $RAMDISK/*.jpg
 	echo "Done analysing images" 
 }
 
@@ -86,7 +91,6 @@ RAMDISK=$(realpath ${RAMDISK})
 
 
 
-
 #  TODO check write permission
 
 # Check files
@@ -120,22 +124,22 @@ LOGFILENAME=$(basename $INPUTDIR)
 WORKNAME=$LOGFILENAME
 OUTPUTDIR=$OUTPUTBASEDIR/$WORKNAME"-Annotated"
 DEBUGDIR=$OUTPUTBASEDIR/$WORKNAME"-Debug"
+
+NFSDIR="/nfs/storage/DateOutput"
+
+
 TOUCHFILE=logfile-$WORKNAME.txt
 
 
 # realpath returns path WITHOUT trailing slash
-FILELIST=$(realpath ${OUTPUTDIR})/"filelist.txt"
-OKFILELIST=$(realpath ${OUTPUTDIR})/"okfilelist.txt"
-ERRORFILELIST=$(realpath ${OUTPUTDIR})/"errorfilelist.txt"
-SMALLFILELIST=$(realpath ${OUTPUTDIR})/"smallfilelist.txt"
-
-MOTIONFILE=$(realpath ${OUTPUTDIR})/"motionfile.txt"
-LOOPFILE=$(realpath ${OUTPUTDIR})/"loopfile.txt"
-
-
+FILELIST=$(realpath ${RAMDISKLOG})/"filelist.txt"
+OKFILELIST=$(realpath ${RAMDISKLOG})/"okfilelist.txt"
+ERRORFILELIST=$(realpath ${RAMDISKLOG})/"errorfilelist.txt"
+SMALLFILELIST=$(realpath ${RAMDISKLOG})/"smallfilelist.txt"
+MOTIONFILE=$(realpath ${RAMDISKLOG})/"motionfile.txt"
+LOOPFILE=$(realpath ${RAMDISKLOG})/"loopfile.txt"
 
 SUMMARY=$(realpath ${OUTPUTDIR})"/"$WORKNAME".txt"
-
 
 
 MOVIE="Not created"
@@ -161,7 +165,6 @@ if [ ! -z "$EMAILLIST" ]; then
 fi
 
 
-
 # Check if the INPUT DIR IS being modified the last two minutes
 while true
 do
@@ -176,12 +179,10 @@ done
 
 
 
-
 echo ""
 echo "cleanup"
 echo "rm -rf $OUTPUTDIR && rm -rf $DEBUGDIR && rm $TOUCHFILE"
 echo ""
-
 
 
 INPUTFILES=$(find $INPUTDIR -maxdepth 1 -name "*.mp4" | wc -l)
@@ -206,11 +207,6 @@ echo "TODO : One line per file AI and GBSUB"
 echo "TODO : Clean up all the printing in AI"
 echo "TODO : Cleanup all the printing in BGSUB"
 echo "TODO : Investigate the issue with the RAMDRIVE"
-
-echo "DEBUG, will sleep 3 seconds"
-#sleep 3
-
-
 
 
 
@@ -263,30 +259,12 @@ ERRORFILES=0
 SMALLFILES=0
 
 
-echo "Tensorflow"
-echo "   Modelpath : $MODELPATH"
-echo "   Outputdir : $OUTPUTDIR"
-echo "   Debugdir  : $DEBUGDIR"
-echo "   Score     : $SCORE"
-echo "Backgroundsubtraction"
-echo "   Inputdir  : $INPUTDIR"
-
 
 find $INPUTDIR -maxdepth 1 -name '*.mp4'  -print0 |
 while IFS= read -r -d '' line; do
-  # if grep -Fxq "$line" $FILELIST
-#   then
-#   echo "File already processed"
-#   continue
-#						               else
-#								                       echo "Not processed"
-#										                   fi
-
 
     echo $line >> $FILELIST
     FILENUM=$(cat $FILELIST | wc -l)
-    #let "FILENUM=FILENUM+1"
-
 
     ENDTIME=$(date +'%s')
     ELAPSEDTIME=$(date -u -d "0 $ENDTIME seconds - $STARTTIME seconds" +"%H:%M:%S")
@@ -316,40 +294,6 @@ while IFS= read -r -d '' line; do
        continue
    fi
 
-#    rm -f $MPGFILENAME.log
-#    touch $MPGFILENAME.log
-#    #ffmpeg -v error -i $line -f null - 2>$MPGFILENAME.log < /dev/null &
-#    # All this  > and < is to make sure ffmpeg runs fine inside the script
-#
-#    # disable exitting on error temporarily
-#    set +e
-#    ffmpeg -v error -i $line -max_muxing_queue_size 400 -f null - </dev/null >/dev/null 2>>$MPGFILENAME.log
-#    wait
-#    sleep 2
-#    echo "Done checking file"
-#    set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
-#
-#    # Various annoying patterns we get for files that are OK !
-#    sed -i '/Too many packets buffered for output stream 0:0./d' $MPGFILENAME.log
-#
-#    if [ ! -f $MPGFILENAME.log ]
-#    then
-#        echo "No FFMPEG logfile found, file is probably OK continue processing this file"
-#	continue
-#    fi
-#    if [ -s $MPGFILENAME.log ]
-#    then
-#        echo "Errors found in MPG file. Skip this file."
-#        echo $line >> $ERRORFILELIST
-#	continue
-#    fi
-#   # Integrity check done
-
-
-    #let OKFILES++;
-    #let "OKFILES=OKFILES+1"
-    #((OKFILESIZE+=actualsize))
-    #let "OKFILESIZE=OKFILESIZE+actualsize"
 
     echo "background_subtraction "$line
     # disable exitting on error temporarily
@@ -367,15 +311,14 @@ while IFS= read -r -d '' line; do
     echo $line >> $OKFILELIST
     let "OKFILES=OKFILES+1"
 
-    freespace=$(df -hl | grep '/tmp/ramdisk' | awk '{print $5}' | awk -F'%' '{print $1}')
+    freespace=$(df -hl | grep "$RAMDISKROOT" | awk '{print $5}' | awk -F'%' '{print $1}')
     if [ "$freespace" -lt $RAMDISKUSAGE ];then
       echo "Plenty of storage left, using $freespace% reserverd $RAMDISKUSAGE%. Processed images $LOOPNUM times analysed images $DETECTIONFILES "
       continue      
     fi
 
 
-    motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
-    #motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+    motion=$(find $RAMDISK/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
     echo $motion >> $MOTIONFILE
     let "DETECTIONFILES=DETECTIONFILES+motion"
 
@@ -387,24 +330,15 @@ while IFS= read -r -d '' line; do
 done
 
 # In case we exit the loop without without analysing the extracted images
-
-# Better solution ! ls fails when directory is empty
-
-# find . -maxdepth 1 -type f -name "*.jpg" | wc -l
-
-
-
-motion=$(find /tmp/ramdisk/full/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
-#motion=$(ls -1 /tmp/ramdisk/full/*.jpg | wc -l)
+motion=$(find $RAMDISK/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 echo "Test in"
-#let "DETECTIONFILES=DETECTIONFILES+motion"
 echo $motion >> $MOTIONFILE
 
 
 echo "Test out"
-
+echo "There are $motion .jpg files to analyse"
 analyseImages
-
+echo "Done, do the logs now"
 
 
 
@@ -416,7 +350,6 @@ echo "Test filesize"
 
 # Calculate time and filesize
 NUMFILES=$(cat $FILELIST | wc -l)
-#FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
 if [ -s "$FILELIST" ]
 then
     FILESIZE=$(du -ch `cat $FILELIST` | tail -1 | cut -f 1)
@@ -427,7 +360,6 @@ else
 fi
 
 OKFILES=$(cat $OKFILELIST | wc -l)
-#OKFILESIZE=$(du -ch `cat $OKFILELIST` | tail -1 | cut -f 1)
 if [ -s "$OKFILELIST" ]
 then
     OKFILESIZE=$(du -ch `cat $OKFILELIST` | tail -1 | cut -f 1)
@@ -436,15 +368,12 @@ else
 fi
 
 ERRORFILES=$(cat $ERRORFILELIST | wc -l)
-#ERRORFILESIZE=$(du -ch `cat $ERRORFILELIST` | tail -1 | cut -f 1)
 if [ -s "$ERRORFILELIST" ]
 then
     ERRORFILESIZE=$(du -ch `cat $ERRORFILELIST` | tail -1 | cut -f 1)
 else
     ERRORFILESIZE=0
 fi
-
-
 
 SMALLFILES=$(cat $SMALLFILELIST | wc -l)
 if [ -s "$SMALLFILELIST" ] 
@@ -457,7 +386,6 @@ fi
 LOOPNUM=$(tail -1 $LOOPFILE)
 DETECTIONFILES=$(awk '{s+=$1} END {print s}' $MOTIONFILE)
 
-#HITS=$( ls -l *.jpg $OUTPUTDIR/*.jpg | wc -l)
 HITS=$(find $OUTPUTDIR/ -maxdepth 1 -type f -name "*.jpg" | wc -l)
 
 echo "Test time"
@@ -474,11 +402,11 @@ GPUINFO=$(python3 -c "from tensorflow.python.client import device_lib; print(dev
 
 echo "Make movie"
 
-if [ ! -z $MOVIE ]; then
-    if [ "$HITS" -gt "0" ];then
-        ffmpeg -f image2 -framerate 2 -i $DEBUGDIR/%*.png -c:v h264_nvenc -preset slow -qp 18 -pix_fmt yuv420p $MOVIE
-    fi
-fi
+#if [ ! -z $MOVIE ]; then
+#    if [ "$HITS" -gt "0" ];then
+#        ffmpeg -f image2 -framerate 2 -i $DEBUGDIR/%*.png -c:v h264_nvenc -preset slow -qp 18 -pix_fmt yuv420p $MOVIE
+#    fi
+#fi
 
 
 # Log some stats we have collected
@@ -504,7 +432,7 @@ echo "#   Small kbytes : $SMALLFILESIZE" >> $TOUCHFILE
 echo "#   Error        : $ERRORFILES" >> $TOUCHFILE
 echo "#   Error kbytes : $ERRORFILESIZE" >> $TOUCHFILE
 echo "# Motion # files : $DETECTIONFILES" >> $TOUCHFILE
-echo "# Header ver.    : v0.19" >> $TOUCHFILE
+echo "# Header ver.    : v0.20" >> $TOUCHFILE
 echo "# Filesize       : $FILESIZE  ($FILESIZEBYTE)" >> $TOUCHFILE
 echo "# Started        : $STARTDATE" >> $TOUCHFILE
 echo "# Completed      : $ENDDATE" >> $TOUCHFILE
@@ -527,19 +455,32 @@ echo " " >> $TOUCHFILE
 echo " " >> $TOUCHFILE
 
 # Concatonate the file we stored in the RAMdrive
-cat bgsub.log >> $TOUCHFILE
-cat samplefile.txt >> $TOUCHFILE
 
+cat bgsub.log >> $TOUCHFILE
+echo ""  >> $TOUCHFILE
+cat samplefile.txt >> $TOUCHFILE
+echo ""  >> $TOUCHFILE
+sed 's/^/File with ERROR:/' $ERRORFILELIST >> $TOUCHFILE
+echo ""  >> $TOUCHFILE
+sed 's/^/File to small  :/' $SMALLFILELIST >> $TOUCHFILE
+echo ""  >> $TOUCHFILE
+echo "End of log"  >> $TOUCHFILE
+
+
+echo "Stash away the summary file"
 cp $TOUCHFILE $SUMMARY
 
 cat $SUMMARY
+
+
+
 
 echo "Send email"
 
 if [ ! -z "$EMAILLIST" ]; then
 
     echo "Send e-mail"
-    # Compose an e- mail
+    # Compose an e-mail
     cat $EMAILLIST > mail2.txt
     echo  "subject: Eidselva $WORKNAME summary" >> mail2.txt
     echo  "Hei det er nye filmar paa :" >> mail2.txt
@@ -549,6 +490,23 @@ if [ ! -z "$EMAILLIST" ]; then
     sendmail -f laksar@eidselva.no -t < mail2.txt
     echo "e-mail sent"
 fi
+
+#TODO if backup to NFS if not already using NFS ad output dir
+echo "Copy files to NFS"
+
+echo "Output base dir " $OUTPUTBASEDIR
+echo "NFS directory " $NFSDIR
+
+if [ "$OUTPUTBASEDIR" = "$NFSDIR" ]; then
+    echo "Source and destination are the same."
+else
+    echo "Copy to NFS."
+    cp -r $OUTPUTDIR $NFSDIR
+    cp -r $DEBUGDIR $NFSDIR
+fi
+
+sleep 3
+echo "Done copying"
 
 echo "Exit this folder"
 
