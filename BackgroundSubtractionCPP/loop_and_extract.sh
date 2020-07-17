@@ -258,10 +258,27 @@ OKFILES=0
 ERRORFILES=0
 SMALLFILES=0
 
+rm -f file1
+rm -f file2 && touch file2
 
 
-find $INPUTDIR -maxdepth 1 -name '*.mp4'  -print0 |
-while IFS= read -r -d '' line; do
+find $INPUTDIR -maxdepth 1 -name '*.mp4' > file1
+sort file1 -u > file1.sorted
+
+while true; do
+
+    FILE_TO_PROCESS=$(diff --new-line-format="" --unchanged-line-format=""  file1.sorted file2 | head -1)
+    if [ -z "$FILE_TO_PROCESS" ]
+    then
+            break
+    fi
+
+    echo "$FILE_TO_PROCESS" >> file2
+    echo "$FILE_TO_PROCESS"
+
+    #TODO line can be removed and sort out the use of the names. Looks like there is some sort of stack issue as the loop was restarted in some cases !!!
+    # Using a list stored in a file to track the processed files
+    line=$FILE_TO_PROCESS
 
     echo $line >> $FILELIST
     FILENUM=$(cat $FILELIST | wc -l)
@@ -300,13 +317,12 @@ while IFS= read -r -d '' line; do
     set +e
     background_subtraction "$line"
     RESULT=$?
-     if [ ! $RESULT -eq 0 ]; then
+    if [ ! $RESULT -eq 0 ]; then
         echo "BGSUB FAILED"
         echo $line >> $ERRORFILELIST
-       let "ERRORFILES=ERRORFILES+1"
-
-     fi
-    set -e  # Exit immediately if a command exits with a non-zero status. (Exit on error)
+        let "ERRORFILES=ERRORFILES+1"
+    fi
+    set -e  # Exit immediately if a command exits with a non-zero status. Exit on error
 
     echo $line >> $OKFILELIST
     let "OKFILES=OKFILES+1"
