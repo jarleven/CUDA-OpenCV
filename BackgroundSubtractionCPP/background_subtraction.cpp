@@ -194,7 +194,7 @@ int main(int argc, const char* argv[])
  int maskratio=170;
  int minmask=0;
 
-  cout << "Bacground subtraction opening file : " << fname << endl;
+  cout << "Background subtraction opening file : " << fname << endl;
   string filename = getFileName(fname);
   //cout << filename << endl;
 
