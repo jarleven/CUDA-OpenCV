@@ -44,7 +44,7 @@ ffmpeg -thread_queue_size 1024 \
 ffmpeg -thread_queue_size 1024 \
        -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
        -drop_second_field 1 -vsync 0 \
-       -rtsp_transport tcp -i $INPUTSTREAM \
+       -rtsp_transport tcp -i $PRIMARYINPUT \
        -i "$OVERLAY" \
        -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
        -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=128 [marked]" \
@@ -122,6 +122,14 @@ convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' -draw 'text 582
 
 CLOCKNOW=`date '+%H:%M:%S'`
 convert -pointsize 40 -fill white -undercolor Black -draw 'text 436,88 "Eidselva"' -draw "text 582,298 \"$CLOCKNOW\"" Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.jpg
+
+
+
+
+wget https://www.jeggikkbareibodenentur.no/wp-content/uploads/2017/02/vi-beklager-teknisk-feil.jpg
+convert vi-beklager-teknisk-feil.jpg -channel RGB -negate -monochrome output.jpg
+
+
 ```
 
 
