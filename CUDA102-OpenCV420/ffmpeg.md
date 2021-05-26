@@ -1,5 +1,13 @@
 ## Some use cases for streaming and recoring files
 
+#### Install
+```console
+sudo apt install git -y
+git clone https://github.com/jarleven/CUDA-OpenCV.git
+
+TODO ....
+
+```
 
 #### Stream directly to YouTube 4K H.265 camera, GPU accelerated 
 ```console
