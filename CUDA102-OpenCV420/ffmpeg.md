@@ -79,7 +79,7 @@ ffmpeg -thread_queue_size 1024 \
 ```console
 YOUTUBEKEY=1abc-2def-3ghi-4jkl \
 PRIMARYINPUT="rtsp://192.168.1.89:554/user=admin&password=&channel=1&stream=0.sdp?" \
-OVERLAY=Philips_Pattern_pm5644.jpg \
+OVERLAY=Philips_Pattern_pm5644.png \
 OUTFILE=/tmp/ramdisk/out.mp4
 
 ```
