@@ -1,10 +1,29 @@
 ## Some use cases for streaming and recoring files
 
-#### Install
+#### Install reboot after installing drivers and installing CUDA
+Procedure for Ubuntu 18.04.5 Desktop<br/>
+A USB thumbdrive named CUDA with a folder CUDAFILES is expected
 ```console
-sudo apt install git -y
+
+udisksctl mount -b /dev/disk/by-label/CUDA
+ls -alh /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip
+
+mkdir -p /home/$USER/CUDAFILES
+cp -n /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip /home/$USER/CUDAFILES/
+
+```
+
+```console
+sudo apt install -y ssh vim screen
+sudo apt install -y git
 git clone https://github.com/jarleven/CUDA-OpenCV.git
 
+CUDA-OpenCV/CUDA102-OpenCV420/install-nvidia.sh
+sudo reboot
+CUDA-OpenCV/CUDA102-OpenCV420/cuda-10.2.sh
+sudo reboot
+CUDA-OpenCV/CUDA102-OpenCV420/build-ffmpeg.sh
+	
 TODO ....
 
 ```
