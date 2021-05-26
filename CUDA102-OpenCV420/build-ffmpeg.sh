@@ -158,7 +158,7 @@ cd ffmpeg-$SCRIPT_FFMPEGVER/
 #make clean
 
 # --enable-cuda-sdk --enable-libx264 --enable-gpl  --enable-cuda-nvcc
-./configure --enable-shared --disable-static --disable-debug --enable-gpl --enable-zlib --enable-cuda --enable-opencl --enable-runtime-cpudetect --enable-cuvid --enable-nvenc --enable-nvdec --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
+#./configure --enable-shared --disable-static --disable-debug --enable-gpl --enable-zlib --enable-cuda --enable-opencl --enable-runtime-cpudetect --enable-cuvid --enable-nvenc --enable-nvdec --enable-nonfree --enable-libnpp --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
 
 
 # FOR MIXING/OVERLAY IN GPU MEMORY
@@ -167,7 +167,7 @@ cd ffmpeg-$SCRIPT_FFMPEGVER/
 
 # --enable-avfilter   : The vf_overlay_cuda.c vf_overlay_cuda.cu files
 # --enable-cuda-nvcc  : Build CUDA specific targets !
-#./configure --enable-shared --disable-static  --enable-cuda --enable-cuda-nvcc --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --enable-avfilter --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
+./configure --enable-shared --disable-static  --enable-cuda --enable-cuda-nvcc --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --enable-avfilter --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
 
 
 
@@ -178,3 +178,5 @@ make -j$(nproc)
 
 sudo make install
 sudo make install-libs
+sudo ldconfig
+

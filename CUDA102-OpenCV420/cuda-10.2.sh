@@ -5,6 +5,9 @@
 sudo apt update
 sudo apt upgrade -y
 
+
+cp -u cuda-10-2.md5 ~/
+
 cd ~
 
 if md5sum -c cuda-10-2.md5; then
