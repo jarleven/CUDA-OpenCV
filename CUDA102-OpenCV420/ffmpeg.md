@@ -72,6 +72,27 @@ ffmpeg -thread_queue_size 1024 \
        -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
 ```
 
+#### Stream directly to YouTube FullHD H.264 camera with overlay, GPU accelerated
+Update the watermark/overlay every second
+```console
+ffmpeg -thread_queue_size 1024 \
+       -hwaccel cuvid -c:v h264_cuvid -deint 2 \
+       -drop_second_field 1 -vsync 0 \
+       -rtsp_transport tcp -i $PRIMARYINPUT \
+       -f image2 -stream_loop -1 -re -i "$OVERLAY" \
+       -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
+       -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=0 [marked]" \
+       -map "[marked]:v" \
+       -map "2:a" \
+       -acodec aac -ab 128k \
+       -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
+       -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
+
+
+       -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=0:enable='between(t,10,90)' [marked]" \
+
+```
+
 
 
 #### For ease of use a few shell variables have been defined, edit according to your needs
