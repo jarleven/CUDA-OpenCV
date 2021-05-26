@@ -2,7 +2,8 @@
 
 #### Install reboot after installing drivers and installing CUDA
 ```console
-sudo apt install git -y
+sudo apt install -y ssh vim screen
+sudo apt install -y git
 git clone https://github.com/jarleven/CUDA-OpenCV.git
 
 CUDA-OpenCV/CUDA102-OpenCV420/install-nvidia.sh
