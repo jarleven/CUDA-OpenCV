@@ -4,6 +4,8 @@
 Procedure for Ubuntu 18.04.5 Desktop<br/>
 A USB thumbdrive named CUDA with a folder CUDAFILES is expected
 ```console
+TODO, not visible without logging in... 
+udisksctl mount -b /dev/disk/by-label/CUDA
 ls -alh /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip
 ```
 
