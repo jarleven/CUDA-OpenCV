@@ -38,12 +38,44 @@ ffmpeg -thread_queue_size 1024 \
 ### For ease of use a few shell variables have been defined, edit according to your needs
 
 ```console
-YOUTUBEKEY=1ab-2cd-3fgh-4ijk
+YOUTUBEKEY=1abc-2def-3ghi-4jkl
 PRIMARYINPUT="rtsp://192.168.1.89:554/user=admin&password=&channel=1&stream=0.sdp?"
 OVERLAY=Philips_Pattern_pm5644.jpg
-
+OUTFILE=/tmp/ramdisk/out.mp4
 
 ```
+
+### Need verification and CLEANUP. Notes about the FullHD H.264 camera, both GPU and CPU processing examples 
+```console
+ffmpeg	-f lavfi -i anullsrc \
+	-thread_queue_size 512 -vsync 0 \
+	-rtsp_transport udp -i "rtsp://192.168.1.87:554/user=admin&password=&channel=1&stream=0.sdp?real_stream" \
+	-vcodec libx264 -t 12:00:00 -pix_fmt + -c:v copy -c:a aac -strict experimental \
+	-f flv rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY
+
+
+ffmpeg -thread_queue_size 1024 \
+    -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
+    -drop_second_field 1 -vsync 0 \
+    -i "$PLAYFILE" \
+    -i "$OVERLAY" \
+    -f lavfi -i anullsrc \
+    -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=main_w-overlay_w-10:10 [marked]" \
+    -map "[marked]" \
+    -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
+    -acodec aac -strict -2 \
+    $OUTFILE
+```
+
+
+
+A few details about the gear installed
+```
+.89 4K kamera
+.87 FullHD kamera
+```
+
+
 
 ### A test pattern 
 https://commons.wikimedia.org/wiki/Category:Test_patterns
