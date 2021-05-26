@@ -1,4 +1,4 @@
-## Some use cases for streaming and recoring files
+## Some use cases for streaming and recording files
 
 #### Install reboot after installing drivers and installing CUDA
 Procedure for Ubuntu 18.04.5 Desktop<br/>
