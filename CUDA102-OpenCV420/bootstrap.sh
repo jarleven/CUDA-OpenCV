@@ -10,5 +10,5 @@ echo "Run the following command to remove the bootstrap/stop the script"
 echo "rm ~/.config/autostart/opencv.desktop"
 echo ""
 	
-mkdir ~/.config/autostart
+mkdir -p ~/.config/autostart
 cp opencv.desktop ~/.config/autostart/
