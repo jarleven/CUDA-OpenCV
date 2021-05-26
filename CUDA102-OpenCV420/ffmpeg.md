@@ -44,7 +44,7 @@ ffmpeg -thread_queue_size 1024 \
 ffmpeg -thread_queue_size 1024 \
        -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
        -drop_second_field 1 -vsync 0 \
-       -rtsp_transport tcp -i $INPUTSTREAM \
+       -rtsp_transport tcp -i $PRIMARYINPUT \
        -i "$OVERLAY" \
        -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
        -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=128 [marked]" \
@@ -66,9 +66,9 @@ ffmpeg -thread_queue_size 1024 \
 #### For ease of use a few shell variables have been defined, edit according to your needs
 
 ```console
-YOUTUBEKEY=1abc-2def-3ghi-4jkl
-PRIMARYINPUT="rtsp://192.168.1.89:554/user=admin&password=&channel=1&stream=0.sdp?"
-OVERLAY=Philips_Pattern_pm5644.jpg
+YOUTUBEKEY=1abc-2def-3ghi-4jkl \
+PRIMARYINPUT="rtsp://192.168.1.89:554/user=admin&password=&channel=1&stream=0.sdp?" \
+OVERLAY=Philips_Pattern_pm5644.jpg \
 OUTFILE=/tmp/ramdisk/out.mp4
 
 ```
@@ -122,6 +122,14 @@ convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' -draw 'text 582
 
 CLOCKNOW=`date '+%H:%M:%S'`
 convert -pointsize 40 -fill white -undercolor Black -draw 'text 436,88 "Eidselva"' -draw "text 582,298 \"$CLOCKNOW\"" Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.jpg
+
+
+
+
+wget https://www.jeggikkbareibodenentur.no/wp-content/uploads/2017/02/vi-beklager-teknisk-feil.jpg
+convert vi-beklager-teknisk-feil.jpg -channel RGB -negate -monochrome output.jpg
+
+
 ```
 
 
@@ -139,6 +147,34 @@ libavfilter     7.110.100 /  7.110.100
 libswscale      5.  9.100 /  5.  9.100
 libswresample   3.  9.100 /  3.  9.100
 
+
+
+nvidia-smi
+Wed May 26 13:04:22 2021
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.80       Driver Version: 460.80       CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 106...  Off  | 00000000:01:00.0  On |                  N/A |
+|  0%   46C    P8     6W / 120W |     74MiB /  3017MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A       979      G   /usr/lib/xorg/Xorg                 21MiB |
+|    0   N/A  N/A      1035      G   /usr/bin/gnome-shell               50MiB |
++-----------------------------------------------------------------------------+
+
+lspci
+01:00.0 VGA compatible controller: NVIDIA Corporation GP106 [GeForce GTX 1060 3GB] (rev a1)
+01:00.1 Audio device: NVIDIA Corporation GP106 High Definition Audio Controller (rev a1)
 
 
 ```
