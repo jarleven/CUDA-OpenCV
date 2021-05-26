@@ -28,6 +28,7 @@ TODO ....
 
 ```
 
+
 #### Stream directly to YouTube 4K H.265 camera, GPU accelerated 
 ```console
 ffmpeg -thread_queue_size 1024 \
@@ -122,3 +123,24 @@ convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' -draw 'text 582
 CLOCKNOW=`date '+%H:%M:%S'`
 convert -pointsize 40 -fill white -undercolor Black -draw 'text 436,88 "Eidselva"' -draw "text 582,298 \"$CLOCKNOW\"" Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.jpg
 ```
+
+
+
+```console
+ffmpeg -version
+ffmpeg version 4.4 Copyright (c) 2000-2021 the FFmpeg developers
+built with gcc 7 (Ubuntu 7.5.0-3ubuntu1~18.04)
+configuration: --enable-shared --disable-static --enable-cuda --enable-cuda-nvcc --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --enable-avfilter --extra-cflags=-I/usr/local/cuda-10.2/include --extra-ldflags=-L/usr/local/cuda-10.2/lib64
+libavutil      56. 70.100 / 56. 70.100
+libavcodec     58.134.100 / 58.134.100
+libavformat    58. 76.100 / 58. 76.100
+libavdevice    58. 13.100 / 58. 13.100
+libavfilter     7.110.100 /  7.110.100
+libswscale      5.  9.100 /  5.  9.100
+libswresample   3.  9.100 /  3.  9.100
+
+
+
+```
+
+
