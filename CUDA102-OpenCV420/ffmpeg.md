@@ -1,7 +1,7 @@
 ## Some use cases for streaming and recoring files
 
 
-### Stream directly to YouTube
+### Stream directly to YouTube 4K H.265 camera, GPU accelerated 
 ```console
 ffmpeg -thread_queue_size 1024 \
        -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
@@ -11,6 +11,22 @@ ffmpeg -thread_queue_size 1024 \
        -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
        -f flv "rtmp://x.rtmp.youtube.com/live2/$KEY"
 ```
+### Stream directly to YouTube 4K H.265 camera with overlay, GPU accelerated
+```console
+ffmpeg -thread_queue_size 1024 \
+       -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
+       -drop_second_field 1 -vsync 0 \
+       -rtsp_transport tcp -i $INPUTSTREAM \
+       -i "$OVERLAY" \
+       -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
+       -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=128 [marked]" \
+       -map "[marked]:v" \
+       -map "2:a" \
+       -acodec aac -ab 128k \
+       -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
+       -f flv "rtmp://x.rtmp.youtube.com/live2/$KEY"
+```
+
 
 ### Template
 ```console
@@ -19,7 +35,7 @@ ffmpeg -thread_queue_size 1024 \
 
 
 
-### For ease of use a few shell variables have been deined, edit according to your needs
+### For ease of use a few shell variables have been defined, edit according to your needs
 
 ```console
 YOUTUBEKEY=1ab-2cd-3fgh-4ijk
