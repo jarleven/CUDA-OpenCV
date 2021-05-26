@@ -28,7 +28,9 @@ sudo apt-mark nvidia-driver-$SCRIPT_NVIDIAVER
 
 sudo apt update
 sudo apt upgrade -y
- 
+
+nvidia-smi
+
 
 # I REALLY DOUBT THE VERSION IS CONSIDERED WHEN INSTALLING !!!
 # WHEN INSTALLING version 418 !

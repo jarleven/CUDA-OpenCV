@@ -178,3 +178,5 @@ make -j$(nproc)
 
 sudo make install
 sudo make install-libs
+sudo ldconfig
+

@@ -12,7 +12,7 @@
 #export OPENCV_FFMPEG_CAPTURE_OPTIONS="video_codec;h264_cuvid"
 
 
-CUDAVERSION="cuda-10.1"
+CUDAVERSION="cuda-10.2"
 
 if test ${OPENCV_ENV_EXPORTED+defined};
 then
