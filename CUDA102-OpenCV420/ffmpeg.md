@@ -67,7 +67,7 @@ ffmpeg -thread_queue_size 1024 \
     $OUTFILE
 ```
 
-#### Dump RTSP stream to a file
+#### Dump RTSP stream to a file without transcoding
 ```console
 ffmpeg -rtsp_transport tcp -i $PRIMARYINPUT -c copy -map 0 -f segment -strftime 1 -reset_timestamps 1 -segment_time 900 -segment_atclocktime 1 -segment_format mp4 "YourOwnPrefix__%Y-%m-%d__%H-%M-%S.mp4"
 ```
