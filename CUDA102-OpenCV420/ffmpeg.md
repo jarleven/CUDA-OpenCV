@@ -1,10 +1,14 @@
 ## Some use cases for streaming and recoring files
 
-#### Install
+#### Install reboot after installing drivers and installing CUDA
 ```console
 sudo apt install git -y
 git clone https://github.com/jarleven/CUDA-OpenCV.git
 
+CUDA-OpenCV/CUDA102-OpenCV420/install-nvidia.sh
+CUDA-OpenCV/CUDA102-OpenCV420/cuda-10.2.sh
+CUDA-OpenCV/CUDA102-OpenCV420/build-ffmpeg.sh
+	
 TODO ....
 
 ```
