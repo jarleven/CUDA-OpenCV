@@ -1,7 +1,7 @@
 ## Some use cases for streaming and recoring files
 
 
-### Stream directly to YouTube 4K H.265 camera, GPU accelerated 
+#### Stream directly to YouTube 4K H.265 camera, GPU accelerated 
 ```console
 ffmpeg -thread_queue_size 1024 \
        -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
@@ -11,7 +11,7 @@ ffmpeg -thread_queue_size 1024 \
        -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
        -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
 ```
-### Stream directly to YouTube 4K H.265 camera with overlay, GPU accelerated
+#### Stream directly to YouTube 4K H.265 camera with overlay, GPU accelerated
 ```console
 ffmpeg -thread_queue_size 1024 \
        -hwaccel cuvid -c:v hevc_cuvid -deint 2 \
@@ -28,14 +28,14 @@ ffmpeg -thread_queue_size 1024 \
 ```
 
 
-### Template
+#### Template
 ```console
 
 ```
 
 
 
-### For ease of use a few shell variables have been defined, edit according to your needs
+#### For ease of use a few shell variables have been defined, edit according to your needs
 
 ```console
 YOUTUBEKEY=1abc-2def-3ghi-4jkl
@@ -45,7 +45,7 @@ OUTFILE=/tmp/ramdisk/out.mp4
 
 ```
 
-### Need verification and CLEANUP. Notes about the FullHD H.264 camera, both GPU and CPU processing examples 
+#### Need verification and CLEANUP. Notes about the FullHD H.264 camera, both GPU and CPU processing examples 
 ```console
 ffmpeg	-f lavfi -i anullsrc \
 	-thread_queue_size 512 -vsync 0 \
@@ -67,17 +67,22 @@ ffmpeg -thread_queue_size 1024 \
     $OUTFILE
 ```
 
+#### Dump RTSP stream to a file
+```console
+ffmpeg -rtsp_transport tcp -i $PRIMARYINPUT -c copy -map 0 -f segment -strftime 1 -reset_timestamps 1 -segment_time 900 -segment_atclocktime 1 -segment_format mp4 "YourOwnPrefix__%Y-%m-%d__%H-%M-%S.mp4"
+```
 
-
-A few details about the gear installed
+#### A few details about the gear installed
 ```
 .89 4K kamera
+Resolution : 4096x2160
+
 .87 FullHD kamera
 ```
 
 
 
-### A test pattern 
+#### A test pattern 
 https://commons.wikimedia.org/wiki/Category:Test_patterns
 
 ```console
