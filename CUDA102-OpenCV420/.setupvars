@@ -17,11 +17,11 @@ set -u  # Treat unset variables as an error when substituting.
 
 
 # We use theese variables thoughout the install process
-SCRIPT_CUDAVER="10.1"
-SCRIPT_NVIDIAVER="418"
+SCRIPT_CUDAVER="10.2"
+SCRIPT_NVIDIAVER="460"
 SCRIPT_TENSORFLOWVER="2.1.0"
 SCRIPT_FFMPEG="ON"
-SCRIPT_FFMPEGVER="4.2.2"
+SCRIPT_FFMPEGVER="4.4"
 SCRIPT_CUDA_ARCH_BIN="6.1"
 SCRIPT_CUDA_ARCH_PTX="6.1"
 
