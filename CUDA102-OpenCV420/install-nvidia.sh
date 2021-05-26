@@ -5,6 +5,7 @@
 # sudo apt install -y nvidia-driver-430
 # When installing CUDA do "sudo apt-get install -y cuda-toolkit-10-0" not just "sudo apt-get install -y cuda"
 
+cd "$(dirname "$0")"
 
 source .setupvars
 
