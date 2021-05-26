@@ -125,7 +125,9 @@ convert -pointsize 40 -fill white -undercolor Black -draw 'text 436,88 "Eidselva
 
 
 wget https://www.jeggikkbareibodenentur.no/wp-content/uploads/2017/02/vi-beklager-teknisk-feil.jpg
-convert vi-beklager-teknisk-feil.jpg -channel RGB -negate -monochrome output.jpg
+convert vi-beklager-teknisk-feil.jpg -monochrome -negate -alpha on vi-beklager-teknisk-feil.png
+convert vi-beklager-teknisk-feil.jpg -monochrome -alpha on vi-beklager-teknisk-feil.png
+
 
 
 ```
