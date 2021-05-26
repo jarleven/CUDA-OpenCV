@@ -8,8 +8,8 @@ A USB thumbdrive named CUDA with a folder CUDAFILES is expected
 udisksctl mount -b /dev/disk/by-label/CUDA
 ls -alh /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip
 
-mkdir -p /home/$USER//CUDAFILES
-cp -n /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip /home/$USER//CUDAFILES/
+mkdir -p /home/$USER/CUDAFILES
+cp -n /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip /home/$USER/CUDAFILES/
 
 ```
 
