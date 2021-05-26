@@ -62,6 +62,8 @@ sudo apt -y remove x264 libx264-dev
 
 # TODO put in common file ?
 sudo apt install -y yasm
+sudo apt-get install -y zlib1g-dev
+
 
 sudo dpkg --add-architecture i386
 sudo apt-get update
@@ -167,7 +169,7 @@ cd ffmpeg-$SCRIPT_FFMPEGVER/
 
 # --enable-avfilter   : The vf_overlay_cuda.c vf_overlay_cuda.cu files
 # --enable-cuda-nvcc  : Build CUDA specific targets !
-./configure --enable-shared --disable-static  --enable-cuda --enable-cuda-nvcc --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --enable-avfilter --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
+./configure --enable-shared --disable-static  --enable-cuda --enable-cuda-nvcc --enable-cuvid --enable-nvenc --enable-nonfree --enable-libnpp --enable-avfilter --enable-decoder=png --enable-encoder=png --extra-cflags=-I/usr/local/$CUDAVERSION/include  --extra-ldflags=-L/usr/local/$CUDAVERSION/lib64
 
 
 
