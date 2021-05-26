@@ -9,7 +9,7 @@ ffmpeg -thread_queue_size 1024 \
        -rtsp_transport tcp -i $PRIMARYINPUT \
        -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero -acodec aac -ab 128k \
        -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
-       -f flv "rtmp://x.rtmp.youtube.com/live2/$KEY"
+       -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
 ```
 ### Stream directly to YouTube 4K H.265 camera with overlay, GPU accelerated
 ```console
@@ -24,7 +24,7 @@ ffmpeg -thread_queue_size 1024 \
        -map "2:a" \
        -acodec aac -ab 128k \
        -vcodec h264_nvenc -b:v 25M -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
-       -f flv "rtmp://x.rtmp.youtube.com/live2/$KEY"
+       -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
 ```
 
 
