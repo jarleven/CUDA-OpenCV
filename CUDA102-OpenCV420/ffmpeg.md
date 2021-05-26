@@ -1,7 +1,7 @@
 ## Some use cases for streaming and recoring files
 
 #### Install reboot after installing drivers and installing CUDA
-Procedure for Ubuntu 18.04.5 Desktop
+Procedure for Ubuntu 18.04.5 Desktop<br/>
 A USB thumbdrive named CUDA with a folder CUDAFILES is expected
 ```console
 ls -alh /media/$USER/CUDA/CUDAFILES/Video_Codec_SDK_9.1.23.zip
