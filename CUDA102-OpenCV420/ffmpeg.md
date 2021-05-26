@@ -66,9 +66,9 @@ ffmpeg -thread_queue_size 1024 \
 #### For ease of use a few shell variables have been defined, edit according to your needs
 
 ```console
-YOUTUBEKEY=1abc-2def-3ghi-4jkl
-PRIMARYINPUT="rtsp://192.168.1.89:554/user=admin&password=&channel=1&stream=0.sdp?"
-OVERLAY=Philips_Pattern_pm5644.jpg
+YOUTUBEKEY=1abc-2def-3ghi-4jkl \
+PRIMARYINPUT="rtsp://192.168.1.89:554/user=admin&password=&channel=1&stream=0.sdp?" \
+OVERLAY=Philips_Pattern_pm5644.jpg \
 OUTFILE=/tmp/ramdisk/out.mp4
 
 ```
