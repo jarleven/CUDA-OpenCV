@@ -28,6 +28,24 @@ TODO ....
 
 ```
 
+#### Obviously the "hwdownload" eats my CPU. One more take on this issue
+Thanks to :<br/>
+https://www.mail-archive.com/ffmpeg-devel@ffmpeg.org/msg99202.html
+
+```console
+ffmpeg -y \
+  -init_hw_device cuda=cuda -filter_hw_device cuda -hwaccel cuvid \
+  -c:v h264_cuvid  -rtsp_transport tcp -i $PRIMARYINPUT \
+  -i "$OVERLAY" \
+      -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
+  -filter_complex "[1:v]format=yuva420p, hwupload[o], [v:0]scale_npp=format=yuv420p[m], [m][o]overlay_cuda=x=0:y=0:shortest=false" \
+  -acodec aac -ab 128k \
+ -c:v h264_nvenc -b:v 5M \
+-f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
+```
+
+
+
 
 #### Stream directly to YouTube 4K H.265 camera, GPU accelerated 
 ```console
