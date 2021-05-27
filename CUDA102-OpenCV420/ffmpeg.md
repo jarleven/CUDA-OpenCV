@@ -35,13 +35,13 @@ https://www.mail-archive.com/ffmpeg-devel@ffmpeg.org/msg99202.html
 ```console
 ffmpeg -y \
   -init_hw_device cuda=cuda -filter_hw_device cuda -hwaccel cuvid \
-  -c:v h264_cuvid  -rtsp_transport tcp -i $PRIMARYINPUT \
+  -c:v h264_cuvid -rtsp_transport tcp -i $PRIMARYINPUT \
   -i "$OVERLAY" \
-      -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
+  -r 24 -ar 44100 -ac 2 -acodec pcm_s16le -f s16le -ac 2 -i /dev/zero  \
   -filter_complex "[1:v]format=yuva420p, hwupload[o], [v:0]scale_npp=format=yuv420p[m], [m][o]overlay_cuda=x=0:y=0:shortest=false" \
   -acodec aac -ab 128k \
- -c:v h264_nvenc -b:v 5M \
--f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
+  -c:v h264_nvenc -b:v 5M \
+  -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
 ```
 
 
@@ -153,12 +153,12 @@ https://commons.wikimedia.org/wiki/Category:Test_patterns
 ```console
 wget https://upload.wikimedia.org/wikipedia/commons/4/47/Philips_Pattern_pm5644.png
 
-convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.jpg
+convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.png
 
-convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' -draw 'text 582,302 "12:30:30"' Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.jpg
+convert -pointsize 40 -fill white -draw 'text 436,92 "Eidselva"' -draw 'text 582,302 "12:30:30"' Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.png
 
 CLOCKNOW=`date '+%H:%M:%S'`
-convert -pointsize 40 -fill white -undercolor Black -draw 'text 436,88 "Eidselva"' -draw "text 582,298 \"$CLOCKNOW\"" Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.jpg
+convert -pointsize 40 -fill white -undercolor Black -draw 'text 436,88 "Eidselva"' -draw "text 582,298 \"$CLOCKNOW\"" Philips_Pattern_pm5644.png -resize 4096x2160 Philips_Pattern_pm5644.png
 
 
 
