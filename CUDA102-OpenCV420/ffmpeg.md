@@ -121,6 +121,22 @@ ffmpeg -thread_queue_size 1024 \
        -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
 
 
+"Stream health is excellent" according to Youtube.
+"The audio stream's current bitrate (0) is lower than the recommended bitrate. We recommend that you use an audio stream bitrate of 128 Kbps."
+
+ffmpeg -thread_queue_size 1024 \
+       -hwaccel cuvid -hwaccel_output_format cuda -c:v h264_cuvid -deint 2 \
+       -drop_second_field 1 -vsync 0 \
+       -rtsp_transport tcp -i $PRIMARYINPUT?buffer_size=10000000?fifo_size=100000 \
+       -f image2 -stream_loop -1 -r 2 -i "$OVERLAY" \
+       -f lavfi -i anullsrc \
+       -filter_complex "[0:v]hwdownload,format=nv12 [base]; [base][1:v] overlay=0 [marked]" \
+       -map "[marked]:v" \
+       -map "2:a" \
+       -acodec aac -ac 2 -b:a 128k \
+       -vcodec h264_nvenc -b:v 4.5M -rc vbr -rc-lookahead:v 32 -forced-idr 1 -force_key_frames "expr:gte(t,n_forced*4)" \
+       -f flv "rtmp://x.rtmp.youtube.com/live2/$YOUTUBEKEY"
+
 
 
 
@@ -187,6 +203,11 @@ convert vi-beklager-teknisk-feil.jpg -threshold 70% -negate -transparent white v
 ```
 
 
+Youtube feedback for various testing on the FullHD camera
+```
+The stream's current bitrate (15652.07 Kbps) is higher than the recommended bitrate. We recommend that you use a stream bitrate of 4500 Kbps.
+The audio stream's current bitrate (0) is lower than the recommended bitrate. We recommend that you use an audio stream bitrate of 128 Kbps.
+```
 
 ```console
 ffmpeg -version
