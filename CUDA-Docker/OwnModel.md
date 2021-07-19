@@ -91,7 +91,7 @@ sudo cp $HOME/tmp/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out
 
 
 ### File structure, some cleanup TODO
-```
+```bash
 tree  $HOME/google-coral/tutorials/docker/object_detection/out > tree.txt
 
 
