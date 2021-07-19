@@ -66,6 +66,15 @@ export CUDA_VISIBLE_DEVICES='1'
 
 ```
 
+TODO: Does this have the same effect. 
+```
+--env , -e 		Set environment variables
+
+docker run --runtime=nvidia -e CUDA_VISIBLE_DEVICES='1' --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 --name edgetpu-detect --rm -it --privileged -p 6006:6006 --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_pet detect-tutorial-tf1
+
+
+```
+
 
 ```bash
 
