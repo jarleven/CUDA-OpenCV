@@ -104,6 +104,15 @@ sed -i "s/num_classes:.*/num_classes: 1/g" pipeline.config
 
 # Setup model (modify to not download the pet dataset)
 # Don't use trimpas
+#
+# Somewhere in here .....
+#/google-coral/tutorials/docker/object_detection/scripts$ vi prepare_checkpoint_and_dataset.sh
+#python object_detection/model_main.py \
+
+#/google-coral/tutorials/docker/object_detection/scripts$ vi prepare_checkpoint_and_dataset.sh 
+#python object_detection/dataset_tools/create_pet_tf_record.py \
+
+
 
 
 
