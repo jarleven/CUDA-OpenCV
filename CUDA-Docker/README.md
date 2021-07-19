@@ -75,11 +75,15 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 ```
 
-#### Modify the batch_size (16 or 20 worked for me)
-```
+#### Modify the batch_size in pipeline.config(16 or 20 worked for me)
+```bash
 vi learn_pet/ckpt/pipeline.config 
+```
+```
+#  batch_size: 128
+   batch_size: 16
+```
 
-batch_size in pipeline.config
 ```
 
 #### Start training
