@@ -106,21 +106,3 @@ sudo docker exec -it edgetpu-detect /bin/bash
 ```bash
 tensorboard --logdir=./learn_pet/train/
 ```
-
-
-
-
-# Preparation
-
-
-annotations.tar.gz
-images.tar.gz
-ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz
-jarleven@MediaGPU:~/fileArchive/pet$ pwd
-
-
-Copy the backup files to the docker directory so we can reach them inside
-mkdir ~/google-coral/tutorials/docker/object_detection/out/tmp
-cd ~/google-coral/tutorials/docker/object_detection/out/tmp
-cp ~/fileArchive/pet/*.tar.gz .
-
