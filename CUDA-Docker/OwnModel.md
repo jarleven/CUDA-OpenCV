@@ -108,7 +108,7 @@ home $HOME/google-coral/tutorials/docker/object_detection/out
 │   │   ├── trainval_petsdataset.txt
 │   │   ├── trainval.txt
 │   │   ├── trimaps
-│   │   │   ├── IMAGE.png
+│   │   │   └── IMAGE.png
 │   │   └── xmls
 │   │       └── IMAGE.xml
 │   └── images
