@@ -87,6 +87,26 @@ sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/*.jp
 sudo cp $HOME/tmp/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
 sudo cp $HOME/tmp/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
 sudo cp $HOME/tmp/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
+
+
+cd $HOME/google-coral/tutorials/docker/object_detection/out/pet
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/pet_label_map.pbtxt
+
+
+# The Salmon model only contain one class so we should edit the "num_classes: 1"
+
+
+cd $HOME/google-coral/tutorials/docker/object_detection/out/ckpt
+
+sed -i "s/batch_size:.*/batch_size: 28/g" pipeline.config
+sed -i "s/num_classes:.*/num_classes: 1/g" pipeline.config
+
+
+# Setup model (modify to not download the pet dataset)
+# Don't use trimpas
+
+
+
 ```
 
 
