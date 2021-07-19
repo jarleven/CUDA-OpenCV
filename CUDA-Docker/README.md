@@ -45,7 +45,7 @@ device: 0, name: NVIDIA GeForce RTX 2070 SUPER, pci bus id: 0000:01:00.0, comput
 device: 1, name: NVIDIA GeForce GTX 1080 Ti, pci bus id: 0000:04:00.0, compute capability: 6.1
 ```
 
-To select the FTX1080 only run the following command
+To select the GTX1080 only run the following command
 ```bash
 
 export CUDA_VISIBLE_DEVICES='1'
@@ -75,13 +75,14 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 ```
 
-#### Modify the batch_size
+#### Modify the batch_size (16 or 20 worked for me)
 ```
 vi learn_pet/ckpt/pipeline.config 
 
 batch_size in pipeline.config
 ```
 
+#### Start training
 ```bash
 NUM_TRAINING_STEPS=50000 && NUM_EVAL_STEPS=2000
 
@@ -93,6 +94,14 @@ rm -rf learn_pet/train/*
 --num_eval_steps ${NUM_EVAL_STEPS}
 ```
 
+#### Follow the progress in tensorboard
+```bash
+sudo docker exec -it edgetpu-detect /bin/bash
+```
+
+```bash
+tensorboard --logdir=./learn_pet/train/
+```
 
 
 
