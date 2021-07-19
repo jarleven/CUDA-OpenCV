@@ -86,7 +86,7 @@ batch_size in pipeline.config
 ```bash
 NUM_TRAINING_STEPS=50000 && NUM_EVAL_STEPS=2000
 
-# to rerun the training first delete the contents of the train folder
+# To rerun the training first delete the contents of the train folder
 rm -rf learn_pet/train/*
 
 ./retrain_detection_model.sh \
