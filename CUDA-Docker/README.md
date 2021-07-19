@@ -3,13 +3,16 @@
 https://coral.ai/docs/edgetpu/retrain-detection/#run-the-model
 
 
-
+```bash
 
 CORAL_DIR=${HOME}/google-coral && mkdir -p ${CORAL_DIR}
 cd ${CORAL_DIR}
 git clone https://github.com/google-coral/tutorials.git
 cd tutorials/docker/object_detection
 DETECT_DIR=${PWD}/out && mkdir -p $DETECT_DIR
+
+```
+
 
 vi Dockerfile
 #FROM tensorflow/tensorflow:1.15.5
