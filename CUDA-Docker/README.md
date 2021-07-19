@@ -38,7 +38,10 @@ vi Dockerfile
 #FROM tensorflow/tensorflow:1.15.5
 FROM nvcr.io/nvidia/tensorflow:21.06-tf1-py3
 ```
-
+TODO: a bit more effective...
+```bash
+sed -i 's/FROM tensorflow\/tensorflow:1.15.5/FROM nvcr.io\/nvidia\/tensorflow:21.06-tf1-py3/g' Dockerfile
+```
 #### Build the container
 ```bash
 docker build . -t detect-tutorial-tf1
