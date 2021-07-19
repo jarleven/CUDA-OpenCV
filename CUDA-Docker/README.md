@@ -45,7 +45,7 @@ device: 0, name: NVIDIA GeForce RTX 2070 SUPER, pci bus id: 0000:01:00.0, comput
 device: 1, name: NVIDIA GeForce GTX 1080 Ti, pci bus id: 0000:04:00.0, compute capability: 6.1
 ```
 
-
+To select the FTX1080 only run the following command
 ```bash
 
 export CUDA_VISIBLE_DEVICES='1'
