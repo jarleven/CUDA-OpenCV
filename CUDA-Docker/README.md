@@ -110,64 +110,6 @@ tensorboard --logdir=./learn_pet/train/
 
 
 
-*********************************************************
-vi object_detection/model_main.py
-
-
-from tensorflow import ConfigProto
-from tensorflow import InteractiveSession
-
-config = ConfigProto()
-config.gpu_options.allow_growth = True
-session = InteractiveSession(config=config)
-
-
-# Sansynlegvis ingen effekt		
-#import os
-#os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-#os.environ["CUDA_VISIBLE_DEVICES"]="0,2,3,4"
-
-		
-		
-******************************************
-
-
-vi learn_pet/ckpt/pipeline.config 
-
-batch_size in pipeline.config
-RTX 2070 : ??	
-GTX 1080 : 16 ser ut som det virkar  (Etter start satt til 20)
-
-rm learn_pet/train/*
-
-NUM_TRAINING_STEPS=50000 && NUM_EVAL_STEPS=2000
-NUM_TRAINING_STEPS=50000 && NUM_EVAL_STEPS=5000
-
-./retrain_detection_model.sh --num_training_steps ${NUM_TRAINING_STEPS} --num_eval_steps ${NUM_EVAL_STEPS}
-
-
-
-
-
-
-sudo docker exec -it edgetpu-detect /bin/bash
-		tensorboard --logdir=./learn_pet/train/	
-
-
-
-
-
-
-
-
-
-scp 192.168.1.116:/home/jarleven/fileArchive/pet/annotations.tar.gz .
-scp 192.168.1.116:/home/jarleven/fileArchive/pet/images.tar.gz .
-scp 192.168.1.116:/home/jarleven/fileArchive/pet/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz .
-
-
-
-
 # Preparation
 
 
