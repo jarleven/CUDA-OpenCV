@@ -64,7 +64,7 @@ export CUDA_VISIBLE_DEVICES='1'
 ```bash
 vi object_detection/model_main.py
 ```
-Add the following 
+Add the following, below line 23 is probably good
 ```python
 
 from tensorflow import ConfigProto
