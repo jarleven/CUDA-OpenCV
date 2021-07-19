@@ -76,6 +76,45 @@ echo $b
 sort -R list.txt > list.tmp
 head -n $a list.tmp > test.txt
 tail -n +$b list.tmp > trainval.txt
+
+```
+### Copy replace the cats and dogs in the "Google Coral Retrain an object detection model"
+```
+sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/*.txt
+sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/*.xml
+sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/*.jpg
+
+sudo cp $HOME/tmp/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
+sudo cp $HOME/tmp/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
+sudo cp $HOME/tmp/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
+```
+
+
+### File structure, some cleanup TODO
+```
+tree  $HOME/google-coral/tutorials/docker/object_detection/out > tree.txt
+
+
+home $HOME/google-coral/tutorials/docker/object_detection/out
+├── ckpt
+│   └── pipeline.config
+├── pet
+│   ├── annotations
+│   │   ├── list_petsdataset.txt
+│   │   ├── list.txt
+│   │   ├── README
+│   │   ├── test_petsdataset.txt
+│   │   ├── test.txt
+│   │   ├── trainval_petsdataset.txt
+│   │   ├── trainval.txt
+│   │   ├── trimaps
+│   │   │   ├── IMAGE.png
+│   │   └── xmls
+│   │       └── IMAGE.xml
+│   └── images
+│   │   └── IMAGE.jpg
+│   └── pet_label_map.pbtxt
+└── train
 ```
 
 
