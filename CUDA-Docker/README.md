@@ -8,6 +8,15 @@ https://coral.ai/docs/edgetpu/retrain-detection/#run-the-model
 Allocator (GPU_0_bfc) ran out of memory trying to allocate	
 ```
 
+#### On Ubuntu 20.04.2 LTS
+Follow this guide https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
+```bash
+sudo apt install -y nvidia-driver-465
+```
+
+
+
+
 ```bash
 
 CORAL_DIR=${HOME}/google-coral && mkdir -p ${CORAL_DIR}
@@ -18,7 +27,7 @@ DETECT_DIR=${PWD}/out && mkdir -p $DETECT_DIR
 
 ```
 
-#### Modify the dockerfile, use a container with GPU support (The Nvidia image contain cuDNN)
+#### Modify the dockerfile, use a container with GPU support (The Nvidia image have support for cuDNN)
 Note that the other changes done later might allow for using original Tensorflow-gpu images
 
 Edith the dockerfile with your favourite editor
