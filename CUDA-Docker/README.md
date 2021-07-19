@@ -101,6 +101,11 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 ```
 
+TODO: Scripted insert in mode_main.py
+```bash
+sed '/^import tensorflow as tf.*/a from tensorflow import ConfigProto\nfrom tensorflow import InteractiveSession\nconfig = ConfigProto()\nconfig.gpu_options.allow_growth = True\nsession = InteractiveSession(config=config)\n' model_main.py
+```
+
 #### Modify the batch_size in pipeline.config(16 or 20 worked for me)
 ```bash
 vi learn_pet/ckpt/pipeline.config 
