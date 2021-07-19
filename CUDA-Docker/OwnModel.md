@@ -7,6 +7,34 @@
 * Replace default LearnPet in https://coral.ai/docs/edgetpu/retrain-detection/#start-training
 
 
+### Resize images - Keep annotation ofcourse
+```
+mkdir -p $HOME/tmp
+cd $HOME
+git clone https://github.com/italojs/resize_dataset_pascalvoc
+
+# I had isseuse with the requirements.txt due to version conflicts, so here is the libraries I needed.
+
+sudo apt install python3-pip
+pip install opencv_python numpy
+
+# If on a headless server
+sudo apt-get install -y libgl1-mesa-dev 
+
+cd resize_dataset_pascalvoc
+
+#
+# python3 main.py -p <IMAGES_&_XML_PATH> --output <IMAGES_&_XML> --new_x <NEW_X_SIZE> --new_y <NEW_X_SIZE> --save_box_images <FLAG>"
+#
+
+python3 main.py -p $HOME/model/ --output $HOME/tmp/ --new_x 300 --new_y 300
+
+python3 main.py -p $HOME/model --output $HOME/tmp --new_x 300 --new_y 300
+
+
+```
+
+
 
 ### Train and evaluate dirtribution
 ```
@@ -14,7 +42,7 @@ cd $HOME
 
 git clone https://github.com/jarleven/Notes.git
 
-mkdir model
+mkdir -p $HOME/model
 cp -r $HOME/Notes/SalmonModel/* $HOME/model
 cd $HOME/model
 
