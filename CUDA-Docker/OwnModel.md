@@ -23,7 +23,7 @@ make qt5py3
 
 
 
-### Resize images - Keep annotation ofcourse
+### Resize images - Keep annotation of course
 ```
 mkdir -p $HOME/tmp
 cd $HOME
