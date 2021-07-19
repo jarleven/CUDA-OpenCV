@@ -7,6 +7,22 @@
 * Replace default LearnPet in https://coral.ai/docs/edgetpu/retrain-detection/#start-training
 
 
+### LabelImg
+```
+cd $HOME
+git clone https://github.com/tzutalin/labelImg.git
+
+sudo apt install -y python3-pip
+sudo apt install -y pyqt5-dev-tools
+cd $HOME/labelImg/
+sudo pip3 install -r requirements/requirements-linux-python3.txt
+make qt5py3
+
+
+```
+
+
+
 ### Resize images - Keep annotation ofcourse
 ```
 mkdir -p $HOME/tmp
@@ -15,7 +31,7 @@ git clone https://github.com/italojs/resize_dataset_pascalvoc
 
 # I had isseuse with the requirements.txt due to version conflicts, so here is the libraries I needed.
 
-sudo apt install python3-pip
+sudo apt install -y python3-pip
 pip install opencv_python numpy
 
 # If on a headless server
