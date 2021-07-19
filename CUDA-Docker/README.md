@@ -13,75 +13,80 @@ DETECT_DIR=${PWD}/out && mkdir -p $DETECT_DIR
 
 ```
 
+#### Modify the dockerfile, use a container with GPU support
+Note that the other changes done later might allow for using original Tensorflow-gpu images
 
+Edith the dockerfile with your favourite editor
+```bash
 vi Dockerfile
+```
+```python
 #FROM tensorflow/tensorflow:1.15.5
 FROM nvcr.io/nvidia/tensorflow:21.06-tf1-py3
+```
 
-
-# Copy the backup files to the docker directory so we can reach them inside
-mkdir ~/google-coral/tutorials/docker/object_detection/out/tmp
-cp ~/fileArchive/pet/*.tar.gz ~/google-coral/tutorials/docker/object_detection/out/tmp/
-
-
+#### Build the container
+```bash
 docker build . -t detect-tutorial-tf1
+```
 
 
+#### Run the container
+```bash
+
+docker run --runtime=nvidia --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 \
+           --name edgetpu-detect --rm -it --privileged -p 6006:6006 \
+	   --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_pet detect-tutorial-tf1
+```
+
+#### In my setup I have a RTX2070 and a GTX 1080
+device: 0, name: NVIDIA GeForce RTX 2070 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5
+device: 1, name: NVIDIA GeForce GTX 1080 Ti, pci bus id: 0000:04:00.0, compute capability: 6.1
 
 
+```bash
 
-cd $HOME/google-coral/tutorials/docker/object_detection
-DETECT_DIR=${PWD}/out
+export CUDA_VISIBLE_DEVICES='1'
 
-
-docker run --runtime=nvidia --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 --name edgetpu-detect --rm -it --privileged -p 6006:6006 --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_pet detect-tutorial-tf1
-
+```
 
 
-vi prepare_checkpoint_and_dataset.sh 
-# ************************************************
-# Edit root@9a1eeaeb326e:/tensorflow/models/research# vi prepare_checkpoint_and_dataset.sh 
-
-
-mkdir -p "${LEARN_DIR}"
-cd "${LEARN_DIR}"
-
-cp /tensorflow/models/research/learn_pet/tmp/ssd_mobilenet_v1_quantized_300x300_coco14_sync_2018_07_18.tar.gz .
-
-mkdir -p "${DATASET_DIR}"
-cd "${DATASET_DIR}"
-cp /tensorflow/models/research/learn_pet/tmp/annotations.tar.gz .
-cp /tensorflow/models/research/learn_pet/tmp/images.tar.gz .
-
-
-****************************************
-
+```bash
 
 ./prepare_checkpoint_and_dataset.sh --network_type mobilenet_v1_ssd --train_whole_model true
 
+```
 
 
+#### Edit the 
+vi object_detection/model_main.py
+```python
 
+from tensorflow import ConfigProto
+from tensorflow import InteractiveSession
 
+config = ConfigProto()
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
+```
 
-# DETTE HAR EFFEKT  / det er device 0 og 1, men med linja under blir det kun device 0
-#    device: 0, name: NVIDIA GeForce RTX 2070 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5)
-     device: 0, name: NVIDIA GeForce GTX 1080 Ti, pci bus id: 0000:04:00.0, compute capability: 6.1)
+#### Modify the batch_size
+```
+vi learn_pet/ckpt/pipeline.config 
 
-#
-#
-!!!! CUDA_
-export NVIDIA_VISIBLE_DEVICES='1'
+batch_size in pipeline.config
+```
 
-
+```bash
 NUM_TRAINING_STEPS=50000 && NUM_EVAL_STEPS=2000
 
+# to rerun the training first delete the contents of the train folder
 rm -rf learn_pet/train/*
 
 ./retrain_detection_model.sh \
 --num_training_steps ${NUM_TRAINING_STEPS} \
 --num_eval_steps ${NUM_EVAL_STEPS}
-
+```
 
 
 
