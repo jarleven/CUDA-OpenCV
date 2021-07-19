@@ -40,8 +40,10 @@ docker run --runtime=nvidia --shm-size=1g --ulimit memlock=-1 --ulimit stack=671
 ```
 
 #### In my setup I have a RTX2070 and a GTX 1080
+```
 device: 0, name: NVIDIA GeForce RTX 2070 SUPER, pci bus id: 0000:01:00.0, compute capability: 7.5
 device: 1, name: NVIDIA GeForce GTX 1080 Ti, pci bus id: 0000:04:00.0, compute capability: 6.1
+```
 
 
 ```bash
@@ -58,8 +60,11 @@ export CUDA_VISIBLE_DEVICES='1'
 ```
 
 
-#### Edit the 
+#### Edit the model_main.py file
+```bash
 vi object_detection/model_main.py
+```
+Add the following 
 ```python
 
 from tensorflow import ConfigProto
