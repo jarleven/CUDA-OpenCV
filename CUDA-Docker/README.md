@@ -109,7 +109,9 @@ vi learn_pet/ckpt/pipeline.config
 #  batch_size: 128
    batch_size: 16
 ```
-
+TODO: Script the modification in of the batch_size
+```bash
+sed -i "s/batch_size:.*/batch_size: 28/g" pipeline.config
 ```
 
 #### Start training
