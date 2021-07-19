@@ -3,6 +3,11 @@
 https://coral.ai/docs/edgetpu/retrain-detection/#run-the-model
 
 
+#### The reason for some of the changes is related to the the following errors/crash scenarios
+```
+Allocator (GPU_0_bfc) ran out of memory trying to allocate	
+```
+
 ```bash
 
 CORAL_DIR=${HOME}/google-coral && mkdir -p ${CORAL_DIR}
