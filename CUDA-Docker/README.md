@@ -18,7 +18,7 @@ DETECT_DIR=${PWD}/out && mkdir -p $DETECT_DIR
 
 ```
 
-#### Modify the dockerfile, use a container with GPU support
+#### Modify the dockerfile, use a container with GPU support (The Nvidia image contain cuDNN)
 Note that the other changes done later might allow for using original Tensorflow-gpu images
 
 Edith the dockerfile with your favourite editor
