@@ -114,18 +114,18 @@ def dict_to_tf_example(data,
     raise ValueError('Image format not JPEG')
   key = hashlib.sha256(encoded_jpg).hexdigest()
 
-  with tf.gfile.GFile(mask_path, 'rb') as fid:
-    encoded_mask_png = fid.read()
-  encoded_png_io = io.BytesIO(encoded_mask_png)
-  mask = PIL.Image.open(encoded_png_io)
-  if mask.format != 'PNG':
-    raise ValueError('Mask format not PNG')
+  #with tf.gfile.GFile(mask_path, 'rb') as fid:
+  #  encoded_mask_png = fid.read()
+  #encoded_png_io = io.BytesIO(encoded_mask_png)
+  #mask = PIL.Image.open(encoded_png_io)
+  #if mask.format != 'PNG':
+  #  raise ValueError('Mask format not PNG')
 
-  mask_np = np.asarray(mask)
-  nonbackground_indices_x = np.any(mask_np != 2, axis=0)
-  nonbackground_indices_y = np.any(mask_np != 2, axis=1)
-  nonzero_x_indices = np.where(nonbackground_indices_x)
-  nonzero_y_indices = np.where(nonbackground_indices_y)
+  #mask_np = np.asarray(mask)
+  #nonbackground_indices_x = np.any(mask_np != 2, axis=0)
+  #nonbackground_indices_y = np.any(mask_np != 2, axis=1)
+  #nonzero_x_indices = np.where(nonbackground_indices_x)
+  #nonzero_y_indices = np.where(nonbackground_indices_y)
 
   width = int(data['size']['width'])
   height = int(data['size']['height'])
@@ -217,7 +217,7 @@ def create_tf_record(output_filename,
                      annotations_dir,
                      image_dir,
                      examples,
-                     faces_only=True,
+                     faces_only=False,
                      mask_type='png'):
   """Creates a TFRecord file from examples.
 
