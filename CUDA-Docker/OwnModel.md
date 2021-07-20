@@ -80,18 +80,36 @@ tail -n +$b list.tmp > test.txt
 ```
 ### Copy replace the cats and dogs in the "Google Coral Retrain an object detection model"
 ```
+sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/pet_label_map.pbtxt
 sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/*.txt
-sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/*.xml
-sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/*.jpg
+sudo rm -rf $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls
+sudo rm -rf $HOME/google-coral/tutorials/docker/object_detection/out/pet/images
 
-sudo cp $HOME/tmp/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
-sudo cp $HOME/tmp/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
-sudo cp $HOME/tmp/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
+sudo mkdir $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls
+sudo mkdir $HOME/google-coral/tutorials/docker/object_detection/out/pet/images
+	
+
+sudo cp $HOME/model/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
+sudo cp $HOME/model/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
+sudo cp $HOME/model/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
+
+cd $HOME
+rm -rf pet_label_map.pbtxt pipeline.config
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/pet_label_map.pbtxt	
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/pipeline.config
+
+sudo cp pet_label_map.pbtxt $HOME/google-coral/tutorials/docker/object_detection/out/pet/
 
 
-cd $HOME/google-coral/tutorials/docker/object_detection/out/pet
-wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/pet_label_map.pbtxt
+sudo cp pipeline.config $HOME/google-coral/tutorials/docker/object_detection/out/ckpt/
 
+
+
+
+
+
+
+TODO edit below
 
 # The Salmon model only contain one class so we should edit the "num_classes: 1"
 
