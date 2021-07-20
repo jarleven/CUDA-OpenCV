@@ -89,9 +89,9 @@ sudo mkdir $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotati
 sudo mkdir $HOME/google-coral/tutorials/docker/object_detection/out/pet/images
 	
 
-sudo cp $HOME/model/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
-sudo cp $HOME/model/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
-sudo cp $HOME/model/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
+sudo cp $HOME/tmp/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
+sudo cp $HOME/tmp/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
+sudo cp $HOME/tmp/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
 
 cd $HOME
 rm -rf pet_label_map.pbtxt pipeline.config
