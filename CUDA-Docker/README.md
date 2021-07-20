@@ -7,6 +7,10 @@ https://coral.ai/docs/edgetpu/retrain-detection/#run-the-model
 ```
 Allocator (GPU_0_bfc) ran out of memory trying to allocate
 OOM when allocating tensor with shape
+
+
+
+Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
 ```
 
 #### On Ubuntu 20.04.2 LTS
