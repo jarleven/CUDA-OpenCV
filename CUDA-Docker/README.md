@@ -74,13 +74,14 @@ export CUDA_VISIBLE_DEVICES='1'
 
 ```
 
-TODO: Does this have the same effect. 
+TODO: Does this have the same effect. 20.07.2021 yes looks like it
 ```
 --env , -e 		Set environment variables
 
-docker run --runtime=nvidia -e CUDA_VISIBLE_DEVICES='1' --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 --name edgetpu-detect --rm -it --privileged -p 6006:6006 --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_pet detect-tutorial-tf1
-
-
+docker run --runtime=nvidia --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 \
+           --env CUDA_VISIBLE_DEVICES='1' \
+           --name edgetpu-detect --rm -it --privileged -p 6006:6006 \
+	   --mount type=bind,src=${DETECT_DIR},dst=/tensorflow/models/research/learn_pet detect-tutorial-tf1
 ```
 
 
@@ -143,4 +144,8 @@ sudo docker exec -it edgetpu-detect /bin/bash
 
 ```bash
 tensorboard --logdir=./learn_pet/train/
+```
+Or as a oneliner
+```bash
+sudo docker exec -it edgetpu-detect /bin/bash -c "tensorboard --logdir=./learn_pet/train/"
 ```
