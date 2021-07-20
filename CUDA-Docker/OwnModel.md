@@ -77,6 +77,8 @@ sort -R list.txt > list.tmp
 head -n $a list.tmp > trainval.txt
 tail -n +$b list.tmp > test.txt
 
+cp *.txt $HOME/tmp
+
 ```
 ### Copy replace the cats and dogs in the "Google Coral Retrain an object detection model"
 ```
