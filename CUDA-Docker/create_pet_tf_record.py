@@ -69,8 +69,10 @@ def get_class_name_from_filename(file_name):
   Returns:
     A string of the class name.
   """
-  match = re.match(r'([A-Za-z_]+)(_[0-9]+\.jpg)', file_name, re.I)
-  return match.groups()[0]
+  #match = re.match(r'([A-Za-z_]+)(_[0-9]+\.jpg)', file_name, re.I)
+  #return match.groups()[0]
+  # Need to investigate a bit here
+  return 'Salmon'
 
 
 def dict_to_tf_example(data,
