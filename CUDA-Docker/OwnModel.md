@@ -104,6 +104,20 @@ sudo cp pet_label_map.pbtxt $HOME/google-coral/tutorials/docker/object_detection
 sudo cp pipeline.config $HOME/google-coral/tutorials/docker/object_detection/out/ckpt/
 
 
+Inside Docker
+cd object_detection/dataset_tools/
+rm create_pet_tf_record.py 
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/create_pet_tf_record.py
+
+cd ../../
+
+source "$PWD/constants.sh"
+python object_detection/dataset_tools/create_pet_tf_record.py \
+   --label_map_path="${DATASET_DIR}/pet_label_map.pbtxt" \
+   --data_dir="${DATASET_DIR}"  \
+   --output_dir="${DATASET_DIR}"
+
+
 
 
 
