@@ -93,6 +93,7 @@ docker run --runtime=nvidia --shm-size=1g --ulimit memlock=-1 --ulimit stack=671
 
 
 #### Edit the model_main.py file
+#### With everything else configured correctly it looks like this is NOT needed - Note 20.07.2021
 ```bash
 vi object_detection/model_main.py
 ```
