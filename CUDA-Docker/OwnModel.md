@@ -180,5 +180,8 @@ home $HOME/google-coral/tutorials/docker/object_detection/out
 └── train
 ```
 
-
-
+Run this on the EdgeTPU demoboard with a RTSP camera
+```
+@Ziegan Yes you can, quite easily by changing this line to take the rtsp source as argument:
+https://github.com/google-coral/examples-camera/blob/master/opencv/detect.py#L94
+```
