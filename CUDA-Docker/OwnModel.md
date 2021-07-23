@@ -82,6 +82,7 @@ cp *.txt $HOME/tmp
 ```
 ### Copy replace the cats and dogs in the "Google Coral Retrain an object detection model"
 ```
+
 sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/pet_label_map.pbtxt
 sudo rm $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/*.txt
 sudo rm -rf $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls
@@ -91,9 +92,11 @@ sudo mkdir $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotati
 sudo mkdir $HOME/google-coral/tutorials/docker/object_detection/out/pet/images
 	
 
-sudo cp $HOME/tmp/*.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
-sudo cp $HOME/tmp/*.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
-sudo cp $HOME/tmp/*.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
+cd $HOME/model
+
+sudo cp *.txt $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/
+sudo cp *.xml $HOME/google-coral/tutorials/docker/object_detection/out/pet/annotations/xmls/
+sudo cp *.jpg $HOME/google-coral/tutorials/docker/object_detection/out/pet/images/
 
 cd $HOME
 rm -rf pet_label_map.pbtxt pipeline.config
