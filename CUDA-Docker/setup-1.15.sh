@@ -25,6 +25,7 @@
 
 apt update
 apt install -y python3 python3-pip git vim
+apt install -y libgl1-mesa-glx
 pip3 install --upgrade pip
 git clone https://github.com/matterport/Mask_RCNN
 cd Mask_RCNN
