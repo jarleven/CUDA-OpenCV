@@ -305,7 +305,8 @@ if __name__ == '__main__':
         dataset_train, dataset_val = LabelmeDataset(), LabelmeDataset()
         dataset_train.load_labelme(args.dataset,"train")
         dataset_val.load_labelme(args.dataset,"val")
-        config.NUM_CLASSES = len(dataset_train.class_info)
+        #config.NUM_CLASSES = len(dataset_train.class_info)
+        config.NUM_CLASSES = 1
     elif args.command == "test":
         config = InferenceConfig()
         config.NUM_CLASSES = int(args.classnum)+1 # add backgrouond
