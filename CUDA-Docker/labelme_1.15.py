@@ -344,7 +344,7 @@ if __name__ == '__main__':
     # Train or evaluate
     if args.command == "train":
         train(model)
-    elif args.command == "splash":
+    elif args.command == "test":
         savedfile_name = os.path.splitext(args.image)[0] + ".png"
         test(model, image_path=args.image,
                                 video_path=args.video, savedfile=savedfile_name)
