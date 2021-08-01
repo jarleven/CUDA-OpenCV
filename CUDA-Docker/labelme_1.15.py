@@ -1,5 +1,6 @@
 # labelme.py
- 
+# Modified for TF 1.15 https://www.programmersought.com/article/45855277089/
+
 # import
 import os
 import sys
@@ -239,7 +240,7 @@ def test(model, image_path = None, video_path=None, savedfile=None):
         _, ax = plt.subplots()
         visualize.display_instances(image, boxes=r['rois'], masks=r['masks'], 
             class_ids = r['class_ids'], ax = ax,
-            class_names=["Background", "Salmon"],scores=None, show_mask=True, show_bbox=True)
+            class_names=["BG", "Salmon"],scores=None, show_mask=True, show_bbox=True)
         # Save output
         if savedfile == None:
             file_name = "test_{:%Y%m%dT%H%M%S}.png".format(datetime.datetime.now())
