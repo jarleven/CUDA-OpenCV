@@ -32,7 +32,6 @@ cd Mask_RCNN
 
 rm requirements.txt
 wget --output-document=requirements.txt https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/requirements-1.15.txt
-
 	
 pip3 install -r requirements.txt
 python3 setup.py install
@@ -41,7 +40,10 @@ cp /host/mask_rcnn_balloon.h5 .
 
 
 cd samples/balloon/
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/CUDA-Docker/labelme_1.15.py
+
 echo "To run the training do :"
+echo "cd samples/balloon/"
 echo "python3 balloon.py train --dataset=/host/balloon --weights=coco"
 echo ""
 
