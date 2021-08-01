@@ -27,3 +27,8 @@ git clone https://github.com/ahmedfgad/Mask-RCNN-TF2.git
 
 python3 balloon.py train --dataset=/host/balloon --weights=coco
 python3 labelme_1.15.py train --dataset=/host/JsonDataset/ --weights=coco
+
+for f in /host/Notes/SalmonModel/*.jpg; do python3 labelme_1.15.py test --weights=/host/mask_rcnn_coco_tf22_01082021 --image=$f --classnum=1; done
+
+ /host/mask_rcnn_coco_tf22_01082021/mask_rcnn_mmodel_0030.h5
+
