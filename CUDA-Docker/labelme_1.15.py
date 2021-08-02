@@ -343,7 +343,7 @@ if __name__ == '__main__':
 
     # Train or evaluate
     if args.command == "train":
-        train(model)
+        train(dataset_train, dataset_val, model)
     elif args.command == "test":
         savedfile_name = os.path.splitext(args.image)[0] + ".png"
         test(model, image_path=args.image,
