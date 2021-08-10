@@ -115,8 +115,8 @@ class CocoDatasetHandler:
     def save_labelme(self, file_names, dirpath, save_json_only=False):
         if not os.path.exists(dirpath):
             os.makedirs(dirpath)
-        else:
-            raise ValueError(f"{dirpath} has existed")
+        #else:
+        #    raise ValueError(f"{dirpath} has existed")
 
         for file in file_names:
             filename = os.path.basename(os.path.splitext(file)[0])
@@ -125,7 +125,34 @@ class CocoDatasetHandler:
             if not save_json_only:
                 subprocess.call(['cp', os.path.join(self.imgpath, file), dirpath])
 
+#
+# python3 coco2labelme.py --json=fisk__frame__299.json --imagepath=/Mask-RCNN-TF2/samples/balloon --labelmepath=/Mask-RCNN-TF2/samples/balloon/testmeg
+#
+# for f in *.json; do python3 coco2labelme.py --json=$f --imagepath=/Mask-RCNN-TF2/samples/balloon --labelmepath=/Mask-RCNN-TF2/samples/balloon/testmeg; done
+#
+if __name__ == '__main__':
+    import argparse
 
-ds = CocoDatasetHandler('cocodataset/annotations/instances_train2014.json', 'cocodataset/train2014/')
-ds.coco2labelme()
-ds.save_labelme(ds.labelme.keys(), 'cocodataset/labelme/train2014')
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(
+        description='Convert COCO annotation to Labelme annotation.')
+    parser.add_argument('--json', required=True,
+                        metavar="test.json",
+                        help='COCO json file')
+    parser.add_argument('--imagepath', required=True,
+                        metavar="/path/to/images",
+                        help="Path to jpg images")
+    parser.add_argument('--labelmepath', required=True,
+                        metavar="/path/to/new/labelmefolder",
+                        help='Folder to save Labelme annotations')
+    args = parser.parse_args()
+
+    print("JSON:   ", args.json)
+    print("Images: ", args.imagepath)
+    print("Output: ", args.labelmepath)
+
+
+    ds = CocoDatasetHandler(args.json, args.imagepath)
+    ds.coco2labelme()
+    ds.save_labelme(ds.labelme.keys(), args.labelmepath)
+
