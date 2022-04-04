@@ -11,8 +11,19 @@ https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html
 
 ```
 ```
+Ubuntu 22.04.4
 
-docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tfx-py3
+
+https://ngc.nvidia.com/setup/api-key
+
+
+
+https://docs.nvidia.com/deeplearning/frameworks/tensorflow-release-notes/running.html
+
+docker pull nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+
+
+docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 
 ```
