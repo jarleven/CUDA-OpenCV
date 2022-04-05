@@ -67,3 +67,9 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 ```
 
+```
+cd ~/object....
+cd dockerfiles
+docker build -t object_detection_webcam . # don’t forget the period at the end
+
+```
