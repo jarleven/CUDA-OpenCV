@@ -25,7 +25,7 @@ https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.
 docker pull nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 
-docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 
 ```
