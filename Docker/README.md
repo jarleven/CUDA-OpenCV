@@ -37,7 +37,9 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y curl vim 
+sudo apt install -y curl vim git
+
+git clone https://github.com/NVIDIA/object-detection-tensorrt-example.git
 
 curl https://get.docker.com | sh && sudo systemctl --now enable docker
 
