@@ -42,6 +42,7 @@ sudo apt install -y curl vim
 
 curl https://get.docker.com | sh && sudo systemctl --now enable docker
 
+# Test Docker
 docker run hello-world
 
 
@@ -56,6 +57,8 @@ sudo apt update
 sudo apt install -y nvidia-docker2
 sudo systemctl restart docker
 
+# Test the NVIDIA Container Toolkit
+sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 ```
 
