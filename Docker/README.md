@@ -11,8 +11,8 @@ https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html
 
 ```
 ```
-Ubuntu 22.04.4
-
+Ubuntu 21.04.4
+NVIDIA 510 driver
 
 https://ngc.nvidia.com/setup/api-key
 
