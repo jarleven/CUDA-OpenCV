@@ -20,6 +20,9 @@ https://ngc.nvidia.com/setup/api-key
 
 https://docs.nvidia.com/deeplearning/frameworks/tensorflow-release-notes/running.html
 
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
+
+
 docker pull nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 
