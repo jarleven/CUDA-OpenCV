@@ -14,7 +14,6 @@ https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html
 Ubuntu 21.04.4
 NVIDIA 510 driver
 
-https://ngc.nvidia.com/setup/api-key
 
 
 
@@ -59,6 +58,10 @@ sudo systemctl restart docker
 
 # Test the NVIDIA Container Toolkit
 sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
+
+# After aquiering the NGC license key you can download and run the NGC deep learning Docker image
+
+sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 ```
 
