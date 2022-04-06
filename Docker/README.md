@@ -73,3 +73,12 @@ cd dockerfiles
 docker build -t object_detection_webcam . # don’t forget the period at the end
 
 ```
+
+### Ubuntu / Juniper
+```
+Evheniy Bystrov
+
+https://towardsdatascience.com/tensorflow-object-detection-with-docker-from-scratch-5e015b639b0b
+
+
+```
