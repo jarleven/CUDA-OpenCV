@@ -109,3 +109,28 @@ CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/tensorflow/models/r
 
 
 ```
+
+### Tensorflow 2.0.8 Jupyter
+```
+sudo docker pull tensorflow/tensorflow:2.8.0-gpu-jupyter
+
+
+docker run --name tensorflow: -p 8888:8888 -d tensorflow
+
+```   
+```   
+https://medium.com/@horczech/how-to-setup-tensorflow-object-detection-api-using-docker-cc9d4b3a1eef
+
+
+docker build -f research/object_detection/dockerfiles/tf2/Dockerfile -t od .
+
+docker run -it od
+
+
+
+https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/2.2.0/install.html
+
+wget https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/2.2.0/_downloads/7dbbdbf71c3c2b2b95d1be96108eb15b/plot_object_detection_simple.py
+
+```   
+
