@@ -132,5 +132,8 @@ https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/2.2.0/install
 
 wget https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/2.2.0/_downloads/7dbbdbf71c3c2b2b95d1be96108eb15b/plot_object_detection_simple.py
 
+
+docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
+
 ```   
 
