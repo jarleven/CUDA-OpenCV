@@ -95,7 +95,9 @@ RUN pip install tensorflow
 RUN apt-get install -y protobuf-compiler python-pil python-lxml
 RUN pip install jupyter
 RUN pip install matplotlib
-RUN git clone -b r13.0.0 https://github.com/tensorflow/models.git /tensorflow/models
+#RUN git clone -b r1.13.0 https://github.com/tensorflow/models.git /tensorflow/models
+RUN git clone -b v1.4.0 https://github.com/tensorflow/models.git ~/tensorflow/models
+
 WORKDIR /tensorflow/models/research
 RUN protoc object_detection/protos/*.proto --python_out=.
 RUN export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
