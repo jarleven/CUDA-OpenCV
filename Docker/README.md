@@ -177,6 +177,9 @@ sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:
 # From inside the container run:
 apt-get update && apt-get install -qqy x11-apps && xeyes
 
+# Some 3D rendering
+apt install mesa-utils
+glxgears
 
 ```   
 
