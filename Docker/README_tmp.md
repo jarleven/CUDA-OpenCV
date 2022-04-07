@@ -56,6 +56,10 @@ sudo xhost +local:root;
 # Start the container
 sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
+# Fix the memory warning
+sudo docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+
+
 # From inside the container install and run XEyes:
 apt update
 apt install -qqy x11-apps
