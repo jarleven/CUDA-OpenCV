@@ -192,3 +192,7 @@ https://forums.developer.nvidia.com/t/the-deepstream-image-nvcr-io-nvidia-deepst
 GLX Gears
 https://github.com/NVIDIA/nvidia-docker/issues/586
 ```   
+### Study hard
+```
+https://medium.com/mlearning-ai/multiple-object-detection-using-nvidias-transfer-learning-toolkit-e7cfc1b5a381
+```
