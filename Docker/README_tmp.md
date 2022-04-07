@@ -42,6 +42,11 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 #   -e
 #   -v
 #
+#  --ipc
+#  --ulimit memlock=-1
+#  --ulimit stack=
+#
+#
 
 ```
 
