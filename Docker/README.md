@@ -135,5 +135,8 @@ wget https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/2.2.0/_d
 
 docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix
 
+sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -it od
+
+
 ```   
 
