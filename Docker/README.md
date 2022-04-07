@@ -140,3 +140,21 @@ sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix 
 
 ```   
 
+### Tensorflow test
+```   
+python -c 'import tensorflow as tf; print(tf.__version__)'  # for Python 2
+python3 -c 'import tensorflow as tf; print(tf.__version__)'  # for Python 3
+
+```   
+
+### XEyes
+```   
+# https://medium.com/@pigiuz/hw-accelerated-gui-apps-on-docker-7fd424fe813e
+xhost +local:root; \
+docker run -d \
+-e DISPLAY=$DISPLAY \
+-v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+ubuntu:latest \
+sh -c 'apt-get update && apt-get install -qqy x11-apps && xeyes'
+
+```   
