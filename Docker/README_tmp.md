@@ -33,6 +33,16 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 
 sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
+
+
+#
+#  --gpus
+#   -it
+#  --rm
+#   -e
+#   -v
+#
+
 ```
 
 
