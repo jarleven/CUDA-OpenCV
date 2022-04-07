@@ -1,5 +1,14 @@
 ### 2022 Testing the NVIDIA Docker images
 
+
+
+### Stopping containers and cleaning up your environment
+```
+https://typeofnan.dev/how-to-stop-all-docker-containers/
+
+
+```
+
 #### First look
 
 ```
@@ -157,4 +166,24 @@ docker run -d \
 ubuntu:latest \
 sh -c 'apt-get update && apt-get install -qqy x11-apps && xeyes'
 
+
+
+
+# Allow Docker containers access to the display
+sudo xhost +local:root;
+# Start the container
+sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+
+# From inside the container run:
+apt-get update && apt-get install -qqy x11-apps && xeyes
+
+
+```   
+
+### X11 / Display - in non sorted order
+```   
+https://forums.developer.nvidia.com/t/the-deepstream-image-nvcr-io-nvidia-deepstream-l4t-5-1-21-02-samples-pulled-from-ngc-to-my-nvidia-nx-failed-to-start-any-application/179021/26?page=2
+
+GLX Gears
+https://github.com/NVIDIA/nvidia-docker/issues/586
 ```   
