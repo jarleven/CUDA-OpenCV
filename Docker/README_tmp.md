@@ -12,7 +12,7 @@ git clone https://github.com/NVIDIA/object-detection-tensorrt-example.git
 curl https://get.docker.com | sh && sudo systemctl --now enable docker
 
 # Test Docker
-docker run hello-world
+sudo docker run hello-world
 
 
 # Add the NVIDIA Toolkit to the APT sources list
@@ -34,3 +34,26 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 
 ```
+
+
+
+### XEyes and GLX Gears
+```   
+
+# Allow Docker containers access to the display
+sudo xhost +local:root;
+
+# Start the container
+sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+
+# From inside the container install and run XEyes:
+apt update
+apt install -qqy x11-apps
+xeyes
+
+# Some 3D rendering with GLX Gears
+apt install mesa-utils
+glxgears
+
+```   
+
