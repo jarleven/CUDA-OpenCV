@@ -48,6 +48,27 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 #
 #
 
+ 
+
+ #   sudo    : admin privilages
+ #   docker  : calling docker which we installed earlier
+ #   run     : asking docker to run the image which we will describe ahead
+ #   — — runtime=nvidia : initiating the layer of nvidia-docker (installed earlier)
+ #   -it     : this will keep the container interactive, will allow us to write/edit commands inside the container.
+ #   -d       : represents detach mode, meaning it will print the container ID and container will be running in background, which we will access it afterwards.
+ #   -e DISPLAY=$DISPLAY : is to set environmental variables, meaning giving container the path to DISPLAY in a same fashion our ubuntu uses display.
+ #   — — name=dst : it is the name of your container, I have used ‘Thor’, you can use what ever you like BlackWidow, KhalDrogo, NightKing are all good names.
+ #   -v $HOME/Documents/DS_computer_vision/:/home/ : This ‘-v’ helps us to mount the directory from our host system inside the container, syntax is something like HOST MACHINE ADDR(documents/DS_computer_vision):ADDR INSIDE CONTAINER(/home/). And since we know the container is following ubuntu kernel, there would be a folder name home. so all our files will be mounted inside home folder of container and I feel very comfortable working with this as there is no place like HOME.
+ #   — — net=host : this lets the container to communicate through internet on all ports , you can restrict it by using -p publish command. but its not worth it so dont try.
+ #   — — gpus=all : helps NVIDIA-DOCKER to access to all gpus on your machine, and since before all this docker you have installed NVIDIA_DRIVERS AND CUDA , this helps our container to see the Gpu on your machine.
+    nvcr.io/nvidia/deepstream:5.1-21.02-triton : Last but not least is the name of the main DEEPSTREAM image which will be now converted to container name — ‘dst’.
+
+
+
+
+
+
+
 ```
 
 
@@ -76,3 +97,9 @@ glxgears
 
 ```   
 
+### Credits
+```   
+
+https://medium.com/mlearning-ai/computer-vision-ai-in-production-using-nvida-deepstream-6c90d3daa8a5
+
+```   
