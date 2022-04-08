@@ -185,6 +185,25 @@ glxgears
 
 ```   
 
+```   
+
+https://medium.com/mlearning-ai/computer-vision-ai-in-production-using-nvida-deepstream-6c90d3daa8a5
+
+
+git clone https://github.com/deep28vish/DeepStream.git
+
+sudo docker run --runtime=nvidia -it -d -e DISPLAY=$DISPLAY --name Thor -v $HOME/Documents/DS_computer_vision/:/home/ --net=host --gpus all nvcr.io/nvidia/deepstream:5.1-21.02-triton
+
+sudo xhost +local:root;
+sudo nvidia-docker exec -it Thor bash
+
+
+root@DockerGPU:/hei# /opt/nvidia/deepstream/deepstream-5.1/bin/deepstream-app -c deep_stream_1_feed_3_classification.txt --tiledtext
+
+
+```   
+
+
 ### X11 / Display - in non sorted order
 ```   
 https://forums.developer.nvidia.com/t/the-deepstream-image-nvcr-io-nvidia-deepstream-l4t-5-1-21-02-samples-pulled-from-ngc-to-my-nvidia-nx-failed-to-start-any-application/179021/26?page=2
