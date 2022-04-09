@@ -237,6 +237,18 @@ apt update
 apt install nano
 
 
+
+
+apt install libgl1-mesa-glx
+# Package python3-opencv includes all system dependencies of OpenCV.
+RUN apt-get update && apt-get install -y python3-opencv
+RUN pip install opencv-python
+
+
+
+
+
+
 ```
 
 
