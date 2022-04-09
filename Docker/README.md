@@ -209,9 +209,8 @@ root@DockerGPU:/hei# /opt/nvidia/deepstream/deepstream-5.1/bin/deepstream-app -c
 https://forums.developer.nvidia.com/t/the-deepstream-image-nvcr-io-nvidia-deepstream-l4t-5-1-21-02-samples-pulled-from-ngc-to-my-nvidia-nx-failed-to-start-any-application/179021/26?page=2
 ```
 
-GLX Gears
+### GLX Gears
 ```
-
 https://github.com/NVIDIA/nvidia-docker/issues/586
 ```
 
