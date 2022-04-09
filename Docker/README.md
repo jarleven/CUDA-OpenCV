@@ -219,7 +219,20 @@ https://github.com/NVIDIA/nvidia-docker/issues/586
 https://www.forecr.io/blogs/ai-algorithms/how-to-run-yolov5-real-time-object-detection-on-pytorch-with-docker-on-nvidia-jetson-modules
 
 
-sudo docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+sudo docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/l4t-ml:r32.5.0-py3
+
+
+
+docker run -it --gpus all -v /home/nvidia/docker_yolov5/:/yolov5 -e DISPLAY=:0 -v /tmp/.X11-unix:/tmp/.X11-unix nvcr.io/nvidia/l4t-ml:r32.5.0-py3
+
+sudo docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 -v /home/jarleven/docker_yolov5/:/yolov5 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw  -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
+
+cd yolov5/standard/
+
+apt update
+
+apt install nano
+
 
 ```
 
