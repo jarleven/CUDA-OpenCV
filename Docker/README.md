@@ -202,15 +202,22 @@ root@DockerGPU:/hei# /opt/nvidia/deepstream/deepstream-5.1/bin/deepstream-app -c
 
 
 ```   
-
+|
 
 ### X11 / Display - in non sorted order
-```   
+|```   
 https://forums.developer.nvidia.com/t/the-deepstream-image-nvcr-io-nvidia-deepstream-l4t-5-1-21-02-samples-pulled-from-ngc-to-my-nvidia-nx-failed-to-start-any-application/179021/26?page=2
 
 GLX Gears
 https://github.com/NVIDIA/nvidia-docker/issues/586
-```   
+```
+
+### YOLOv5
+```
+https://www.forecr.io/blogs/ai-algorithms/how-to-run-yolov5-real-time-object-detection-on-pytorch-with-docker-on-nvidia-jetson-modules
+```
+
+
 ### Study hard
 ```
 https://medium.com/mlearning-ai/multiple-object-detection-using-nvidias-transfer-learning-toolkit-e7cfc1b5a381
