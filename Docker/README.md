@@ -246,6 +246,7 @@ RUN pip install opencv-python
 
 
 
+https://www.youtube.com/watch?v=MdF6x6ZmLAY
 
 
 
