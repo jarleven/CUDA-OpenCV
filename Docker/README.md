@@ -156,6 +156,9 @@ python3 -c 'import tensorflow as tf; print(tf.__version__)'  # for Python 3
 
 python -c 'import platform; print("Python version :", platform.python_version())'
 
+python -c 'import cv2; print("OpenCV version :", cv2.__version__)'
+
+
 ```   
 
 ### XEyes
