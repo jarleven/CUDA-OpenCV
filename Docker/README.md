@@ -151,7 +151,7 @@ sudo docker run --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix 
 
 ### Tensorflow test
 ```   
-python -c 'import tensorflow as tf; print(tf.__version__)'  # for Python 2
+python -c 'import tensorflow as tf; print("Python version :", tf.__version__)'  # for Python 2
 python3 -c 'import tensorflow as tf; print(tf.__version__)'  # for Python 3
 
 python -c 'import platform; print("Python version :", platform.python_version())'
