@@ -92,9 +92,7 @@ sudo docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=6710886
 
 
 # From inside the container install and run XEyes:
-apt update
-apt install -qqy x11-apps
-xeyes
+apt update && apt install -qqy x11-apps && xeyes
 
 # Some 3D rendering with GLX Gears
 apt install mesa-utils
