@@ -250,6 +250,9 @@ https://www.youtube.com/watch?v=MdF6x6ZmLAY
 
 
 
+https://colab.research.google.com/github/roboflow-ai/yolov5-custom-training-tutorial/blob/main/yolov5-custom-training.ipynb
+
+
 ```
 
 
