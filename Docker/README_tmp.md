@@ -38,7 +38,10 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 #
 #  --gpus
 #   -it
+
 #  --rm
+#  --name
+
 #   -e
 #   -v
 #
@@ -46,7 +49,8 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
 #  --ulimit memlock=-1
 #  --ulimit stack=
 #
-#
+
+#  --net
 
  
 
@@ -64,6 +68,7 @@ sudo docker run --gpus all -it --rm nvcr.io/nvidia/tensorflow:22.03-tf2-py3
     nvcr.io/nvidia/deepstream:5.1-21.02-triton : Last but not least is the name of the main DEEPSTREAM image which will be now converted to container name — ‘dst’.
 
 
+sudo docker run --runtime=nvidia -it -d -e DISPLAY=$DISPLAY --name Thor -v $HOME/Documents/DS_computer_vision/:/home/ --net=host --gpus all nvcr.io/nvidia/deepstream:5.1-21.02-triton
 
 
 
@@ -95,7 +100,20 @@ xeyes
 apt install mesa-utils
 glxgears
 
-```   
+```
+
+### Camera Eidselva
+```
+
+rtsp://192.168.1.87:554/user=admin&password=&channel=0&stream=0.sdp?real_stream
+
+rtsp://192.168.1.179:554/user=admin&password=&channel=0&stream=0.sdp?real_stream
+
+
+```
+
+
+
 
 ### Credits
 ```   
