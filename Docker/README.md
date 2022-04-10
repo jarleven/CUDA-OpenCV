@@ -18,6 +18,8 @@ https://developer.nvidia.com/blog/object-detection-gpus-10-minutes/?tags=&catego
 https://catalog.ngc.nvidia.com/orgs/nvidia/containers/tensorflow
 https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html
 
+
+https://www.linuxcapable.com/install-nvidia-510-47-xx-drivers-on-ubuntu-20-04-lts/
 ```
 ```
 Ubuntu 21.04.4
