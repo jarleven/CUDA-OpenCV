@@ -7,6 +7,13 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y curl vim git
 
+# For older versions of Ubuntu
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt update
+sudo apt install nvidia-driver-510 -y
+# ( For a headless system sudo apt install nvidia-headless-510 -y  )
+
+
 git clone https://github.com/NVIDIA/object-detection-tensorrt-example.git
 
 curl https://get.docker.com | sh && sudo systemctl --now enable docker
