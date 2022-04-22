@@ -23,6 +23,22 @@ https://github.com/ludwigprager/labelimg
 
 
 
+sudo docker run --runtime=nvidia -it -d -e DISPLAY=$DISPLAY --name Thor -v $HOME/Documents/DS_computer_vision/:/home/ --net=host --gpus all nvcr.io/nvidia/deepstream:5.1-21.02-triton
+
+Working !
+Images in /home/Pictures
+
+sudo xhost +local:root;
+
+docker run -ti --rm \
+      --gpus all \
+      -e DISPLAY=$DISPLAY \
+      -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+	-v /home/Pictures/:/images/ \
+	ludwigprager/labelimg:1
+
+
+
 ```
 
 
