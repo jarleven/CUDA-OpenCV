@@ -18,6 +18,11 @@ https://typeofnan.dev/how-to-stop-all-docker-containers/
 https://github.com/tzutalin/labelImg
 https://www.youtube.com/watch?v=nw1GexJzbCI
 
+
+https://github.com/ludwigprager/labelimg
+
+
+
 ```
 
 
