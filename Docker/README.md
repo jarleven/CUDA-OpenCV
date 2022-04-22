@@ -13,6 +13,14 @@ https://typeofnan.dev/how-to-stop-all-docker-containers/
 
 ```
 
+### LabelImg - Bounding box annotation
+```
+https://github.com/tzutalin/labelImg
+https://www.youtube.com/watch?v=nw1GexJzbCI
+
+```
+
+
 #### First look
 
 ```
