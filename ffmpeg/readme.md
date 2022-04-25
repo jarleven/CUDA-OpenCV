@@ -1,3 +1,13 @@
+### Raspberry Pi
+
+```
+https://forums.raspberrypi.com/viewtopic.php?t=170341
+
+./configure --enable-mmal --enable-omx-rpi --enable-omx --prefix=/usr
+
+
+```
+
 ### An effort to get ffmpeg running on the NVIDIA GPU
 ### I hit the wall last time when trying to add support for text overlay
 
