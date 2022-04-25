@@ -1,9 +1,9 @@
 ### Ubuntu users on the Fileserver
 ```
 sudo useradd -m mrtroll
- TODO: Add bash as default env
- 
-IP addr 192.1.1
+sudo usermod -s /bin/bash mrtroll
+
+IP addr 192.168.1.199  Mellanox 10Gbit 00:02:c9:4f:5b:94
 
 
 ```
