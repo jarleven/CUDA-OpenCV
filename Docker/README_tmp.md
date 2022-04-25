@@ -1,3 +1,23 @@
+### Ubuntu users on the Fileserver
+```
+sudo useradd -m mrtroll
+ TODO: Add bash as default env
+ 
+IP addr 192.1.1
+
+
+```
+
+### Colab and Roboflow - Custom object detection model
+```
+
+https://colab.research.google.com/github/roboflow-ai/yolov5-custom-training-tutorial/blob/main/yolov5-custom-training.ipynb
+
+https://roboflow.com/
+
+```
+
+
 ### Installing Docker and the NVIDIA Container Toolkit
 ```
 # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker
