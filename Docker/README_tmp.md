@@ -21,6 +21,11 @@ https://github.com/ultralytics/yolov5/wiki/Docker-Quickstart
 sudo docker run --ipc=host -it --gpus all ultralytics/yolov5:latest
 
 
+sudo docker run --ipc=host -it  --gpus all -v "$(pwd)"/modeldir:/usr/ ultralytics/yolov5:latest
+
+python detect.py --weights yolov5s.pt --source path/to/images
+
+
 ```
 
 
