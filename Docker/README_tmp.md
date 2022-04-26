@@ -26,6 +26,12 @@ sudo docker run --ipc=host -it  --gpus all -v "$(pwd)"/modeldir:/usr/ ultralytic
 python detect.py --weights yolov5s.pt --source path/to/images
 
 
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+google-colab 1.0.0 requires requests~=2.23.0, but you have requests 2.25.1 which is incompatible.
+datascience 0.10.6 requires folium==0.2.1, but you have folium 0.8.3 which is incompatible.
+albumentations 0.1.12 requires imgaug<0.2.7,>=0.2.5, but you have imgaug 0.2.9 which is incompatible.
+
 ```
 
 
