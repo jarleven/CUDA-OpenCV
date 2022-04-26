@@ -15,6 +15,12 @@ https://colab.research.google.com/github/roboflow-ai/yolov5-custom-training-tuto
 
 https://roboflow.com/
 
+
+https://github.com/ultralytics/yolov5/wiki/Docker-Quickstart
+
+sudo docker run --ipc=host -it --gpus all ultralytics/yolov5:latest
+
+
 ```
 
 
