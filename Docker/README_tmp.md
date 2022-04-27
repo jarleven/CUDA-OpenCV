@@ -149,7 +149,7 @@ glxgears
 
 rtsp://192.168.1.87:554/user=admin&password=&channel=0&stream=0.sdp?real_stream
 
-rtsp://192.168.1.179:554/user=admin&password=&channel=0&stream=0.sdp?real_stream
+rtsp://192.168.1.170:554/user=admin&password=&channel=0&stream=0.sdp?real_stream
 
 
 ```
