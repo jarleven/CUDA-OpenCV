@@ -43,6 +43,29 @@ sudo docker run --ipc=host -it  --gpus all -v /home/jarleven/test:/model ultraly
 
 python detect.py --weights /model/Aleks.pt --source /model/bilder
 
+
+# Make some folders locally on your PC
+mkdir $HOME/test
+mkdir $HOME/test/images
+
+# Copy the model and some images or videos to the home/test/images folder
+#
+# cp *.pt  $HOME/test
+# cp *.png *.mp4 *.jpg $HOME/test/images
+
+
+sudo docker run --ipc=host -it  --gpus all -v $HOME/test:/model ultralytics/yolov5:latest
+
+# Alternative - Pass the display to Docker. You can then run X applications from inside Docker.
+sudo xhost +local:root;
+sudo docker run --ipc=host -it  --gpus all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v $HOME/test:/model ultralytics/yolov5:latest
+
+# Results saved to runs/detect/exp
+
+feh -F  --auto-zoom --slideshow-delay 1 runs/detect/exp
+# q to quit feh  (Light weight image viewer)
+
+
 ```
 
 
