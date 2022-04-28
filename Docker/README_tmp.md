@@ -3,8 +3,11 @@
 sudo useradd -m mrtroll
 sudo usermod -s /bin/bash mrtroll
 
+
 IP addr 192.168.1.199  Mellanox 10Gbit 00:02:c9:4f:5b:94
 
+IP addr 192.168.1.165  Mellanox 10Gbit 00:02:c9:4e:1e:7c
+  
 
 ```
 
