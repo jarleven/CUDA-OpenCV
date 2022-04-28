@@ -34,6 +34,11 @@ albumentations 0.1.12 requires imgaug<0.2.7,>=0.2.5, but you have imgaug 0.2.9 w
 
 ```
 
+### Run YOLOv5 locally in Docker
+```
+sudo docker run --ipc=host -it  --gpus all -v /home/jarleven/test:/model ultralytics/yolov5:latest
+```
+
 
 ### Installing Docker and the NVIDIA Container Toolkit
 ```
