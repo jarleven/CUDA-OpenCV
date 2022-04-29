@@ -68,6 +68,12 @@ feh -F  --auto-zoom --slideshow-delay 1 runs/detect/exp
 
 ```
 
+### Utilities and non AI stuff
+```
+
+```
+
+
 
 ### Installing Docker and the NVIDIA Container Toolkit
 ```
