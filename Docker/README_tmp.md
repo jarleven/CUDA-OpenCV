@@ -206,6 +206,10 @@ sudo sh NVIDIA-Linux-x86_64-470.103.01.run
 
 https://volkovlabs.com/we-tried-pytorch-in-docker-container-with-nvidia-gpu-support-on-google-cloud-5e30c49d9864
 
+
+BIOS "Above 4GB Decoding" must be enabled!
+
+
 ```   
 
 
