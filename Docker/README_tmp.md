@@ -203,6 +203,9 @@ wget https://us.download.nvidia.com/tesla/470.103.01/NVIDIA-Linux-x86_64-470.103
 chmod +x NVIDIA-Linux-x86_64-470.103.01.run
 sudo sh NVIDIA-Linux-x86_64-470.103.01.run
 
+
+https://volkovlabs.com/we-tried-pytorch-in-docker-container-with-nvidia-gpu-support-on-google-cloud-5e30c49d9864
+
 ```   
 
 
