@@ -200,8 +200,8 @@ rtsp://192.168.1.170:554/user=admin&password=&channel=0&stream=0.sdp?real_stream
 
 wget https://us.download.nvidia.com/tesla/470.103.01/NVIDIA-Linux-x86_64-470.103.01.run
 
-chmod +x https://us.download.nvidia.com/tesla/470.103.01/NVIDIA-Linux-x86_64-470.103.01.run
-sudo sh https://us.download.nvidia.com/tesla/470.103.01/NVIDIA-Linux-x86_64-470.103.01.run
+chmod +x NVIDIA-Linux-x86_64-470.103.01.run
+sudo sh NVIDIA-Linux-x86_64-470.103.01.run
 
 ```   
 
