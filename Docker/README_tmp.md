@@ -213,6 +213,7 @@ sudo apt-get install nvidia-headless-470-server nvidia-utils-470-server nvidia-c
 sudo systemctl restart docker
 
 
+https://docs.nvidia.com/datacenter/tesla/tesla-installation-notes/index.html
 
 jarleven@tesla:~$ nvidia-smi
 Thu May 12 06:59:49 2022
