@@ -212,6 +212,35 @@ BIOS "Above 4GB Decoding" must be enabled!
 sudo apt-get install nvidia-headless-470-server nvidia-utils-470-server nvidia-container-runtime nvidia-container-toolkit nvidia-docker2
 sudo systemctl restart docker
 
+
+
+jarleven@tesla:~$ nvidia-smi
+Thu May 12 06:59:49 2022
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 470.103.01   Driver Version: 470.103.01   CUDA Version: 11.4     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla K80           Off  | 00000000:03:00.0 Off |                    0 |
+| N/A   34C    P0    54W / 149W |      0MiB / 11441MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  Tesla K80           Off  | 00000000:04:00.0 Off |                    0 |
+| N/A   40C    P0    74W / 149W |      0MiB / 11441MiB |    100%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+
+
 ```   
 
 
