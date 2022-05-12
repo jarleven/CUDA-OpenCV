@@ -71,6 +71,21 @@ feh -F  --auto-zoom --slideshow-delay 1 runs/detect/exp
 ### Utilities and non AI stuff
 ```
 
+https://mlhive.com/2022/02/read-and-write-pascal-voc-xml-annotations-in-python
+
+from pascal_voc_writer import Writer
+
+# create pascal voc writer (image_path, width, height)
+writer = Writer('path/to/img.jpg', 800, 598)
+
+# add objects (class, xmin, ymin, xmax, ymax)
+writer.addObject('truck', 1, 719, 630, 468)
+writer.addObject('person', 40, 90, 100, 150)
+
+# write to file
+writer.save('path/to/img.xml'),
+
+
 ```
 
 
