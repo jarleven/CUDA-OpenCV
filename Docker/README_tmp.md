@@ -209,6 +209,8 @@ https://volkovlabs.com/we-tried-pytorch-in-docker-container-with-nvidia-gpu-supp
 
 BIOS "Above 4GB Decoding" must be enabled!
 
+sudo apt-get install nvidia-headless-470-server nvidia-utils-470-server nvidia-container-runtime nvidia-container-toolkit nvidia-docker2
+sudo systemctl restart docker
 
 ```   
 
