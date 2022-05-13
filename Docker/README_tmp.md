@@ -102,6 +102,8 @@ sudo apt install -y curl vim git
 # For older versions of Ubuntu
 sudo add-apt-repository ppa:graphics-drivers/ppa -y
 sudo apt update
+# To search for available drivers
+apt search nvidia-driver 
 sudo apt install nvidia-driver-510 -y
 # ( For a headless system sudo apt install nvidia-headless-510 -y  )
 
