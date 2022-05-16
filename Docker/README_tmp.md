@@ -259,6 +259,12 @@ Thu May 12 06:59:49 2022
 +-----------------------------------------------------------------------------+
 
 
+GPU Name
+GK210
+GPU Variant
+GK210-885-A1
+Architecture
+Kepler 2.0
 
 
 https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html
@@ -268,7 +274,7 @@ https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch
 docker pull nvcr.io/nvidia/pytorch:21.10-py3
 
 
-sudo apt install -y git
+apt install -y git
 git clone https://github.com/ultralytics/yolov5.git
 
 ```   
