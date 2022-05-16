@@ -267,6 +267,10 @@ https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch
 "Release 21.10 is based on NVIDIA CUDA 11.4.2 with cuBLAS 11.6.5.2, which requires NVIDIA Driver release 470 or later."
 docker pull nvcr.io/nvidia/pytorch:21.10-py3
 
+
+sudo apt install -y git
+git clone https://github.com/ultralytics/yolov5.git
+
 ```   
 
 
