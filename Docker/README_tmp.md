@@ -259,6 +259,14 @@ Thu May 12 06:59:49 2022
 +-----------------------------------------------------------------------------+
 
 
+
+
+https://docs.nvidia.com/deeplearning/frameworks/support-matrix/index.html
+https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch
+
+"Release 21.10 is based on NVIDIA CUDA 11.4.2 with cuBLAS 11.6.5.2, which requires NVIDIA Driver release 470 or later."
+docker pull nvcr.io/nvidia/pytorch:21.10-py3
+
 ```   
 
 
