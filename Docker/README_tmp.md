@@ -227,6 +227,8 @@ https://volkovlabs.com/we-tried-pytorch-in-docker-container-with-nvidia-gpu-supp
 BIOS "Above 4GB Decoding" must be enabled!
 
 sudo apt-get install nvidia-headless-470-server nvidia-utils-470-server nvidia-container-runtime nvidia-container-toolkit nvidia-docker2
+
+sudo apt-get install -y nvidia-driver-510-server
 sudo systemctl restart docker
 
 
@@ -272,6 +274,8 @@ https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch
 
 "Release 21.10 is based on NVIDIA CUDA 11.4.2 with cuBLAS 11.6.5.2, which requires NVIDIA Driver release 470 or later."
 docker pull nvcr.io/nvidia/pytorch:21.10-py3
+
+docker pull nvcr.io/nvidia/pytorch:17.12
 
 
 apt install -y git
