@@ -3,6 +3,9 @@
 sudo useradd -m mrtroll
 sudo usermod -s /bin/bash mrtroll
 
+# Add to sudoers list (NOT ON THE FILESERVER !!!!)
+sudo usermod -aG sudo mrtroll
+
 
 IP addr 192.168.1.199  Mellanox 10Gbit 00:02:c9:4f:5b:94
 
