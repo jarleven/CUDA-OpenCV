@@ -1,10 +1,10 @@
 ### Ubuntu users on the Fileserver
 ```
-sudo useradd -m mrtroll
-sudo usermod -s /bin/bash mrtroll
+sudo useradd -m mrtroll                   # Add user with home directory
+sudo usermod -s /bin/bash mrtroll         # Use bash as default shell
 
-# Add to sudoers list (NOT ON THE FILESERVER !!!!)
-sudo usermod -aG sudo mrtroll
+
+sudo usermod -aG sudo mrtroll             # Add to sudoers list (NOT ON THE FILESERVER !!!!)
 
 
 IP addr 192.168.1.199  Mellanox 10Gbit 00:02:c9:4f:5b:94
