@@ -14,6 +14,30 @@ IP addr 192.168.1.165  Mellanox 10Gbit 00:02:c9:4e:1e:7c
 
 ```
 
+### FFMPEG GPU / CUVID   VideoCapture()
+```
+
+# https://forum.opencv.org/t/reading-and-writing-videos-python-on-gpu-with-cuda-videocapture-and-videowriter/156/10
+
+On a related if you are on linux and your version of Ffmpeg is built with Nvidia HW acceleration 20 you should be able to set the below variable
+
+'OPENCV_FFMPEG_CAPTURE_OPTIONS=video_codec;h264_cuvid'
+and cv::VideoCapture()should perform the video decoding on your GPU.
+
+# https://docs.nvidia.com/video-technologies/video-codec-sdk/ffmpeg-with-nvidia-gpu/
+
+git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
+cd nv-codec-headers && sudo make install && cd –
+git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg/
+sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev
+./configure --enable-nonfree --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --disable-static --enable-shared
+make -j 8
+sudo make install
+
+```
+
+
+
 ### Colab and Roboflow - Custom object detection model
 ```
 
