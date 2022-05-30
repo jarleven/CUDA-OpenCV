@@ -1,3 +1,12 @@
+#!/bin/bash
+
+: '
+
+wget https://raw.githubusercontent.com/jarleven/CUDA-OpenCV/master/Docker/ffmpeg.sh
+chmod +x ffmpeg.sh
+./ffmpeg.sh
+
+'
 
 # https://forum.opencv.org/t/reading-and-writing-videos-python-on-gpu-with-cuda-videocapture-and-videowriter/156/10
 #
