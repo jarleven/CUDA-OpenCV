@@ -10,6 +10,9 @@ sudo sshfs -o allow_other jarleven@192.168.1.199:/RAID/storage/2022 /mnt/filserv
 screen -S docker
 sudo docker run --ipc=host -it  --gpus all -v $HOME/test:/model  -v /mnt/filserver:/fileserv  ultralytics/yolov5:latest
 
+sudo docker run --ipc=host -it  --gpus all -v  /media/jarleven/42374662-0f5f-4fb5-aa8a-f7c659a40607/2022/test:/model  -v /mnt/filserver:/fileserv  ultralytics/yolov5:latest
+
+
 	/model/yolov5_config.sh
 	/model/detect.sh
 
