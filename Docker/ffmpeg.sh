@@ -33,16 +33,8 @@ git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg/
 cd ffmpeg
 ./configure --enable-nonfree --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64 --enable-static --disable-shared
 
-make -j 12
+make -j 8
 make install
 
 ffmpeg -decoders 2>/dev/null | grep h264_cuvid
 
-
-
-cd /usr/src/app/
-
-cp /model/detect_jee_v9.py .
-cp /model/datasets.py utils/
-
-python export.py --device 0 --weights /model/fiskAI_v2.pt --include onnx
